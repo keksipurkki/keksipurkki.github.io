@@ -30,9 +30,8 @@ footer {
   margin: 1rem 0;
 }
 
-.bytes {
+.logo {
   border: none;
   text-align: center;
   overflow: hidden;
-  word-wrap: normal;
 }

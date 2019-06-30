@@ -4,21 +4,48 @@
   
   <url>
     <loc>http://www.keksipurkki.net/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.keksipurkki.net/posts/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.keksipurkki.net/categories/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>http://www.keksipurkki.net/categories/development/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.keksipurkki.net/posts/typescript-ndarray/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.keksipurkki.net/tags/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.keksipurkki.net/categories/typescript/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.keksipurkki.net/tags/development/</loc>
+    <lastmod>2019-06-30T09:04:43+03:00</lastmod>
     <priority>0</priority>
   </url>
   

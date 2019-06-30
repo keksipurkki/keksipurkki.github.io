@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content="development,
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="N-dimensional arrays" />
+<meta property="og:site_name" content="My so-called blog" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="http://www.keksipurkki.net/posts/typescript-ndarray/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2019-06-30
+" /> <meta property="article:modified_time" content="2019-06-30
+" />
+
+
+<meta property="article:tag" content="development" />
+
+
+
+
+
+
+    <title>N-dimensional arrays</title>
+    <link rel="canonical" href="http://www.keksipurkki.net/posts/typescript-ndarray/" />
+
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css"
+/>
+
+<link rel="stylesheet" href="http://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/grayscale.css"
+/>
+
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-60-ns center center-ns mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a
+    href="http://www.keksipurkki.net/"
+    class="b bb bw1 pb1 no-underline black"
+    >My so-called blog</a
+  >
+
+  <section id="main" class="mt5">
+    <h1 itemprop="name" id="title">N-dimensional arrays</h1>
+
+    <article itemprop="articleBody" id="content" class="w-90 lh-copy">
+      
+
+<h3 id="introduction">Introduction</h3>
+
+<p>Here&rsquo;s a little something I&rsquo;ve been musing over as of late. I&rsquo;ve been playing around with
+N-dimensional arrays in <a href="https://www.typescriptlang.org">TypeScript</a>. These are objects
+that generalize vectors and matrices and typically store numbers.</p>
+
+<pre><code class="language-typescript">const value = ndarray[i][j][k]; // An array of rank 3
+</code></pre>
+
+<p>The number of dimensions of an array is its <em>rank</em> and its <em>shape</em> is the tuple
+<em>(N<sub>0</sub>, N<sub>1</sub>, &hellip;, N<sub>rank - 1</sub>)</em>. The shape enumerates the
+number of elements, i.e. the size, along each dimension. The total number of elements in
+the array is the product of the sizes.</p>
+
+<p>N-dimensional arrays are the workhorses of scientific computing, statistics and their
+bastard children in the enterprise. Anybody who has experience with
+<a href="https://www.mathworks.com/products/matlab.html">Matlab</a>, <a href="https://www.r-project.org">R</a>
+or <a href="https://www.numpy.org">NumPy</a> has surely come across them. Perhaps a less widely known
+fact is that <a href="https://gcc.gnu.org/fortran/">Fortran</a> has excellent support for array
+processing. Fortran is actually the nestor in the array business. Perhaps I&rsquo;ll write
+about a blog post about that sometime, too.</p>
+
+<p>How about JavaScript then? The situation used to by rather bleak as numerical work is
+clearly something the language was not designed for. Before EcmaScript2015 there was no
+way to alter how array indexing works (cf.
+<a href="https://docs.python.org/3/reference/datamodel.html#object.__getitem__">Python</a>), nor was
+it possible to opt out from the one-size-fits-all <code>Number</code> objects that are backed by
+<a href="https://www.youtube.com/watch?v=pQs_wx8eoQ8">IEEE-754 floats</a>. Today we have <code>Proxy</code>
+objects and the <code>TypedArray</code> interface, but there&rsquo;s still room for improvement.</p>
+
+<p>JavaScript engines can be particularly heinous in their behavior when you start with an
+empty array and insert elements into it dynamically. The JavaScript engine chooses the
+backing implementation for the array on the fly. That means that your computer may waste
+CPU cycles copying data from one implementation to another.  Worse still, the way the
+array is represented in memory depends on the insertion order of the elements. If your
+array is discontinuous, i.e. it contains empty slots, engines typically resort to
+implementing the array as a classical hashmap with string keys. Good bye performance!</p>
+
+<p>In a number crunching context, the desired behavior is to be as deterministic and
+contiguous as possible. This requires to have a good understanding of the problem size,
+which is conveniently encoded in the shape of the array.</p>
+
+<p>Then, memory is allocated once and used for the remainder of the program.  This is to
+minimize the overhead and indeterminism arising from dynamic memory allocation and
+garbage collection. In addition, the allocate-once approach allows the program to fail
+fast. You do not want to first run a program for a couple of days to discover that it
+halted due to memory issues.</p>
+
+<h3 id="a-type-safe-allocator-function">A type-safe allocator function</h3>
+
+<p>OK, so let&rsquo;s write some code that takes the above discussion into account. In the process,
+I hope to give you some ideas for your next number crunching adventure.</p>
+
+<p>Let&rsquo;s start simply. You allocate a 2-dimensional array, i.e. a matrix, like this:</p>
+
+<pre><code class="language-typescript">function allocate(nrow: number, ncol: number, initialValue = 0.0) {
+  if (!Number.isInteger(nrow) || nrow &lt;= 0) throw new Error(&quot;expected a positive integer&quot;);
+  if (!Number.isInteger(ncol) || ncol &lt;= 0) throw new Error(&quot;expected a positive integer&quot;);
+  return Array(nrow).fill(undefined).map(() =&gt; Array(ncol).fill(initialValue));
+}
+</code></pre>
+
+<p>I tend to start with a function like that in my projects where matrices are called for.
+Then it dawned to me that I can use recursion to allocate arrays of arbitrary shape. An
+untyped implementation reads:</p>
+
+<pre><code class="language-javascript">const allocatorFactory = (initialValue) =&gt; function allocate(dim, ...rest) {
+
+    if (!Number.isInteger(dim) || dim &lt;= 0) {
+      throw new Error(&quot;expected a positive integer&quot;);
+    }
+
+    if (!rest.length) {
+
+      return Array(dim).fill(initialValue);
+
+    } else {
+
+      const [next, ...dims] = rest;
+      return Array(dim).fill(undefined).map(() =&gt; allocate(next, ...dims));
+
+    }
+
+  };
+};
+
+const zeros = allocatorFactory(0.0);
+</code></pre>
+
+<p>You would call <code>zeros</code> with the shape parameters:</p>
+
+<pre><code>const ndarray = zeros(25, 25, 25); // shape is [25,25,25]
+</code></pre>
+
+<p>Pretty sweet! Notice how we enforce the shape to consist of positive integers in all
+dimensions.</p>
+
+<p>But how about type-safety? Typing the <code>allocate</code> function turned out to be a bit of a head
+scratcher. I knew I had to use TypeScript <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html">conditional
+typing</a>
+introduced in version 2.8. I also got some inspiration from <a href="https://dev.to/hemaka/introducing-the-recursive-pipe-and-compose-types-3g9o">this
+blog</a> — a
+veritable <em>tour de force</em> in the calculus of types, albeit rather heavy duty to be sure.</p>
+
+<p>Long story short, the gist in typing the <code>allocate</code> function is to capture the shape as
+tuple type with the sizes as literal values. We want TypeScript to see the arguments in
+the above invocation as <code>[25, 25, 25]</code> and not <code>number[]</code>. Different parameter values lead
+to different argument types, leveraging the power of type inference.</p>
+
+<p>The required types turn out to be:</p>
+
+<pre><code class="language-typescript">
+type Tail&lt;T&gt; = T extends [any, ...infer U] ? U : never;
+
+interface ShapedArray&lt;Shape extends any[], Value = number&gt; {
+  [i: number]: Shape extends [number] ? Value : ShapedArray&lt;Tail&lt;Shape&gt;&gt;;
+  length: number;
+}
+
+type Allocate&lt;V&gt; = &lt;S extends [number, ...number[]]&gt;( ...shape: S) =&gt; ShapedArray&lt;S, V&gt;;
+
+</code></pre>
+
+<p>Alas, as of version 3.5, the definition of <code>Tail&lt;T&gt;</code> is not yet valid TypeScript syntax.
+There is an open <a href="https://github.com/Microsoft/TypeScript/issues/25719">issue</a> about it.
+Fortunately, a workaround exists:</p>
+
+<pre><code class="language-typescript">type Capture&lt;T extends any[]&gt; = (...args: T) =&gt; any;
+type Tail&lt;T extends any[]&gt; = Capture&lt;T&gt; extends (( _: any, ...__: infer U) =&gt; any) ? U : never;
+</code></pre>
+
+<p>As our runtime implementation is recursive, so is our type definition. A <code>ShapedArray</code> is
+a type associated with a <code>Shape</code> that is a tuple whose length is the rank. A <code>ShapedArray</code>
+is indexable with a number. The referenced value is either a <code>Value</code> if the <code>Shape</code> is of
+rank 1 or another <code>ShapedArray</code> with a rank one less the current value.</p>
+
+<p>I do not want to define <code>ShapedArray</code> as an extension of any of builtin array interfaces
+like <code>ArrayLike</code> or <code>IterableIterator</code>. That is, I only want to support array access and
+none of the array methods.</p>
+
+<p>With the type definitions, our code becomes:</p>
+
+<pre><code class="language-typescript">const allocatorFactory = &lt;V&gt;(initialValue: V) =&gt; {
+  const allocate: Allocate&lt;V&gt; = (dim, ...rest) =&gt; {
+    if (!Number.isInteger(dim) || dim &lt;= 0) {
+      throw new Error(&quot;expected a positive integer&quot;);
+    }
+
+    if (!rest.length) {
+      return Array(dim).fill(initialValue);
+    } else {
+      const [next, ...dims] = rest;
+      return Array(dim)
+        .fill(undefined)
+        .map(() =&gt; allocate(next, ...dims));
+    }
+  };
+
+  return allocate;
+};
+</code></pre>
+
+<p>To iterate over all the elements we can simply nest for-loops as usual:</p>
+
+<pre><code class="language-typescript">const [Nx, Ny] = ndarray.map(x =&gt; x.length);
+for (let i = 0; i &lt; Nx; i++) {
+  for (let j = 0; j &lt; Ny; j++) {
+    //...
+  }
+}
+</code></pre>
+
+<p>That&rsquo;s it! Remember to organize the loop so that the innermost loop runs over the rightmost index so
+that you iterate over the numerical values in order. Check out the code in
+action in the <a href="https://www.typescriptlang.org/play/#code/C4TwDgpgBAggdiAYgVzgY2ASwPZwDwAqUEAHsBHACYDOUAhggNoC6AfFALxQAUAdP3QBOAc2oAuKAQCUndgxABuALAAoUJEl1MAG0LEyFGvSZtOsBCnRZchdqXJVa3bqqhQA+hPkAaV1H687p5QmHAAZhCCUACqqjIccghSfgD8MX4ScBAAbpHKKqqh5IJhdGjQAMoAFnSQlDCCgnQgeNW10PaGtPIs3lAAanTayNBccMgAtgBGkewA3n6MmJmTM4LMEm0anY5QjOPTkcxQaYPD0Js1dQ1NLQRaulsQrKz5btoUwsBVK4eC+QBfVSqdTQGDabTYNB0ch4frsLitfQOIz7VaRPoBA5rFhsFwqNwBahXCCbOKyKBPeqNZqtPrw-KqNC4ajAegQqEw7CCRBlYDckBmOGsbihTBYIZnEYSfrxeZ+ZlwVnsyHQ8gScGqmEQYVmbiUTATTH8QQQVlyqALAluEJhHgAQgAcujBLxMNQAJJwcjCSL6w0yAA+gagBomUDwXAADDIrTabd9BNgAO5QLKpgCijW53AARKRIBgIJR6FAwNhqOLMLkQt6IL7BLmpG8bUCCta3Jg7dx7abWbwPnAvlVY3546bgMhBHBYDSQP6JlJeGEdNpRXAq5KhiNm2OoADiNpqNA4-GoIrlft7MbeGHqMcuH3gC3xxBJ9PZ7cF8kO2fl6vuFQSgIBXLJKB-M8bV4CZamcC0hi1chuCyMgbzvKRd1-Ns3ABRlrQnKcZwQzlyEBPCLzZAAvSIKzMYi1W5XkMAFbgY3Ilk2SoIRbjMaik2obgAFY+mEqAADZMNULi50YKNmFk+SACYH3EhQoAAenUqAAHFsGwSgpMobjmgUsxBLUzSoAAIToAyVGk25GAAZnklyzDEiytJsuyQUEQVTz4ishL6MS+jY1QDzVNAqh4SIk0EUdfwvbAPl4OKc3S10JjNag6F9H82yAA">TypeScript
+playground!</a>.</p>
+
+<h3 id="diminishing-returns">Diminishing returns</h3>
+
+<p>The present solution is still not perfect. There are a couple of mid-hanging fruits in the
+typings. We could type <code>ShapedArray</code> to have support for static out-of-bounds checks and
+attempt to make all dimensions except the last to be <code>Readonly</code>. Further, we could explore
+how to implement a type-safe iterator over an arbitrary <code>ShapedArray</code>.</p>
+
+<p>A second avenue of experimentation has to do with the memory layout. Modern CPUs like hot
+caches and contiguous memory access. For the most performant implementation possible, one
+could compute the number of total elements and then allocate one rank-1 array, potentially
+swapping <code>Array</code> to one of the
+<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">builtin</a>
+<code>TypedArray</code> implementations.</p>
+
+<p>The type enhancements adjustments would allow us to generalize the nested for-loop
+structure and guard against situations like these</p>
+
+<pre><code class="language-typescript">const ndarray = zeros(1,1);
+ndarray[0][5]; // undefined
+ndarray[0] = zeros(5); // don't want this
+</code></pre>
+
+<p>For the out-of-bounds check, we would need to adjust the index-expression in the
+<code>ShapedArray</code> definition from <code>[i: number]</code> to something like <code>[i: Index&lt;Head&lt;Shape&gt;&gt;]</code>.
+The <code>Index&lt;B&gt;</code> type would be the number literal union from 0 up to B - 1. However, this
+would require us to also type the array indices to something else than <code>number</code> which is
+not ideal.</p>
+
+<p>As far as I know, NumPy implements its N-dimensional arrays as one-dimensional contiguous
+arrays with bindings to native code. This is no doubt possible to some extent in NodeJS
+environment. The flip side is that one has to then implement the mapping logic from the
+indices <em>i, j, k&hellip;</em> to actual memory. This is where NumPy and friends really
+<a href="https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.indexing.html">shine</a>.</p>
+
+<p>The mathematics of storing multidimensional data in one dimension is not that difficult,
+but the potential upside in JavaScript is not so clear as the language does not admit any
+way to represent the index tuple in a syntactically nice way. The way to go would be to
+use the <code>Proxy</code> object to override property access. This is a level of indirection and in
+general I tend to regard things like <code>Proxy</code> and <code>Reflection</code> as too magical for my taste.
+However, a low-hanging fruit is to implement a feature that is present in Python and
+Fortran, namely <a href="https://medium.com/uncaught-exception/javascript-array-negative-index-using-proxies-ed096dc84416">support for negative
+indices</a>.</p>
+
+<p>In conclusion, feel that these enhancements represent diminishing returns given the
+present state of JavaScript. At any rate, one would need to set up benchmarks to argue
+about performance. Ain&rsquo;t nobody go time for that! The big gains are anyway in novel
+technologies like <a href="https://webassembly.org">WebAssembly</a> that would potentially let the
+web developer tap into computational resources like GPGPUs.</p>
+
+<!-- vim: set spell : -->
+
+    </article>
+  </section>
+
+  <footer>
+  <p class="f6 gray mt5 lh-copy">
+    © 2019 Elias A. Toivanen
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+<script
+  charset="UTF-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/languages/typescript.min.js"
+></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+
+  </body>
+</html>

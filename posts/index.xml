@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>My so-called blog</title>
-    <link>http://www.keksipurkki.net/</link>
+    <link>http://www.keksipurkki.net/posts/</link>
     <description>Recent content on My so-called blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2019 Elias A. Toivanen</copyright>
     
-	<atom:link href="http://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.keksipurkki.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>development on My so-called blog</title>
-    <link>http://www.keksipurkki.net/tags/development/</link>
+    <link>https://www.keksipurkki.net/tags/development/</link>
     <description>Recent content in development on My so-called blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2019 Elias A. Toivanen</copyright>
     <lastBuildDate>Sun, 30 Jun 2019 09:04:43 +0300</lastBuildDate>
     
-	<atom:link href="http://www.keksipurkki.net/tags/development/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.keksipurkki.net/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>N-dimensional arrays</title>
-      <link>http://www.keksipurkki.net/posts/typescript-ndarray/</link>
+      <link>https://www.keksipurkki.net/posts/typescript-ndarray/</link>
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
       
-      <guid>http://www.keksipurkki.net/posts/typescript-ndarray/</guid>
+      <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
       <description>Introduction Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.
 const value = ndarray[i][j][k]; // An array of rank 3  The number of dimensions of an array is its rank and its shape is the tuple (N0, N1, &amp;hellip;, Nrank - 1). The shape enumerates the number of elements, i.</description>
     </item>

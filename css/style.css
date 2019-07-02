@@ -35,3 +35,8 @@ footer {
   text-align: center;
   overflow: hidden;
 }
+
+.navigation-list li + li:before {
+  content: " / ";
+  margin: 0 0.5rem;
+}

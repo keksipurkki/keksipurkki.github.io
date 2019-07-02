@@ -1,0 +1,21 @@
+<svg width="57px" height="60px" viewBox="0 0 57 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <radialGradient cx="50%" cy="0%" fx="50%" fy="0%" r="106.037637%" gradientTransform="translate(0.500000,0.000000),scale(1.000000,0.943061),rotate(90.000000),scale(1.000000,0.786645),translate(-0.500000,-0.000000)" id="radialGradient-1">
+            <stop stop-color="#FAE4B5" offset="0%"></stop>
+            <stop stop-color="#F8DDA9" offset="47.9497832%"></stop>
+            <stop stop-color="#F2C47E" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Logo" transform="translate(-6.000000, -5.000000)">
+            <g>
+                <rect id="Rectangle" x="0" y="0" width="70" height="70"></rect>
+                <path d="M35,65 C65,65 65,45.8376223 60.9746094,29.2578125 C59.6561605,23.8273751 59.6561605,23.8273751 56.9802426,15.7884027 C54.5008629,8.33986869 48.4493369,5 35,5 C24.6857114,5 18.0761719,7.91210938 10.8007812,16.9609375 C3.52539062,26.0097656 7.17578125,33.0226338 7.17578125,40.5563492 C7.17578125,49.0988404 5,65 35,65 Z" id="Oval" fill="url(#radialGradient-1)"></path>
+                <polygon id="Polygon" fill="#923611" points="29.5 14 34.7308108 17.8004065 32.7328189 23.9495935 26.2671811 23.9495935 24.2691892 17.8004065"></polygon>
+                <polygon id="Polygon-Copy" fill="#923611" transform="translate(48.778175, 32.778175) rotate(45.000000) translate(-48.778175, -32.778175) " points="48.7781746 27.2781746 54.0089854 31.0785811 52.0109935 37.2277681 45.5453557 37.2277681 43.5473638 31.0785811"></polygon>
+                <polygon id="Polygon-Copy-2" fill="#923611" transform="translate(22.049420, 42.049420) rotate(20.000000) translate(-22.049420, -42.049420) " points="22.0494202 36.5494202 27.280231 40.3498267 25.2822391 46.4990137 18.8166013 46.4990137 16.8186094 40.3498267"></polygon>
+                <polygon id="Polygon-Copy-3" fill="#923611" transform="translate(41.049420, 53.049420) rotate(-23.000000) translate(-41.049420, -53.049420) " points="41.0494202 47.5494202 46.280231 51.3498267 44.2822391 57.4990137 37.8166013 57.4990137 35.8186094 51.3498267"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

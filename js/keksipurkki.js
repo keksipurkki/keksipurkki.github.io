@@ -5,9 +5,14 @@ async function incrementCount() {
     method: "POST"
   });
 
-  const body = await response.json();
+  const { count = 0 } = await response.json();
+  const counter = document.querySelector("[data-view-counter]");
 
-  console.log(body);
+  if (count > 0 && counter) {
+    counter.classList.add("fa-eye");
+    counter.textContent = ` ${count} views`;
+  }
+
 
 }
 

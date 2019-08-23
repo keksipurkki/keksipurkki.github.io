@@ -40,3 +40,24 @@ footer {
   content: " / ";
   margin: 0 0.5rem;
 }
+
+blockquote {
+  font-family: sans-serif;
+  background: #FFECCF;
+  border-left: 10px solid #F2C47E;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+  color: #F2C47E;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}

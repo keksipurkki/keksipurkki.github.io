@@ -1,6 +1,10 @@
 
 async function incrementCount() {
 
+  if (location.hostname === "localhost") {
+    return;
+  }
+
   const response = await fetch("https://api.keksipurkki.net/counter", {
     method: "POST"
   });

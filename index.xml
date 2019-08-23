@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2019 Elias A. Toivanen</copyright>
-    <lastBuildDate>Sun, 30 Jun 2019 09:04:43 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0300</lastBuildDate>
     
 	<atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tunnelvision</title>
+      <link>https://www.keksipurkki.net/posts/tunnelvision/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0300</pubDate>
+      
+      <guid>https://www.keksipurkki.net/posts/tunnelvision/</guid>
+      <description>Introduction  TL;DR Visit tunnelvision.me and take it from there.
+ Wouldn&amp;rsquo;t it be awesome to show your website or web application you are developing instantly from your local machine to the rest of the world? You know, just as a sneak preview without going through the motions of a full deployment. Or perhaps you are developing a server and a mobile app at the same time, and the two cannot talk to each other because they are not on the same localhost.</description>
+    </item>
     
     <item>
       <title>About me</title>

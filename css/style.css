@@ -21,7 +21,8 @@ pre {
 
 pre,
 code {
-  font-family: 'Inconsolata', monospace;
+  font-family: 'Monego', monospace;
+  font-size: 12px;
   -webkit-font-smoothings: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

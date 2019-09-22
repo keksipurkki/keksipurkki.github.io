@@ -166,7 +166,7 @@ type Maybe&lt;T extends Todo, Nothing = NilTodo&gt; = T | Nothing;
 
 <p>Pretty standard stuff following general guidelines. Domain objects should be
 serializable and have unique ids. We employ <a href="https://matiasklemola.com/typescript-union-types">union
-types</a> that &ldquo;close upon&rdquo; the
+types</a> that &ldquo;close over&rdquo; the
 lifecycle of a todo note. We also define a <a href="https://en.wikipedia.org/wiki/Null_object_pattern">null
 object</a> <code>NilTodo</code> to denote a
 missing <code>Todo</code> object and a <code>Maybe</code> type constructor to deal with situations

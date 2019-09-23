@@ -13,8 +13,10 @@ async function incrementCount() {
   const counter = document.querySelector("[data-view-counter]");
 
   if (count > 0 && counter) {
-    counter.classList.add("fa-eye");
+    const icon = document.createElement("i");
+    icon.classList.add("fa", "fa-eye");
     counter.textContent = ` ${count} views`;
+    counter.insertBefore(icon, counter.firstChild);
   }
 
 

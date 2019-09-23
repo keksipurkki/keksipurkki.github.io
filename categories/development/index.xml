@@ -18,9 +18,7 @@
       <pubDate>Mon, 23 Sep 2019 00:00:00 +0300</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/typescript-redux-types/</guid>
-      <description>TL;DR Visit http://demo.keksipurkki.net to see the end result of this blog post in action.
- In this blog post I will show you how you can implement a strongly-typed Redux/ReactJS app in TypeScript with the bare minimum of type-annotations and external dependencies. The only requirement is that we will be using TypeScript version 2.8 or higher.
-There are already countless introductory tutorials online on setting up TypeScript in conjunction with Redux and ReactJS.</description>
+      <description>There has been a lot of developer buzz around TypeScript, ReactJS and Redux for many years already and the interest does not shows signs of subsiding. Here are my reflections on the lessons learned on writing type-safe and deterministic applications with the combo. A demo app and its source code are provided. In this blog post I will show you how you can implement a strongly-typed Redux/ReactJS app in TypeScript with the bare minimum of type-annotations and external dependencies.</description>
     </item>
     
     <item>
@@ -29,8 +27,7 @@ There are already countless introductory tutorials online on setting up TypeScri
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0300</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/tunnelvision/</guid>
-      <description>Introduction  TL;DR Visit tunnelvision.me and take it from there.
- Wouldn&amp;rsquo;t it be awesome to instantly show the web application you are developing from your local machine to the rest of the world? You know, just as a sneak preview without going through the motions of a full deployment. Or perhaps you are developing a server and a mobile app at the same time, and the two cannot talk to each other because they are not on the same localhost.</description>
+      <description>SSH reverse port forwarding is a technique that powers services that let you instantly share any server application on your LAN to the public Internet. After realizing that these services are not so secure as you might think, I decided to roll my own tunnelling service by the name of Tunnelvision. Wouldn&amp;rsquo;t it be awesome to instantly show the web application you are developing from your local machine to the rest of the world?</description>
     </item>
     
     <item>
@@ -39,8 +36,7 @@ There are already countless introductory tutorials online on setting up TypeScri
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
-      <description>Introduction Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.
-const value = ndarray[i][j][k]; // An array of rank 3  The number of dimensions of an array is its rank and its shape is the tuple (N0, N1, &amp;hellip;, Nrank - 1). The shape enumerates the number of elements, i.</description>
+      <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
     </item>
     
   </channel>

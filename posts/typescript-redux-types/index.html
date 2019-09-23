@@ -57,7 +57,7 @@
 
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/grayscale.css"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
 />
 
   </head>
@@ -83,10 +83,13 @@
       <article itemprop="articleBody" id="content" class="w-90 lh-copy">
         
 
-<blockquote>
-<p><strong>TL;DR</strong> Visit <a href="http://demo.keksipurkki.net">http://demo.keksipurkki.net</a> to
-see the end result of this blog post in action.</p>
-</blockquote>
+<p class="ma3 f6 lh-copy i">
+  There has been a lot of developer buzz around TypeScript, ReactJS and Redux for
+many years already and the interest does not shows signs of subsiding. Here are
+my reflections on the lessons learned on writing type-safe and deterministic
+applications with the combo. A <a href="http://demo.keksipurkki.net">demo app</a> and its
+<a href="https://github.com/keksipurkki/notes">source code</a> are provided.
+</p>
 
 <p>In this blog post I will show you how you can implement a strongly-typed
 <a href="https://redux.js.org">Redux/ReactJS app</a> in
@@ -112,7 +115,7 @@ maintenance burden of your app. In contrast, a codebase where all the
 components, reducers and the like will be automatically aware of the type
 changes in your action objects is a huge improvement to plain JavaScript.</p>
 
-<h2 id="a-showcase">A showcase</h2>
+<h2 id="yet-another-notes-app">Yet another Notes app</h2>
 
 <h3 id="domain">Domain</h3>
 
@@ -380,7 +383,7 @@ type Selector&lt;StateProps, OwnProps = {}&gt; = MapStateToProps&lt;
   AppState
 &gt;;
 
-function configureStore(config: Config) { 
+function configureStore(config: Config) {
   // wire middlewares and the like based on config
   return createStore(reducer);
 }
@@ -426,10 +429,15 @@ actions to buttons and the like. Redux middleware is the place where we do
 &ldquo;processes&rdquo; and impure stuff and the reducers should be smart instead of merely
 aggregating data.</p>
 
-<h2 id="the-app">The app</h2>
+<h2 id="the-user-interface">The user interface</h2>
 
 <p>With the store implemented, the rest is just putting the pieces together. The
-outer shell for the app is simply:</p>
+goal here is to end up with essentially a bunch of XML. If the whole user
+interface is just setting values to attributes and does not contain any logic to
+speak of, the user interface can be merely <em>defined</em>. This is fitting as we
+construct it using two declarative languages, HTML and CSS.</p>
+
+<p>The outer shell for the app is simply:</p>
 
 <pre><code class="language-typescript">const AppShell: React.FC = ({ children }) =&gt; (
   &lt;main className=&quot;flex flex-row items-stretch&quot;&gt;
@@ -547,15 +555,145 @@ const Screen: React.FC&lt;Props&gt; = ({ dispatch, selected, todos }) =&gt; {
 export default connect(props)(Screen);
 </code></pre>
 
-<p>I&rsquo;ll spare you of the definitions of the <code>Editor</code> and <code>Menu</code> components. You may
-study the source code for the demo at my <a href="https://github.com/keksipurkki/notes">GitHub
-repository</a>.</p>
+<p>The two auxiliary components <code>Editor</code> and <code>Menu</code> read</p>
 
-<h2 id="conclusion">Conclusion</h2>
+<pre><code>// Editor.tsx
+import * as React from &quot;react&quot;;
+import { useFocus } from &quot;./Effects&quot;;
+import { isTodo } from &quot;../utils&quot;;
 
-<p>That&rsquo;s it. You may view the end result online
-<a href="http://demo.keksipurkki.net">here</a>, pretty slick, aye!?  Hopefully you found
-this blog useful and good luck for your next frontend adventure.</p>
+interface Props extends React.HTMLProps&lt;HTMLTextAreaElement&gt; {
+  todo: Maybe&lt;Todo&gt;;
+  onEdit(content: string): void;
+  onStopEdit(): void;
+}
+
+const Editor: React.FC&lt;React.HTMLProps&lt;HTMLTextAreaElement&gt;&gt; = ({
+  autoFocus,
+  readOnly,
+  title,
+  value,
+  onChange,
+  onBlur,
+}) =&gt; {
+
+  const textArea: React.RefObject&lt;HTMLTextAreaElement&gt; = React.useRef(null);
+  React.useEffect(useFocus(textArea), [autoFocus]);
+
+  return (
+    &lt;&gt;
+      &lt;p className=&quot;tc fw1 f5&quot;&gt;{title}&lt;/p&gt;
+      &lt;textarea
+        readOnly={readOnly}
+        ref={textArea}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        className=&quot;input-reset bn mh5 flex-auto no-resizable&quot;
+      /&gt;
+    &lt;/&gt;
+  );
+};
+
+const Empty: React.FC = () =&gt; {
+  return &lt;p className=&quot;flex-v-margin-align tc f2 light-silver&quot;&gt;No note selected&lt;/p&gt;;
+};
+
+const TodoEditor: React.FC&lt;Props&gt; = ({ todo, onStopEdit, onEdit, tabIndex }) =&gt; {
+
+  const onChange = ({ target }: React.FormEvent) =&gt; {
+    const textarea = target as HTMLTextAreaElement;
+    onEdit(textarea.value);
+  };
+
+  const Content = isTodo(todo) ? Editor : Empty;
+
+  return (
+    &lt;div tabIndex={tabIndex} className=&quot;flex flex-column flex-auto&quot;&gt;
+      &lt;Content
+        readOnly={todo.type == &quot;Done&quot;}
+        autoFocus={todo.type === &quot;New&quot;}
+        title={new Date(todo.createdAt || &quot;&quot;).toLocaleString()}
+        value={todo.content}
+        onBlur={onStopEdit}
+        onChange={onChange}
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default TodoEditor;
+
+</code></pre>
+
+<pre><code class="language-typescript">// Menu.tsx
+import * as React from &quot;react&quot;;
+import FlipMove from &quot;react-flip-move&quot;;
+import { parse, timestamp, isTodo } from &quot;../utils&quot;;
+
+interface Props extends React.HTMLProps&lt;HTMLUListElement&gt;{
+  todos: Todo[];
+  children: React.FC&lt;Todo&gt;;
+}
+
+interface ItemProps extends React.HTMLProps&lt;HTMLAnchorElement&gt; {
+  todo: Todo;
+}
+
+interface StaticProps {
+  Item: React.FC&lt;ItemProps&gt;;
+}
+
+const TodoMenuItem: React.FC&lt;ItemProps&gt; = ({ selected, onClick, todo }) =&gt; {
+  const { title, details } = parse(todo);
+  const state = todo.type.toLowerCase();
+  return (
+    &lt;a
+      href=&quot;#&quot;
+      onClick={onClick}
+      className={selected ? `selected todo-item ${state}` : `todo-item ${state}`}
+    &gt;
+      &lt;div className=&quot;noselect flex-auto f6 ph3 pv2 bb b--light-silver-o&quot;&gt;
+        &lt;strong className=&quot;db mv1&quot;&gt;{title}&lt;/strong&gt;
+        &lt;p className=&quot;mv1 truncate&quot;&gt;
+          {timestamp(todo)}&amp;nbsp;
+          &lt;span className=&quot;fw3&quot;&gt;{details}&lt;/span&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/a&gt;
+  );
+};
+
+const TodoMenu: React.FC&lt;Props&gt; &amp; StaticProps = ({ children, todos, ...props }) =&gt; {
+  return (
+    &lt;ul
+      style={{ width: &quot;20vw&quot; }}
+      className=&quot;todo-list list h-resizable ma0 pa0 br b--light-silver-o&quot;
+      {...props}
+    &gt;
+      &lt;FlipMove
+        leaveAnimation=&quot;accordionVertical&quot;
+        enterAnimation=&quot;accordionVertical&quot;
+        typeName={null}
+      &gt;
+        {todos.filter(isTodo).map(todo =&gt; (
+          &lt;li key={todo.id}&gt;{children(todo)}&lt;/li&gt;
+        ))}
+      &lt;/FlipMove&gt;
+    &lt;/ul&gt;
+  );
+};
+
+TodoMenu.Item = TodoMenuItem;
+
+export default TodoMenu;
+</code></pre>
+
+<p>You may study the source code at my <a href="https://github.com/keksipurkki/notes">GitHub
+repository</a>. That&rsquo;s it. You may view the
+end result online <a href="http://demo.keksipurkki.net">here</a>, pretty slick, aye!?
+Hopefully you found this blog useful and good luck for your next frontend
+adventure.</p>
 
 <!-- vim: set spell : -->
 

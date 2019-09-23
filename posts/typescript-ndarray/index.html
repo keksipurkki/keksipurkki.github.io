@@ -57,7 +57,7 @@
 
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/grayscale.css"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
 />
 
   </head>
@@ -84,6 +84,13 @@
         
 
 <h3 id="introduction">Introduction</h3>
+
+<p class="ma3 f6 lh-copy i">
+  Ah, the joy of number crunching in an inefficient interpreted language in the
+heat of the summer. But I got a severe flashback from my student days and
+started to think about my old love <a href="https://numpy.org">NumPy</a> and whether or not
+N-dimensional arrays could also work in JavaScript.
+</p>
 
 <p>Here&rsquo;s a little something I&rsquo;ve been musing over as of late. I&rsquo;ve been playing around with
 N-dimensional arrays in <a href="https://www.typescriptlang.org">TypeScript</a>. These are objects
@@ -139,8 +146,13 @@ I hope to give you some ideas for your next number crunching adventure.</p>
 <p>Let&rsquo;s start simply. You allocate a 2-dimensional array, i.e. a matrix, like this:</p>
 
 <pre><code class="language-typescript">function allocate(nrow: number, ncol: number, initialValue = 0.0) {
-  if (!Number.isInteger(nrow) || nrow &lt;= 0) throw new Error(&quot;expected a positive integer&quot;);
-  if (!Number.isInteger(ncol) || ncol &lt;= 0) throw new Error(&quot;expected a positive integer&quot;);
+
+  if (!Number.isInteger(nrow) || nrow &lt;= 0)
+    throw new Error(&quot;expected a positive integer&quot;);
+
+  if (!Number.isInteger(ncol) || ncol &lt;= 0) 
+    throw new Error(&quot;expected a positive integer&quot;);
+
   return Array(nrow).fill(undefined).map(() =&gt; Array(ncol).fill(initialValue));
 }
 </code></pre>

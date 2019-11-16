@@ -22,14 +22,14 @@ pre {
 
 pre,
 code {
-  font-family: 'Monego', monospace;
+  font-family: "Monego", monospace;
   font-size: 12px;
   -webkit-font-smoothings: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .monospace {
-  font-family: 'Monego', monospace;
+  font-family: "Monego", monospace;
 }
 
 footer {
@@ -52,15 +52,15 @@ footer {
 
 blockquote {
   font-family: sans-serif;
-  background: #FFECCF;
-  border-left: 10px solid #F2C47E;
+  background: #ffeccf;
+  border-left: 10px solid #f2c47e;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
 
 blockquote:before {
-  color: #F2C47E;
+  color: #f2c47e;
   content: open-quote;
   font-size: 4em;
   line-height: 0.1em;
@@ -75,11 +75,11 @@ blockquote p {
 .button-reset {
   outline: none;
   border: none;
- -webkit-appearance: none !important;
- -moz-appearance:    none !important;
- appearance:         none !important;
- background: transparent;
- color: currentColor;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background: transparent;
+  color: currentColor;
 }
 
 [data-title] {
@@ -96,10 +96,10 @@ blockquote p {
   transform: translateY(-100%);
   display: block;
   border-color: #222 transparent;
-	border-style: solid;
-	border-width: 8px 8px 0px 8px;
-	height: 0px;
-	width: 0px;
+  border-style: solid;
+  border-width: 8px 8px 0px 8px;
+  height: 0px;
+  width: 0px;
 }
 
 [data-title]:hover:after {
@@ -119,4 +119,16 @@ blockquote p {
 [data-title]:after {
   color: #fcfcfc;
   background-color: #222;
+}
+
+.hide-child-alt .child-alt {
+  opacity: 0;
+  transition: all .15s ease-in;
+  z-index: -1;
+}
+
+.hide-child-alt:active .child-alt {
+  opacity: 1;
+  transition: all .15s ease-in;
+  z-index: 1;
 }

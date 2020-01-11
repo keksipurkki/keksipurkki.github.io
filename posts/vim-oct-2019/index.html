@@ -106,14 +106,11 @@
     </p>
 
       <article itemprop="articleBody" id="content" class="lh-copy">
-        
-
-<p class="ma3 f6 lh-copy i">
+        <p class="ma3 f6 lh-copy i">
   Vim has been my editor of choice from day one, and I have been using the same
-setup for years. I pimped up my Vim to match what&rsquo;s possible in October 2019.
+setup for years. I pimped up my Vim to match what's possible in October 2019.
 Here are my thoughts about coding editors and a breakdown of my setup.
 </p>
-
 <p>My first stab at programming was writing shell scripts for fun. I started by
 watching a video course on the topic. I would not know the name nor the
 publisher of this course anymore. All I can say is that the resolution of the
@@ -121,76 +118,58 @@ videos would not meet the requirements of our 4k era where everything is <a href
 games</a>. But I can still vividly
 remember that the lecturer, an elderly gentleman, had a soothing voice and used
 <a href="https://www.vim.org">Vim</a> over PuTTY to write his scripts.</p>
-
 <p>This was in 2008, right about the same time when
 <a href="https://stackoverflow.com">StackOverflow</a> was launched. My baby steps in the
-world of programming therefore coincided with the world&rsquo;s most popular
+world of programming therefore coincided with the world's most popular
 programming QA forum. Just like everybody else, I too found it difficult to exit
 the editor. I had to figure out the answer to <a href="https://stackoverflow.blog/2017/05/23/stack-overflow-helping-one-million-developers-exit-vim/">one of the most
 asked</a>
 StackOverflow questions all by myself.</p>
-
 <p>So, there I was, stuck in a cryptic command line editor thinking to myself:
 &ldquo;What a crappy piece of software!&rdquo;</p>
-
 <p>After getting over the initial hurdles by completing <code>vimtutor,</code> I was
 nonetheless hooked. The killer feature of Vim for years was the fact I could run
 my scripts and silly apps from the editor itself without recourse to the
 terminal. You do this by typing in normal mode:</p>
-
 <pre><code>:!bash ./script.sh # Or what have you
 </code></pre>
-
 <p>That was it for me. That was the one feature that I liked the most. Then there
 are the <a href="https://yanpritzker.com/learn-to-speak-vim-verbs-nouns-and-modifiers-d7bfed1f6b2d">Vim
 keymappings</a>
 that are not easy to explain in words.  Your fingers know them best.</p>
-
-<p>When I&rsquo;m at a developer cocktail party or just straight-up boozing at the
-office, the subject of editors comes up every now and then. I&rsquo;ve always disliked
+<p>When I'm at a developer cocktail party or just straight-up boozing at the
+office, the subject of editors comes up every now and then. I've always disliked
 these discussions. I think <a href="https://xkcd.com/378/">xkcd</a> explains it best:</p>
-
 <p><img src="https://imgs.xkcd.com/comics/real_programmers.png" /></p>
-
 <p>The whole dispute over who uses what is just absurd and makes for studies in
 sociology under the topic <em>cultural identification</em>; I see the editor as
 the sword that I wield against my enemies time and entropy.</p>
-
 <p>So, after a passage of a decade of the former and observing the increase in the
 latter, why do I still use Vim? And since a program dating back to early 1990s
 is bound to have some obsolete parts, how to work around them?</p>
-
 <h2 id="the-good-parts">The good parts</h2>
-
 <h3 id="1-the-most-versatile-editor-by-a-large-margin">1. The most versatile editor by a large margin</h3>
-
 <p>It does not matter if you want to manipulate a database dump or write a research
 paper, Vim can handle it. It does not matter if you are logged into a super
 computer over a remote connection or into your laptop, Vim will be available.</p>
-
 <p>It has been just one of those life lessons for me that all other editors,
 applying fancy design patterns and implemented in modern programming language,
 just plain halt when I have something to say. And patience was never one of my
 virtues.</p>
-
 <p>Despite being somewhat on the legacy side, Vim is still very performant and can
 adapt to an amazing variety of use cases — well, practically all I have
 encountered so far except one: Java.</p>
-
 <h3 id="2-changes-the-way-you-think">2. Changes the way you think</h3>
-
-<p>Since Vim comes from the C era, it&rsquo;s pretty Spartan and deliberately tries to be
+<p>Since Vim comes from the C era, it's pretty Spartan and deliberately tries to be
 just an editor and not and <span data-title="Integrated development
 environment">IDE</span>. You will not set up flaky abstractions like projects or
 workspaces, nor will there be a debugger or integration with a version control
 system.</p>
-
 <p>More than that, Vim does not attempt to &ldquo;understand the source code in a deep
 way,&rdquo; like you would read in the sales pitch of an IDE. This is actually good,
 since it is <em>you</em> who has to understand the code. And for you to understand it
 without fancy tools, you have to pay attention to its design and be disciplined
 about the way you code. Necessity is the mother of invention.</p>
-
 <p>Another shift in thinking has to do with fully embracing the UNIX idea of
 composing simple things together. This is one of those evergreen ideas in
 programming that pops up everywhere when you want to go to scale. For more in
@@ -198,38 +177,29 @@ depth discussion, I recommend reading <a href="http://www.catb.org/~esr/writings
 programming</a> by ESR or the
 interview of Joe Armstrong (father of Erlang) in <a href="http://www.codersatwork.com">Coders at
 Work</a>.</p>
-
 <p>For example, it is just natural to delegate the task of sorting a range of lines
 to an external program like the UNIX command <code>sort</code>:</p>
-
 <pre><code>:'&lt;,'&gt;!sort
 </code></pre>
-
 <p>Why is this better than a GUI? Because the user interface for modifying the
 details of sorting uses the least number of bytes. If I want to do a descending
 numerical sort based on column 2 of some CSV file, I just do:</p>
-
 <pre><code>:'&lt;,'&gt;!sort -t, -k2 -nr
 </code></pre>
-
 <p>No menus or input boxes were harmed during the execution of that command.  In
 general, the commands <code>cut</code>, <code>grep</code> and friends open up a whole new world of
 idioms of modifying structured text, not only in your editor but on the command
 line as well.</p>
-
 <h3 id="3-keeps-your-workspace-rodent-free">3. Keeps your workspace rodent-free</h3>
-
 <p>As I am writing this paragraph, I have my both thumbs on the space bar. They are
 almost touching each other. The rest of my fingers are over the letters A, S, D,
 F and H, J, K, L. In addition to being used to insert the actual characters in
 insert mode, all of these keys are used to perform core Vim tricks in normal
 mode. The palms of my hands are practically stationary no matter what I do.</p>
-
 <p>I do not recall using the arrow keys in Vim. I almost never use any GUI menus of
-any kind and I haven&rsquo;t used a mouse in a long long time. I do use the trackpad
+any kind and I haven't used a mouse in a long long time. I do use the trackpad
 but it integrates seamlessly with my workflow. I guess I use it for scrolling
 for the most part.</p>
-
 <!--
 There's a whole history behind why the Vim mappings and keyboards in general are
 the way they are. Mind you, the first incarnation of Vim, `vi,` came out in
@@ -238,16 +208,12 @@ the way they are. Mind you, the first incarnation of Vim, `vi,` came out in
 even have separate arrow keys. Those keys were meta-characters bound to H,
 J, K and L.
 -->
-
 <p>If you suffer from tense shoulders and neck pains, take a look at your hands to
 see if they are too wide apart. A mouse may be necessary in a gaming context,
-but I think it&rsquo;s harmful for programming for extended periods of time. Your
+but I think it's harmful for programming for extended periods of time. Your
 shoulders will thank you after learning to code ergonomically with Vim.</p>
-
 <h2 id="the-bad-parts">The bad parts</h2>
-
 <h3 id="1-buffers-and-regular-expressions">1. Buffers and regular expressions</h3>
-
 <p>Vim sees the source code as buffers filled with bytes by design. If you want to
 rename something, you do a search-and-replace. To automate things, you write a
 macro or extend the editor with <em>ad hoc</em> regular-expression-ridden scripts. This
@@ -255,7 +221,6 @@ approach cuts the mustard, but it would be far better if Vim would know how to
 parse source code and we could manipulate it as an Abstract Syntax Tree (AST).
 Check out the cool <a href="https://ts-ast-viewer.com/#">TypeScript AST Viewer</a> to see
 how ASTs work in practice.</p>
-
 <p>Imagine an editor where you could &ldquo;Inspect&rdquo; a given statement, much like you use
 Developer tools in a browser. You could also do modifications by visiting the
 nodes with some selector statement much like you manipulate the <span
@@ -263,62 +228,47 @@ data-title="Document Object Model">DOM</span> in JavaScript. The same visitor
 pattern is also the central idea when transpiling JavaScript with
 <a href="https://babeljs.io">BabelJS</a> or refactoring an entire code base with
 <a href="https://github.com/facebook/codemod">codemods</a>.</p>
-
 <p>This should not even be so far-fetched given that we have the
 <a href="https://llvm.org">LLVM</a> project with its framework of digesting just about
 anything that has a well-defined grammar.</p>
-
 <p>The lack of parsing support in Vim is for me the biggest missed opportunity and
 leads to a lot of fragile VimScript code. Think syntax highlighting and
 indentation scripts as examples.</p>
-
 <h3 id="2-configuration-madness">2. Configuration madness</h3>
-
 <p>There are just way too many settings in the editor and it takes effort to
 understand which ones are applied in which context.
 <a href="https://vim.fandom.com/wiki/Modeline_magic">Modelines</a> are evil, too. It is
 also way too easy for plugins to start conflicting with each other.</p>
-
 <p>Then there are projects like <a href="https://editorconfig.org">Editorconfig</a> and
 <a href="https://prettier.io">Prettier</a> that are really cool but add an extra layer of
 complexity. Talk about entropy and fragmentation. There are now something like
 four different ways to set the linewidth. Sigh&hellip;</p>
-
 <h3 id="3-vimscript-python-lua-ruby-perl">3. VimScript, Python, Lua, Ruby, Perl&hellip;</h3>
-
 <p>Perhaps in line with the anything-you-like approach to configuration, there is
 no one way to extend the editor either. Vim can be extended with its own
 scripting language VimScript. However, the editor also ships with support for
 Python, Lua, Ruby and Perl&hellip;</p>
-
-<p>In my opinion, there&rsquo;s no good reason for this. All these so-called scripting
+<p>In my opinion, there's no good reason for this. All these so-called scripting
 languages are effectively the same and suffer from fragmentation. Python 2, can
 you die, please?</p>
-
 <p>I wish the editor had a single tightly sandboxed <span data-title="Domain
-specific language">DSL</span> with builtin support for ASTs and events. I don&rsquo;t
+specific language">DSL</span> with builtin support for ASTs and events. I don't
 see any reason why Vim plugins should be able to do arbitrary side-effects
 either, so why not restrict the DSL to the pure subset of functional languages
 as well.</p>
-
 <h2 id="my-vim-setup">My Vim setup™</h2>
-
-<p><img src="/vim.png"></p>
-
+<img src="/vim.png">
 <p>Enough with ranting and pipe dreams. Let me show you my setup. I use
 <a href="https://github.com/macvim-dev/macvim">MacVim</a> for the most part, but I do my
 Git commits with command line <code>vim</code>. I am aware of
-<a href="https://www.neovim.io">neovim</a> but haven&rsquo;t really checked it out.</p>
-
+<a href="https://www.neovim.io">neovim</a> but haven't really checked it out.</p>
 <p>If you are still rocking Vim 7, I would totally recommend version 8. It allows
 you to install Vim plugins as <a href="https://shapeshed.com/vim-packages/">separate
 packages</a> instead of clumping everything
 into a single folder structure. I also like to store all my Vim files in
 <code>~/Config/vim</code> so I can track everything in Git. Actually, I keep all my
 dotfiles in <a href="https://github.com/keksipurkki/dotfiles">GitHub</a>.</p>
-
 <p>My setup looks roughly like this:</p>
-
 <pre><code>~/Config/vim
     ├── pack
     │   ├── com.github
@@ -327,33 +277,26 @@ dotfiles in <a href="https://github.com/keksipurkki/dotfiles">GitHub</a>.</p>
     │       └── start
     └── vimrc
 </code></pre>
-
 <p>I use a dozen or so plugins from GitHub. These go under <code>pack/com.github/start</code>.
 Similarly, my own hacks go under <code>pack/net.keksipurkki/start</code>.</p>
-
 <h3 id="vimrc">Vimrc</h3>
-
 <p>My <a href="https://github.com/keksipurkki/dotfiles/blob/master/vim/vimrc">vimrc</a>
 settings are mostly patching the editor to not beep, blink or clutter my laptop.
 Oh, and I love the <a href="https://github.com/adebesin/monego">Monego font</a>, even
 though <a href="https://sourcefoundry.org/hack/">Hack</a> and <a href="https://developer.apple.com/fonts/">SF
 Mono</a> are great monospace fonts too.</p>
-
 <p>I typically load the whole codebase into Vim and navigate between files using
 the <code>:buffer</code> command that has some idea of fuzzy completion. I then &ldquo;cd&rdquo; around
 the codebase when needed.  There are probably better ways; I have never fully
 learned to use plugins like <a href="https://github.com/scrooloose/nerdtree">NERDTree</a>.
 For me, the following custom commands are sufficient:</p>
-
 <pre><code class="language-viml">&quot; Commands
 command! GitRoot :execute 'lcd' systemlist('git rev-parse --show-toplevel')[0]
 command! -nargs=* GitLoadEm :args `set -f ; printf \&quot;\%s\\n\&quot; \&quot;$(git grep --cached -Il '' )\&quot;`
 command! TakeMeHere :lcd %:p:h
 </code></pre>
-
 <p>I typically start my Vim session with a <code>:GitLoadEm</code> followed by <code>:TakeMeHere</code>.
 Finally, on the autocommand side I have a miscellaneous bunch of niceties:</p>
-
 <pre><code class="language-viml">&quot; Jump to the line that was last edited
 function! LastLine()
   if line(&quot;'\&quot;&quot;) &gt; 1 &amp;&amp; line(&quot;'\&quot;&quot;) &lt;= line(&quot;$&quot;) |
@@ -378,48 +321,37 @@ autocmd BufReadPost   * silent call LastLine()
 autocmd BufReadPost   * silent call IndentReset()
 autocmd VimLeave      * macaction terminate:
 </code></pre>
-
 <h3 id="language-server-protocol-support">Language Server Protocol support</h3>
-
 <p>Intellisense completion has always been difficult in Vim. Everybody wishes to
 have it secretly and most live in denial. Fiddling with
 <a href="https://github.com/universal-ctags/ctags">ctags</a> and the like has never been
 worth the effort for me.</p>
-
 <p>A bit mysteriously, Microsoft decided to standardize its <a href="https://microsoft.github.io/language-server-protocol/">Language server
 protocol (LSP)</a> that was
 designed initially for implementing intellisense in
 <a href="https://code.visualstudio.com">VSCode</a>, the coding editor that I would use if I
-wasn&rsquo;t so wont to my ways. What is more, Vim 8 also has support for running
+wasn't so wont to my ways. What is more, Vim 8 also has support for running
 tasks as background processes.</p>
-
-<p>Adding one plus one, it&rsquo;s now finally possible to have decent intellisense
+<p>Adding one plus one, it's now finally possible to have decent intellisense
 completion in Vim by running an appropriate LSP server and have it talk to
 Vim via background processes. Examples of LSP servers include <code>clangd</code> for C,
 <code>tsserver</code> for TypeScript and <code>sourcekit-lsp</code> for Swift. See the full list
 <a href="https://microsoft.github.io/language-server-protocol/implementors/servers/">here</a>.</p>
-
 <p>In my opinion, Vim should have native LSP client capabilities. It already has
 support for integrating with NetBeans. The two notable contenders for having LSP
 support today are <a href="https://salt.bountysource.com/teams/coc-nvim">CoC</a> and
 <a href="https://github.com/dense-analysis/ale">ALE</a>.</p>
-
 <p>I use my own <a href="https://github.com/keksipurkki/coc.nvim">fork of CoC</a>, as I wanted
 to run code analysis only after writing the buffer on disk and not immediately
-after exiting insert mode. I don&rsquo;t really get why these plugins even try to lint
-code after each change. Ain&rsquo;t nobody got CPU cycles for that!</p>
-
+after exiting insert mode. I don't really get why these plugins even try to lint
+code after each change. Ain't nobody got CPU cycles for that!</p>
 <p>The end result looks like this:</p>
-
 <video autoplay loop>
   <source src="/coc-c.mp4" type="video/mp4">
 </video>
-
 <h3 id="general-purpose-plugins">General purpose plugins</h3>
-
 <p>Finally, a couple of words about other plugins. My pick for the top 5 general
 purpose plugins would be</p>
-
 <ol>
 <li><a href="https://github.com/prettier/vim-prettier.git">Vim Prettier</a></li>
 <li><a href="https://github.com/editorconfig/editorconfig-vim.git">EditorConfig plugin</a></li>
@@ -427,36 +359,28 @@ purpose plugins would be</p>
 <li><a href="https://github.com/ap/vim-css-color.git">Vim CSS Colors</a></li>
 <li><a href="https://github.com/keksipurkki/dotfiles/blob/master/vim/pack/net.keksipurkki/start/elkku/plugin/delimiters.vim">Delimiters</a></li>
 </ol>
-
 <p>Vim Prettier and EditorConfig are what I use to format code and set formatting
 options — I code JavaScript for a living. An <code>.editorconfig</code> file should be
 commited to version control per project and the config must be enforced across
 the whole team.</p>
-
 <p>Vim Airline pimps up the statusline and it is there mostly just for the bling.
-It&rsquo;s however very useful to know when the buffer has syntax syntax errors or
+It's however very useful to know when the buffer has syntax syntax errors or
 formatting issues, as the plugin plays well together with CoC.</p>
-
 <p>Vim CSS colors works wonders when programming a front end. It simply highlights
 color codes in the appropriate color. Simple and to the point!</p>
-
 <p>The delimiters plugin is my own creation. I wrote it once years ago and have
-been using it ever since. It simply autocompletes block delimiters (<code>{}, (),
-[]</code>&hellip;) using an algorithm that I like. The plugin is probably too custom for
+been using it ever since. It simply autocompletes block delimiters (<code>{}, (), []</code>&hellip;) using an algorithm that I like. The plugin is probably too custom for
 general use.</p>
-
 <h2 id="closing-remarks">Closing remarks</h2>
-
 <p>As you can see, Vim is still live and well and it can still learn new tricks. I
 shall follow the advancements in the LSP business with great enthusiasm and will
 take my current setup for battle testing at work.</p>
-
 <p>However, truth to be told, I would not recommend Vim anymore to new developers.
 From what I gather, VSCode is the favorite among my colleagues. But Vim will
 remain my editor of choice — it has seeped into the most primordial parts
 of my programming brain and prevents me from using any other editor. You know
 that the program has a hold of you once you start typing :wq accidentally all
-over the place. Btw, that&rsquo;s how you exit the editor ;-).</p>
+over the place. Btw, that's how you exit the editor ;-).</p>
 
       </article>
 

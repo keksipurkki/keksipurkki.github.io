@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Literature on Keksipurkki</title>
+    <link>https://www.keksipurkki.net/categories/literature/</link>
+    <description>Recent content in Literature on Keksipurkki</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>🍪 2019 Elias A. Toivanen</copyright>
+    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="https://www.keksipurkki.net/categories/literature/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Top 5 reads of 2019: Juha Hurme — Niemi (2017)</title>
+      <link>https://www.keksipurkki.net/posts/2019-books-pt1/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0200</pubDate>
+      
+      <guid>https://www.keksipurkki.net/posts/2019-books-pt1/</guid>
+      <description>New year, new gear. Time to reflect on the lessons learned during 2019, a year that I remember from its warm and pleasant summer, Greta Thunberg and climate anxiety, Brexit drama, and the &amp;ldquo;stable ingenuity&amp;rdquo; of Donald Trump.
+On a personal note, one of the highlights of the year was that I left Europe for the first time for a summer holiday in California, USA. I traveled alone, even though a travel companion or an entourage of such would have been nice.</description>
+    </item>
+    
+  </channel>
+</rss>

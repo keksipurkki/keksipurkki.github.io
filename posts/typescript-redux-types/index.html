@@ -112,48 +112,38 @@
     </p>
 
       <article itemprop="articleBody" id="content" class="lh-copy">
-        
-
-<p class="ma3 f6 lh-copy i">
+        <p class="ma3 f6 lh-copy i">
   There has been a lot of developer buzz around TypeScript, ReactJS and Redux for
 many years already and the interest does not shows signs of subsiding. Here are
 my reflections on the lessons learned on writing type-safe and deterministic
 applications with the combo. A <a href="http://demo.keksipurkki.net">demo app</a> and its
 <a href="https://github.com/keksipurkki/notes">source code</a> are provided.
 </p>
-
 <p>In this blog post I will show you how you can implement a strongly-typed
 <a href="https://redux.js.org">Redux/ReactJS app</a> in
 <a href="https://www.typescriptlang.org">TypeScript</a> with the bare minimum of
 type-annotations and external dependencies. The only requirement is that we will
 be using TypeScript version 2.8 or higher.</p>
-
 <p>There are already countless introductory tutorials online on setting up
 TypeScript in conjunction with Redux and ReactJS. Suffice it to say that these
 tools allow us to write applications with both deterministic and type-safe state
 management.</p>
-
 <p>I would like to reflect on the deeper lessons learned over the years.  In
 particular, I will focus on types and <a href="https://en.wikipedia.org/wiki/Type_constructor">type
 constructors</a>. We are going to
 think about what types we need to <em>define</em> and how we can <em>derive</em> all the other
 types from the more primitive types.</p>
-
 <p>I hope the reader is looking for answers beyond the &ldquo;getting started&rdquo;
 tutorials, perhaps after struggling a bit with TypeScript compiler errors or
 after realizing that overtyping can actually just slow you down and increase the
 maintenance burden of your app. In contrast, a codebase where all the
 components, reducers and the like will be automatically aware of the type
 changes in your action objects is a huge improvement to plain JavaScript.</p>
-
 <h2 id="yet-another-notes-app">Yet another Notes app</h2>
-
 <h3 id="domain">Domain</h3>
-
 <p>Let us write <a href="http://todomvc.com">the infamous TODO app</a> yet again. The point
 here is not to show how a full-fledged app should be organized, but work with an
 elaborate enough codebase that looks like this:</p>
-
 <pre><code>src/
 ├── domain.d.ts
 ├── index.tsx
@@ -167,13 +157,11 @@ elaborate enough codebase that looks like this:</p>
 
 └── utils.ts
 </code></pre>
-
 <p>The starting place is the domain model. We define how todo notes look like in
 <code>domain.d.ts</code>, <a href="https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules">an ambient
 module</a>
 from which the type definitions spread to all other modules without explicit
 importing.</p>
-
 <pre><code class="language-typescript">// domain.d.ts
 
 type UUID = string;
@@ -197,7 +185,6 @@ type NilTodo = Partial&lt;TodoContent&lt;&quot;Nil&quot;&gt;&gt;;
 type Maybe&lt;T extends Todo, Nothing = NilTodo&gt; = T | Nothing;
 
 </code></pre>
-
 <p>Pretty standard stuff following general guidelines. Domain objects should be
 serializable and have unique ids. We employ <a href="https://matiasklemola.com/typescript-union-types">union
 types</a> that &ldquo;close over&rdquo; the
@@ -205,11 +192,9 @@ lifecycle of a todo note. We also define a <a href="https://en.wikipedia.org/wik
 object</a> <code>NilTodo</code> to denote a
 missing <code>Todo</code> object and a <code>Maybe</code> type constructor to deal with situations
 where a todo may or may not be defined.</p>
-
 <p>As for the state shape, I follow the <a href="https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape">recommended
 approach</a>
 of normalizing data like so:</p>
-
 <pre><code class="language-typescript">// domain.d.ts
 
 interface AppState {
@@ -219,15 +204,12 @@ interface AppState {
 }
 
 </code></pre>
-
 <p>The application state shape should not be designed with sole focus on the needs
 of the user interface. The user interfaces changes rapidly during the
 development process, but the above model is stable and general. Always prefer
 stable and general solutions when possible.</p>
-
 <p>The <code>NilTodo</code> object is implemented as an immutable singleton and we provide a
 type guard function to disambiguate between a <code>Maybe&lt;Todo&gt;</code> and a <code>Todo</code>.</p>
-
 <pre><code>// utils.ts
 
 const nil: NilTodo = Object.freeze({
@@ -239,21 +221,16 @@ function isTodo(todo: Maybe&lt;Todo&gt;): todo is Todo {
 }
 
 </code></pre>
-
 <p>Pretty cheap solution for getting rid of null pointer dereferences forever.
 There cannot be a <code>null</code> in play if we do not put it there!</p>
-
 <p>In general, the types and data structures in your app are yours and have the
 greatest effect on the overall ease of implementation of your app; no external
 library can design the types and data structures for you.</p>
-
 <h3 id="actions">Actions</h3>
-
 <p>Let us proceed to defining behavior in <code>Actions.ts</code>. There is a nifty trick that
 makes Redux objects play nice with TypeScript, just wait for it. The gist is to
 capture the <code>type</code> property of all the action objects as a type using a dummy
 helper function called <code>action</code>.</p>
-
 <pre><code class="language-typescript">// Actions.ts
 
 function action&lt;T extends string, P, M = {}&gt;(type: T, payload?: P, meta?: M) {
@@ -261,9 +238,7 @@ function action&lt;T extends string, P, M = {}&gt;(type: T, payload?: P, meta?: 
 }
 
 </code></pre>
-
 <p>For example, we may define an action creator for selecting a todo like so:</p>
-
 <pre><code class="language-typescript">// Actions.ts
 
 export const SELECT_TODO = &quot;SELECT_TODO&quot;;
@@ -279,15 +254,12 @@ export default {
   select
 };
 </code></pre>
-
 <p>I like to package my action creators precisely in this format. The same module
 exports the action types as string constants and the default export is an object
 whose properties are the action creators proper.</p>
-
 <p>There are usually only a handful of core action creators per domain object,
 think CRUD. However, I usually also write convenience action creators on top of
 the core ones:</p>
-
 <pre><code>
 // Actions.ts
 
@@ -314,15 +286,11 @@ export default {
 };
 
 </code></pre>
-
 <p>The extra work pays dividends later on in the user interface where we want to
 have as little noise as possible.</p>
-
 <h3 id="the-trick">The trick</h3>
-
 <p>And now here comes the trick! We can now derive all the other action-related
 types programmatically in <code>Store.ts</code>.</p>
-
 <pre><code>// Store.ts
 import actionCreators, * as actionTypes from &quot;./Actions&quot;;
 
@@ -336,27 +304,19 @@ type Action&lt;T = ActionType&gt; = Defined&lt;Filter&lt;ActionUnion, { type: T 
 export { Action, ActionDispatcher, ActionCreators };
 
 </code></pre>
-
 <p>I can still remember the moment when I figured out the magic of</p>
-
 <pre><code class="language-typescript">type Action&lt;T = ActionType&gt; = Defined&lt;Filter&lt;ActionUnion, { type: T }&gt;&gt;;
 </code></pre>
-
 <p>Took me a good day and I am proud that I did it on my own, even though I suspect
 that the same has been discovered also elsewhere. The definition depends on two
 helper type constructors that read:</p>
-
 <pre><code class="language-typescript">type Filter&lt;T, U&gt; = T extends U ? T : never;
 type Defined&lt;T&gt; = { [P in keyof T]-?: Defined&lt;NonNullable&lt;T[P]&gt;&gt; };
 </code></pre>
-
 <p>The <code>Action&lt;T&gt;</code> type allows you to generate the action object type from the
-<code>type</code> property, e.g. <code>Action&lt;&quot;SELECT_TODO&quot;&gt;</code> is equivalent to <code>{ type:
-&quot;SELECT_TODO&quot;; payload: Todo; }</code>. This is very handy as now TypeScript can infer
+<code>type</code> property, e.g. <code>Action&lt;&quot;SELECT_TODO&quot;&gt;</code> is equivalent to <code>{ type: &quot;SELECT_TODO&quot;; payload: Todo; }</code>. This is very handy as now TypeScript can infer
 the payload shape without type casting.</p>
-
 <p>Consequently, a stub of the reducer function looks like this:</p>
-
 <pre><code class="language-typescript">import { Reducer } from &quot;redux&quot;;
 import { Action } from &quot;./Store&quot;;
 import { nil } from &quot;../utils&quot;;
@@ -383,21 +343,16 @@ const reducer: Reducer&lt;AppState, Action&gt; = (state = initialState, action) 
 
 export default reducer;
 </code></pre>
-
 <h3 id="plumbing">Plumbing</h3>
-
 <p>OK, so we have a domain model, action creators and a reducer set up. Now we
 package our Redux store related code in <code>Store.ts</code> and export relevant pieces
 for the user interface components.</p>
-
 <p>I do not want to have any Redux dependecies or boilerplate in the user
 interface. Boilerplate code just plain sucks and Redux is ultimately only a
 tool; what is more fundamental is the contract between application state and the
 component props.</p>
-
 <p>That is why I implement the <code>Store.ts</code> module as a facade to the <code>redux</code> and
 <code>react-redux</code> libraries and have the user interface components point to it.</p>
-
 <pre><code class="language-typescript">// Store.ts
 
 /* Store facade */
@@ -425,16 +380,13 @@ function connect&lt;S, O = {}&gt;(selector?: Selector&lt;S, O&gt;) {
   }));
 }
 </code></pre>
-
 <p>I supercharge the <code>connect()</code> function from <code>react-redux</code> by teaching it how
 <code>AppState</code> looks like. I also export a wrapper for the <code>createStore()</code> function
 that allows us to configure how the Redux store is instantiated based on some
 configuration object.</p>
-
 <p>What is perhaps a bit more controversial is that I like to inject all the action
 creators in bulk to the user interface behind an object named <code>dispatch</code>. That
-is, to invoke an action creator <code>foo()</code>, you&rsquo;d simply write:</p>
-
+is, to invoke an action creator <code>foo()</code>, you'd simply write:</p>
 <pre><code>import { ActionDispatcher, connect } from &quot;../store/Store&quot;;
 
 interface Props extends ActionDispatcher {
@@ -448,28 +400,22 @@ const Component = ({ dispatch }) =&gt; (
 export default connect()(Component);
 
 </code></pre>
-
 <p>The counter argument here is that it one should only import that what is needed.
 I have nonetheless found the above approach far more scalable than explicit
 plumbing, especially as we have strong-typing out of the box.</p>
-
 <p>In general, a far graver mistake is to introduce business logic into the user
 interface. This manifests itself as components where action creators are
 composed and there is imperative code. Remember that we are merely binding
 actions to buttons and the like. Redux middleware is the place where we do
 &ldquo;processes&rdquo; and impure stuff and the reducers should be smart instead of merely
 aggregating data.</p>
-
 <h2 id="the-user-interface">The user interface</h2>
-
 <p>With the store implemented, the rest is just putting the pieces together. The
 goal here is to end up with essentially a bunch of XML. If the whole user
 interface is just setting values to attributes and does not contain any logic to
 speak of, the user interface can be merely <em>defined</em>. This is fitting as we
 construct it using two declarative languages, HTML and CSS.</p>
-
 <p>The outer shell for the app is simply:</p>
-
 <pre><code class="language-typescript">const AppShell: React.FC = ({ children }) =&gt; (
   &lt;main className=&quot;flex flex-row items-stretch&quot;&gt;
     &lt;aside
@@ -501,9 +447,7 @@ function App(): React.ReactElement {
 
 ReactDOM.render(&lt;App /&gt;, document.getElementById(&quot;root&quot;));
 </code></pre>
-
 <p>The app only has one screen <code>Screen</code> and its definition looks like:</p>
-
 <pre><code class="language-typescript">import * as React from &quot;react&quot;;
 import { connect, AppState, ActionDispatcher } from &quot;../store/Store&quot;;
 import Menu from &quot;./Menu&quot;;
@@ -585,9 +529,7 @@ const Screen: React.FC&lt;Props&gt; = ({ dispatch, selected, todos }) =&gt; {
 
 export default connect(props)(Screen);
 </code></pre>
-
 <p>The two auxiliary components <code>Editor</code> and <code>Menu</code> read</p>
-
 <pre><code>// Editor.tsx
 import * as React from &quot;react&quot;;
 import { useFocus } from &quot;./Effects&quot;;
@@ -656,7 +598,6 @@ const TodoEditor: React.FC&lt;Props&gt; = ({ todo, onStopEdit, onEdit, tabIndex 
 export default TodoEditor;
 
 </code></pre>
-
 <pre><code class="language-typescript">// Menu.tsx
 import * as React from &quot;react&quot;;
 import FlipMove from &quot;react-flip-move&quot;;
@@ -719,13 +660,11 @@ TodoMenu.Item = TodoMenuItem;
 
 export default TodoMenu;
 </code></pre>
-
 <p>You may study the source code at my <a href="https://github.com/keksipurkki/notes">GitHub
-repository</a>. That&rsquo;s it. You may view the
+repository</a>. That's it. You may view the
 end result online <a href="http://demo.keksipurkki.net">here</a>, pretty slick, aye!?
 Hopefully you found this blog useful and good luck for your next frontend
 adventure.</p>
-
 <!-- vim: set spell : -->
 
       </article>

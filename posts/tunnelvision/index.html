@@ -116,7 +116,7 @@ instantly share any server application on your LAN to the public Internet. After
 that these services are not so secure as you might think, I decided to roll my
 own tunnelling service by the name of <a href="https://tunnelvision.me">Tunnelvision</a>.
 </p>
-<p>Wouldn't it be awesome to instantly show the web application you are developing from your
+<p>Wouldn&rsquo;t it be awesome to instantly show the web application you are developing from your
 local machine to the rest of the world? You know, just as a sneak preview without going
 through the motions of a full deployment. Or perhaps you are developing a server and a
 mobile app at the same time, and the two cannot talk to each other because they are not on
@@ -147,7 +147,7 @@ NodeJS streams. Everything boils down to wiring together two TCP sockets, one of
 handed to you by a HTTP server and the other of which is handed you to by a SSH server:</p>
 <pre><code class="language-javascript">req.socket.pipe(ssh.socket).pipe(req.socket);
 </code></pre>
-<p>I thought to myself: &ldquo;Heck, if it's this easy, I'll roll my own reverse port forward
+<p>I thought to myself: &ldquo;Heck, if it&rsquo;s this easy, I&rsquo;ll roll my own reverse port forward
 server!&quot;. I wanted to reuse the idea of using <code>ssh</code> as the tunnel client.  But in addition
 I wanted to create something that is easy to audit, easy to deploy to (AWS) cloud
 infrastructure and connect to a domain you control. I present to you
@@ -174,7 +174,7 @@ socket. Simple! You may view the source code
 <p>I decided to implement the server as a <a href="https://docs.docker.com/engine/reference/commandline/stack/">Docker
 stack</a> consisting of three
 services: Nginx server, a NodeJS application containing the gist of the tunneling logic
-and a background service to request and renew TLS certificates from the <a href="https://letsencrypt.org">Let's Encrypt
+and a background service to request and renew TLS certificates from the <a href="https://letsencrypt.org">Let&rsquo;s Encrypt
 Certificate Authority</a>. The design looks diagrammatically like
 this:</p>
 <img src="/TunnelvisionDesign.png" alt="Tunnelvision design diagram">
@@ -189,7 +189,7 @@ timeout. This is however not the case as Nginx can be configured to use the <a h
 Transport Security</a> header that is a far
 superior solution to exposing 80 and redirecting traffic to the HTTPS endpoints.</p>
 <p>Finally, the certbot service mounts a Docker volume that is shared with the Nginx
-container (5). The volume contains the Let's Encrypt certificates that are read by Nginx
+container (5). The volume contains the Let&rsquo;s Encrypt certificates that are read by Nginx
 and modified by the <a href="https://certbot.eff.org">certbot script</a>. Anybody who has tried to
 combine Docker, certbot and Nginx together have certainly noticed that instead of a
 <em>ménage à trois</em> you end up with a clusterfuck as described in <a href="https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71">this blog
@@ -252,7 +252,7 @@ volumes:
 </code></pre>
 <h2 id="devops">DevOps</h2>
 <p>The trickiest part of the whole project was automating the deployment. No doubt the
-problem is that I am still learning AWS (aren't we all?) and I do not want to pay for
+problem is that I am still learning AWS (aren&rsquo;t we all?) and I do not want to pay for
 anything (sound familiar?). I tried to play around with AWS ECS and Fargate but became
 rather disappointed. I do not want to configure VPCs or load balancers nor do I want an
 Amazon TLS certificate. They cost money!</p>
@@ -318,7 +318,7 @@ information itself!</p>
 Dockerfiles and slow and clunky deployment pipelines. I feel the approach described here
 is the way forward and I hope AWS makes something like ECS Fargate but with better support
 for Docker stacks. I must say I am not an expert in these things. Dudes at work murmur the
-words Kubernetes and Rancher every now and then, but I haven't checked those things out at
+words Kubernetes and Rancher every now and then, but I haven&rsquo;t checked those things out at
 all.</p>
 <p>I hope you find the magic of sockets and tunneling as exciting as me. SSH sure is an
 interesting protocol, and it originates from my home country Finland, too!</p>

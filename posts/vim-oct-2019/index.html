@@ -108,7 +108,7 @@
       <article itemprop="articleBody" id="content" class="lh-copy">
         <p class="ma3 f6 lh-copy i">
   Vim has been my editor of choice from day one, and I have been using the same
-setup for years. I pimped up my Vim to match what's possible in October 2019.
+setup for years. I pimped up my Vim to match what&rsquo;s possible in October 2019.
 Here are my thoughts about coding editors and a breakdown of my setup.
 </p>
 <p>My first stab at programming was writing shell scripts for fun. I started by
@@ -120,7 +120,7 @@ remember that the lecturer, an elderly gentleman, had a soothing voice and used
 <a href="https://www.vim.org">Vim</a> over PuTTY to write his scripts.</p>
 <p>This was in 2008, right about the same time when
 <a href="https://stackoverflow.com">StackOverflow</a> was launched. My baby steps in the
-world of programming therefore coincided with the world's most popular
+world of programming therefore coincided with the world&rsquo;s most popular
 programming QA forum. Just like everybody else, I too found it difficult to exit
 the editor. I had to figure out the answer to <a href="https://stackoverflow.blog/2017/05/23/stack-overflow-helping-one-million-developers-exit-vim/">one of the most
 asked</a>
@@ -137,8 +137,8 @@ terminal. You do this by typing in normal mode:</p>
 are the <a href="https://yanpritzker.com/learn-to-speak-vim-verbs-nouns-and-modifiers-d7bfed1f6b2d">Vim
 keymappings</a>
 that are not easy to explain in words.  Your fingers know them best.</p>
-<p>When I'm at a developer cocktail party or just straight-up boozing at the
-office, the subject of editors comes up every now and then. I've always disliked
+<p>When I&rsquo;m at a developer cocktail party or just straight-up boozing at the
+office, the subject of editors comes up every now and then. I&rsquo;ve always disliked
 these discussions. I think <a href="https://xkcd.com/378/">xkcd</a> explains it best:</p>
 <p><img src="https://imgs.xkcd.com/comics/real_programmers.png" /></p>
 <p>The whole dispute over who uses what is just absurd and makes for studies in
@@ -160,7 +160,7 @@ virtues.</p>
 adapt to an amazing variety of use cases — well, practically all I have
 encountered so far except one: Java.</p>
 <h3 id="2-changes-the-way-you-think">2. Changes the way you think</h3>
-<p>Since Vim comes from the C era, it's pretty Spartan and deliberately tries to be
+<p>Since Vim comes from the C era, it&rsquo;s pretty Spartan and deliberately tries to be
 just an editor and not and <span data-title="Integrated development
 environment">IDE</span>. You will not set up flaky abstractions like projects or
 workspaces, nor will there be a debugger or integration with a version control
@@ -197,7 +197,7 @@ F and H, J, K, L. In addition to being used to insert the actual characters in
 insert mode, all of these keys are used to perform core Vim tricks in normal
 mode. The palms of my hands are practically stationary no matter what I do.</p>
 <p>I do not recall using the arrow keys in Vim. I almost never use any GUI menus of
-any kind and I haven't used a mouse in a long long time. I do use the trackpad
+any kind and I haven&rsquo;t used a mouse in a long long time. I do use the trackpad
 but it integrates seamlessly with my workflow. I guess I use it for scrolling
 for the most part.</p>
 <!--
@@ -210,7 +210,7 @@ J, K and L.
 -->
 <p>If you suffer from tense shoulders and neck pains, take a look at your hands to
 see if they are too wide apart. A mouse may be necessary in a gaming context,
-but I think it's harmful for programming for extended periods of time. Your
+but I think it&rsquo;s harmful for programming for extended periods of time. Your
 shoulders will thank you after learning to code ergonomically with Vim.</p>
 <h2 id="the-bad-parts">The bad parts</h2>
 <h3 id="1-buffers-and-regular-expressions">1. Buffers and regular expressions</h3>
@@ -248,11 +248,11 @@ four different ways to set the linewidth. Sigh&hellip;</p>
 no one way to extend the editor either. Vim can be extended with its own
 scripting language VimScript. However, the editor also ships with support for
 Python, Lua, Ruby and Perl&hellip;</p>
-<p>In my opinion, there's no good reason for this. All these so-called scripting
+<p>In my opinion, there&rsquo;s no good reason for this. All these so-called scripting
 languages are effectively the same and suffer from fragmentation. Python 2, can
 you die, please?</p>
 <p>I wish the editor had a single tightly sandboxed <span data-title="Domain
-specific language">DSL</span> with builtin support for ASTs and events. I don't
+specific language">DSL</span> with builtin support for ASTs and events. I don&rsquo;t
 see any reason why Vim plugins should be able to do arbitrary side-effects
 either, so why not restrict the DSL to the pure subset of functional languages
 as well.</p>
@@ -261,7 +261,7 @@ as well.</p>
 <p>Enough with ranting and pipe dreams. Let me show you my setup. I use
 <a href="https://github.com/macvim-dev/macvim">MacVim</a> for the most part, but I do my
 Git commits with command line <code>vim</code>. I am aware of
-<a href="https://www.neovim.io">neovim</a> but haven't really checked it out.</p>
+<a href="https://www.neovim.io">neovim</a> but haven&rsquo;t really checked it out.</p>
 <p>If you are still rocking Vim 7, I would totally recommend version 8. It allows
 you to install Vim plugins as <a href="https://shapeshed.com/vim-packages/">separate
 packages</a> instead of clumping everything
@@ -330,9 +330,9 @@ worth the effort for me.</p>
 protocol (LSP)</a> that was
 designed initially for implementing intellisense in
 <a href="https://code.visualstudio.com">VSCode</a>, the coding editor that I would use if I
-wasn't so wont to my ways. What is more, Vim 8 also has support for running
+wasn&rsquo;t so wont to my ways. What is more, Vim 8 also has support for running
 tasks as background processes.</p>
-<p>Adding one plus one, it's now finally possible to have decent intellisense
+<p>Adding one plus one, it&rsquo;s now finally possible to have decent intellisense
 completion in Vim by running an appropriate LSP server and have it talk to
 Vim via background processes. Examples of LSP servers include <code>clangd</code> for C,
 <code>tsserver</code> for TypeScript and <code>sourcekit-lsp</code> for Swift. See the full list
@@ -343,8 +343,8 @@ support today are <a href="https://salt.bountysource.com/teams/coc-nvim">CoC</a>
 <a href="https://github.com/dense-analysis/ale">ALE</a>.</p>
 <p>I use my own <a href="https://github.com/keksipurkki/coc.nvim">fork of CoC</a>, as I wanted
 to run code analysis only after writing the buffer on disk and not immediately
-after exiting insert mode. I don't really get why these plugins even try to lint
-code after each change. Ain't nobody got CPU cycles for that!</p>
+after exiting insert mode. I don&rsquo;t really get why these plugins even try to lint
+code after each change. Ain&rsquo;t nobody got CPU cycles for that!</p>
 <p>The end result looks like this:</p>
 <video autoplay loop>
   <source src="/coc-c.mp4" type="video/mp4">
@@ -364,7 +364,7 @@ options — I code JavaScript for a living. An <code>.editorconfig</code> file s
 commited to version control per project and the config must be enforced across
 the whole team.</p>
 <p>Vim Airline pimps up the statusline and it is there mostly just for the bling.
-It's however very useful to know when the buffer has syntax syntax errors or
+It&rsquo;s however very useful to know when the buffer has syntax syntax errors or
 formatting issues, as the plugin plays well together with CoC.</p>
 <p>Vim CSS colors works wonders when programming a front end. It simply highlights
 color codes in the appropriate color. Simple and to the point!</p>
@@ -380,7 +380,7 @@ From what I gather, VSCode is the favorite among my colleagues. But Vim will
 remain my editor of choice — it has seeped into the most primordial parts
 of my programming brain and prevents me from using any other editor. You know
 that the program has a hold of you once you start typing :wq accidentally all
-over the place. Btw, that's how you exit the editor ;-).</p>
+over the place. Btw, that&rsquo;s how you exit the editor ;-).</p>
 
       </article>
 

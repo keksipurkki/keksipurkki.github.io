@@ -117,7 +117,7 @@ heat of the summer. But I got a severe flashback from my student days and
 started to think about my old love <a href="https://numpy.org">NumPy</a> and whether or not
 N-dimensional arrays could also work in JavaScript.
 </p>
-<p>Here's a little something I've been musing over as of late. I've been playing around with
+<p>Here&rsquo;s a little something I&rsquo;ve been musing over as of late. I&rsquo;ve been playing around with
 N-dimensional arrays in <a href="https://www.typescriptlang.org">TypeScript</a>. These are objects
 that generalize vectors and matrices and typically store numbers.</p>
 <pre><code class="language-typescript">const value = ndarray[i][j][k]; // An array of rank 3
@@ -131,7 +131,7 @@ bastard children in the enterprise. Anybody who has experience with
 <a href="https://www.mathworks.com/products/matlab.html">Matlab</a>, <a href="https://www.r-project.org">R</a>
 or <a href="https://www.numpy.org">NumPy</a> has surely come across them. Perhaps a less widely known
 fact is that <a href="https://gcc.gnu.org/fortran/">Fortran</a> has excellent support for array
-processing. Fortran is actually the nestor in the array business. Perhaps I'll write
+processing. Fortran is actually the nestor in the array business. Perhaps I&rsquo;ll write
 about a blog post about that sometime, too.</p>
 <p>How about JavaScript then? The situation used to by rather bleak as numerical work is
 clearly something the language was not designed for. Before EcmaScript2015 there was no
@@ -139,7 +139,7 @@ way to alter how array indexing works (cf.
 <a href="https://docs.python.org/3/reference/datamodel.html#object.__getitem__">Python</a>), nor was
 it possible to opt out from the one-size-fits-all <code>Number</code> objects that are backed by
 <a href="https://www.youtube.com/watch?v=pQs_wx8eoQ8">IEEE-754 floats</a>. Today we have <code>Proxy</code>
-objects and the <code>TypedArray</code> interface, but there's still room for improvement.</p>
+objects and the <code>TypedArray</code> interface, but there&rsquo;s still room for improvement.</p>
 <p>JavaScript engines can be particularly heinous in their behavior when you start with an
 empty array and insert elements into it dynamically. The JavaScript engine chooses the
 backing implementation for the array on the fly. That means that your computer may waste
@@ -156,9 +156,9 @@ garbage collection. In addition, the allocate-once approach allows the program t
 fast. You do not want to first run a program for a couple of days to discover that it
 halted due to memory issues.</p>
 <h3 id="a-type-safe-allocator-function">A type-safe allocator function</h3>
-<p>OK, so let's write some code that takes the above discussion into account. In the process,
+<p>OK, so let&rsquo;s write some code that takes the above discussion into account. In the process,
 I hope to give you some ideas for your next number crunching adventure.</p>
-<p>Let's start simply. You allocate a 2-dimensional array, i.e. a matrix, like this:</p>
+<p>Let&rsquo;s start simply. You allocate a 2-dimensional array, i.e. a matrix, like this:</p>
 <pre><code class="language-typescript">function allocate(nrow: number, ncol: number, initialValue = 0.0) {
 
   if (!Number.isInteger(nrow) || nrow &lt;= 0)
@@ -263,7 +263,7 @@ for (let i = 0; i &lt; Nx; i++) {
   }
 }
 </code></pre>
-<p>That's it! Remember to organize the loop so that the innermost loop runs over the rightmost index so
+<p>That&rsquo;s it! Remember to organize the loop so that the innermost loop runs over the rightmost index so
 that you iterate over the numerical values in order. Check out the code in
 action in the <a href="https://www.typescriptlang.org/play/#code/C4TwDgpgBAggdiAYgVzgY2ASwPZwDwAqUEAHsBHACYDOUAhggNoC6AfFALxQAUAdP3QBOAc2oAuKAQCUndgxABuALAAoUJEl1MAG0LEyFGvSZtOsBCnRZchdqXJVa3bqqhQA+hPkAaV1H687p5QmHAAZhCCUACqqjIccghSfgD8MX4ScBAAbpHKKqqh5IJhdGjQAMoAFnSQlDCCgnQgeNW10PaGtPIs3lAAanTayNBccMgAtgBGkewA3n6MmJmTM4LMEm0anY5QjOPTkcxQaYPD0Js1dQ1NLQRaulsQrKz5btoUwsBVK4eC+QBfVSqdTQGDabTYNB0ch4frsLitfQOIz7VaRPoBA5rFhsFwqNwBahXCCbOKyKBPeqNZqtPrw-KqNC4ajAegQqEw7CCRBlYDckBmOGsbihTBYIZnEYSfrxeZ+ZlwVnsyHQ8gScGqmEQYVmbiUTATTH8QQQVlyqALAluEJhHgAQgAcujBLxMNQAJJwcjCSL6w0yAA+gagBomUDwXAADDIrTabd9BNgAO5QLKpgCijW53AARKRIBgIJR6FAwNhqOLMLkQt6IL7BLmpG8bUCCta3Jg7dx7abWbwPnAvlVY3546bgMhBHBYDSQP6JlJeGEdNpRXAq5KhiNm2OoADiNpqNA4-GoIrlft7MbeGHqMcuH3gC3xxBJ9PZ7cF8kO2fl6vuFQSgIBXLJKB-M8bV4CZamcC0hi1chuCyMgbzvKRd1-Ns3ABRlrQnKcZwQzlyEBPCLzZAAvSIKzMYi1W5XkMAFbgY3Ilk2SoIRbjMaik2obgAFY+mEqAADZMNULi50YKNmFk+SACYH3EhQoAAenUqAAHFsGwSgpMobjmgUsxBLUzSoAAIToAyVGk25GAAZnklyzDEiytJsuyQUEQVTz4ishL6MS+jY1QDzVNAqh4SIk0EUdfwvbAPl4OKc3S10JjNag6F9H82yAA">TypeScript
 playground!</a>.</p>
@@ -304,7 +304,7 @@ Fortran, namely <a href="https://medium.com/uncaught-exception/javascript-array-
 indices</a>.</p>
 <p>In conclusion, I feel that these enhancements represent diminishing returns given the
 present state of JavaScript. At any rate, one would need to set up benchmarks to argue
-about performance. Ain't nobody got time for that! The big gains are anyway in novel
+about performance. Ain&rsquo;t nobody got time for that! The big gains are anyway in novel
 technologies like <a href="https://webassembly.org">WebAssembly</a> that would potentially let the
 web developer tap into computational resources like GPGPUs.</p>
 <!-- vim: set spell : -->

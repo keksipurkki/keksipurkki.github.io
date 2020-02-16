@@ -13,12 +13,12 @@
     
     
     <item>
-      <title>Top 5 reads of 2019: Juha Hurme — Niemi (2017)</title>
+      <title>Top reads of 2019: Juha Hurme — Niemi (2017)</title>
       <link>https://www.keksipurkki.net/posts/2019-books-pt1/</link>
       <pubDate>Sat, 11 Jan 2020 00:00:00 +0200</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/2019-books-pt1/</guid>
-      <description>New year, new gear. Time to reflect on the lessons learned during 2019, a year that I remember from its warm and pleasant summer, Greta Thunberg and climate anxiety, Brexit drama, and the &amp;ldquo;stable ingenuity&amp;rdquo; of Donald Trump.
+      <description>New year, new gear. Time to reflect on the lessons learned during 2019, a year that I remember from its warm and pleasant summer, Greta Thunberg and climate anxiety, Brexit drama, and the &amp;ldquo;stable genius&amp;rdquo; of Donald Trump.
 On a personal note, one of the highlights of the year was that I left Europe for the first time for a summer holiday in California, USA. I traveled alone, even though a travel companion or an entourage of such would have been nice.</description>
     </item>
     
@@ -28,7 +28,7 @@ On a personal note, one of the highlights of the year was that I left Europe for
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0300</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/vim-oct-2019/</guid>
-      <description>Vim has been my editor of choice from day one, and I have been using the same setup for years. I pimped up my Vim to match what&#39;s possible in October 2019. Here are my thoughts about coding editors and a breakdown of my setup. My first stab at programming was writing shell scripts for fun. I started by watching a video course on the topic. I would not know the name nor the publisher of this course anymore.</description>
+      <description>Vim has been my editor of choice from day one, and I have been using the same setup for years. I pimped up my Vim to match what&amp;rsquo;s possible in October 2019. Here are my thoughts about coding editors and a breakdown of my setup. My first stab at programming was writing shell scripts for fun. I started by watching a video course on the topic. I would not know the name nor the publisher of this course anymore.</description>
     </item>
     
     <item>
@@ -46,7 +46,7 @@ On a personal note, one of the highlights of the year was that I left Europe for
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0300</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/tunnelvision/</guid>
-      <description>SSH reverse port forwarding is a technique that powers services that let you instantly share any server application on your LAN to the public Internet. After realizing that these services are not so secure as you might think, I decided to roll my own tunnelling service by the name of Tunnelvision. Wouldn&#39;t it be awesome to instantly show the web application you are developing from your local machine to the rest of the world?</description>
+      <description>SSH reverse port forwarding is a technique that powers services that let you instantly share any server application on your LAN to the public Internet. After realizing that these services are not so secure as you might think, I decided to roll my own tunnelling service by the name of Tunnelvision. Wouldn&amp;rsquo;t it be awesome to instantly show the web application you are developing from your local machine to the rest of the world?</description>
     </item>
     
     <item>
@@ -64,7 +64,7 @@ On a personal note, one of the highlights of the year was that I left Europe for
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
-      <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&#39;s a little something I&#39;ve been musing over as of late. I&#39;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
+      <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
     </item>
     
   </channel>

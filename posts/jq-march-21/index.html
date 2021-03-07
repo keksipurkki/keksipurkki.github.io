@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content="development,
+jq,
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="Musings about JSON and jq" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="https://www.keksipurkki.net/posts/jq-march-21/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2021-03-06
+" /> <meta property="article:modified_time" content="2021-03-06
+" />
+
+
+<meta property="article:tag" content="development" />
+<meta property="article:tag" content="jq" />
+
+
+
+
+
+
+    <title>Musings about JSON and jq</title>
+    <link rel="canonical" href="https://www.keksipurkki.net/posts/jq-march-21/" />
+
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="https://www.keksipurkki.net/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
+/>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="https://www.keksipurkki.net/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw7">
+    <h1 itemprop="name" id="title">Musings about JSON and jq</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2021-03-06</a>
+      
+
+
+
+  
+  
+
+  <button class="dn dib-ns button-reset relative hide-child-alt">
+  <i class="fa fa-history mr1"></i>
+  <span>1 revisions</span>
+  <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
+    <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2021-03-06 19:21Z Jq blog post</li>
+    
+    </ul>
+    <span class="absolute top-0 left-2 nt2 w1 h1 bg-white bl bt b--moon-gray rotate-45"></span>
+  </span>
+</button>
+
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <h2 id="introduction">Introduction</h2>
+<p>Oh, <a href="https://tools.ietf.org/html/rfc7159">JSON</a>,
+<a href="https://www.json.org/json-en.html">JSON</a>,
+<a href="https://www.youtube.com/watch?v=-C-JoyNuQJs">JSON</a>…what would the world
+be without you? Let me show you what I have learned recently about this
+ubiquitous data-interchange format. It turns out you can manipulate complex JSON
+strings on the command line with ease. This came to me as somewhat of a surprise
+as I always thought that JSON is fundamentally incompatible with traditional
+command line tools, the Unix filters <em>cat</em>, <em>grep</em>, <em>sed</em> and friends, that
+operate on <em>ad hoc</em> structured text files in a line-oriented fashion.</p>
+<p>As a demonstration, let&rsquo;s write a script to <em>flatten</em> and <em>unflatten</em> JSON
+objects. That is, let&rsquo;s figure out a flattening algorithm for mapping inputs
+like this</p>
+<pre><code class="language-json">{
+  &quot;menu&quot;: {
+    &quot;id&quot;: &quot;file&quot;,
+    &quot;value&quot;: &quot;File&quot;,
+    &quot;popup&quot;: {
+      &quot;menuitem&quot;: [
+        { &quot;value&quot;: &quot;New&quot;, &quot;onclick&quot;: &quot;CreateNewDoc()&quot; },
+        { &quot;value&quot;: &quot;Open&quot;, &quot;onclick&quot;: &quot;OpenDoc()&quot; },
+        { &quot;value&quot;: &quot;Close&quot;, &quot;onclick&quot;: &quot;CloseDoc()&quot; }
+      ]
+    }
+  }
+}
+</code></pre>
+<p>to a representation that encodes nested structures like this</p>
+<pre><code class="language-json">[
+  {
+    &quot;Key&quot;: &quot;menu/id&quot;,
+    &quot;Value&quot;: &quot;file&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/value&quot;,
+    &quot;Value&quot;: &quot;File&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/popup/menuitem/0/value&quot;,
+    &quot;Value&quot;: &quot;New&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/popup/menuitem/0/onclick&quot;,
+    &quot;Value&quot;: &quot;CreateNewDoc()&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/popup/menuitem/1/value&quot;,
+    &quot;Value&quot;: &quot;Open&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/popup/menuitem/1/onclick&quot;,
+    &quot;Value&quot;: &quot;OpenDoc()&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/popup/menuitem/2/value&quot;,
+    &quot;Value&quot;: &quot;Close&quot;
+  },
+  {
+    &quot;Key&quot;: &quot;menu/popup/menuitem/2/onclick&quot;,
+    &quot;Value&quot;: &quot;CloseDoc()&quot;
+  }
+]
+</code></pre>
+<p>The inverse of the flatten algorithm is naturally <em>unflatten</em>. It takes a
+flattened JSON and reproduces the original nested structure.</p>
+<p>JSON juggling of the above kind occurs quite frequently in the world of
+programming so this exercise should have some practical usefulness as well.</p>
+<p>Normally I would bang out a NodeJS script that gets the job done. After all,
+JSON stands for <em>JavaScript Object Notation</em>. Then there is
+<a href="https://stedolan.github.io/jq">jq</a> that advertises itself as &ldquo;a lightweight and
+flexible command-line JSON processor.&rdquo; I was aware of its existence but never
+gave it too much of attention.</p>
+<p>Turns out <em>jq</em> frigging rocks! It seems to be an extremely well-designed piece
+of software. It fulfills a precise need and feels instantaneously familiar. As
+an added bonus, it only weighs 1MB, making it ideal in the Docker game where
+minimalistic runtimes are key. But let&rsquo;s not get ahead of ourselves, let&rsquo;s first
+see how <em>jq</em> fares with the programming challenge we posed for ourselves.</p>
+<h2 id="flatten">Flatten</h2>
+<p>The <em>flatten</em> algorithm is a one-liner in <em>jq</em>:</p>
+<pre><code class="language-jq">
+def json_flatten:
+  [ paths(scalars) as $path | { Key: $path | join(&quot;/&quot;), Value: getpath($path) } ]
+;
+</code></pre>
+<p>Obviously, this solution did not just spring into my mind immediately. There
+were many intermediate solutions and false starts. But in a way that is
+precisely what makes filter-based languages like <em>jq</em> so elegant. You can just
+start from anywhere and try a filter that does something potentially useful.
+Stuck in a dead-end?  Just revert back the previous filter and take it from
+there.  Optimization amounts to reducing the number of filter stages.</p>
+<p>You just have to take the correct initial step and the algorithm will emerge on
+its own during the process. What is more, the code reads like a mathematical
+proof which
+<a href="https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence">it ultimately is</a>,
+following a top-down structure and leaving past a trail of intermediate results,
+each with a well-defined input and output.</p>
+<p>Anyway, I had the hunch that the flattening algorithm is going to be very simple
+— it had all the smells of it. Reading the jq manual, the functions
+<code>paths(PATTERN)</code> and <code>getpath(PATHS)</code> seemed like useful little nuggets, and it
+turns out they get the job done. You may
+<a href="https://stedolan.github.io/jq/manual/">RTFM</a>, too. Their use above should give
+you a clue what they do.</p>
+<h2 id="unflatten">Unflatten</h2>
+<p>The <em>unflatten</em> algorithm is similarly concise</p>
+<pre><code class="language-jq">def json_unflatten:
+  map({ Path: .Key | split(&quot;/&quot;) | map(tonumber? // .), Value: .Value })
+  | reduce .[] as $item ({}; setpath($item.Path; $item.Value))
+;
+</code></pre>
+<p>Here we can showcase how <em>jq</em> operates. The first <code>map</code> operates on array input
+<code>[{ Key, Value }, { Key, Value }...]</code>. We produce a path expression by inverting
+the <code>join</code> call with the <code>split</code> call. This maps <code>menu/popup/menuitem/0/value</code>
+to <code>[&quot;menu&quot;, &quot;popup&quot;, &quot;menuitem&quot;, &quot;0&quot;, &quot;value&quot;]</code>.  However, there is now one
+glitch. For <code>jq</code> to reconstruct the original JSON, the index <code>&quot;0&quot;</code> should be
+converted to <code>0</code>. This is what <code>map(tonumber? // .)</code> does.</p>
+<p>The <code>reduce</code> stage then starts to update an empty object <code>{}</code> in-place with the
+<code>setpath</code> function. As the flattening scheme produces an unique path expression
+for each property, every <code>setpath</code> call will recover one new property of the
+final output:</p>
+<pre><code class="language-json">{ &quot;menu&quot;: { &quot;id&quot;: &quot;file&quot; }
+{ &quot;menu&quot;: { &quot;id&quot;: &quot;file&quot;, &quot;value&quot;: &quot;File&quot; } }
+{ &quot;menu&quot;: { &quot;id&quot;: &quot;file&quot;, &quot;value&quot;: &quot;File&quot;, &quot;popup&quot;: { &quot;menuitem&quot;: [{ &quot;value&quot;: &quot;New&quot; }] } } } }
+...
+</code></pre>
+<h2 id="discussion">Discussion</h2>
+<p>Everything sure looks a-OK, but there is one major pitfall in the solution. In
+mathematical terms, the <code>json_flatten</code> function is not an
+<a href="https://en.wikipedia.org/wiki/Isomorphism"><em>isomorphism</em></a> between arbitrary
+JSON strings and flattened JSONs. In plain speak, there will be buggy inputs.</p>
+<p>To start with, consider the JSON</p>
+<pre><code class="language-json">{
+  &quot;root&quot;: {
+    &quot;some/path&quot;: true
+  }
+}
+</code></pre>
+<p>From the point of view of <code>json_flatten</code>, it is equivalent to</p>
+<pre><code class="language-json">{
+  &quot;root&quot;: {
+    &quot;some&quot;: {
+      &quot;path&quot;: true
+    }
+  }
+}
+</code></pre>
+<p>This problem could be fixed by URL-encoding the forward slash. However, as of
+version 1.6, there&rsquo;s no support for URL-decoding. An open <a href="https://github.com/stedolan/jq/issues/2261">GitHub
+issue</a> about this limitation exists.</p>
+<p>Then there is a far more serious issue. The JSON <code>{ &quot;root&quot;: { &quot;0&quot;: true } }</code> and
+<code>{ &quot;root&quot;: [true] }</code> are also equivalent inputs, and there is nothing that can
+be done about this without changing the specification of the flattening scheme.</p>
+<p>This is problematic as now there are inputs like this</p>
+<pre><code class="language-json">{
+  &quot;root&quot;: {
+    &quot;1e12&quot;: &quot;one malloc(gazillion) plz&quot;
+  }
+}
+</code></pre>
+<p>Sane JavaScript engines fall back to representing sparse arrays as hashmaps,
+saving us from a heap overflow. Do you dare to run <code>jq 'json_flatten | json_unflatten'</code> on that input?</p>
+<p>What to do? Well, Pinky, the same we do every time. We validate our input.  In
+mathematical speak, we redefine the domain of the mapping.  After all, numerical
+and path-like object keys are cornercases so it&rsquo;s perfectly fine to just reject
+inputs containing them.</p>
+<p>The end result <code>flatten.jq</code> with the above considerations reads in its entirety</p>
+<script src="https://gist.github.com/keksipurkki/2777ea78d1ddcfbb0edd48a1ee8d27a9.js"></script>
+<p>Notice the <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> line. You
+may make the above snippet an executable and invoke it as <code>./flatten.jq FILE</code> or
+<code>./flatten.jq FILE --args unflatten</code>.</p>
+<p>Where could this be useful? Like mentioned in the introduction, one place where
+shell scripting is still required is in writing glue code for apps running in
+Docker containers. A typical startup sequence of a Docker container is made of
+first fetching the application configuration from some data store as JSON and
+then starting the application. A strict <a href="https://12factor.net/config">Twelve-Factor
+App</a> approach requires that the configuration be
+exported to the application environment as environment variables. However, for
+most cases it suffices or is actually safer to just save the configuration as a
+JSON file and point the application to read it.</p>
+<p>In AWS, the configuration data store of choice is AWS Parameter Store. It stores
+data precisely using the flattened scheme and to reproduce the application
+configuration some form of the <em>unflatten</em> algorithm is required.  This is
+actually what prompted me to study <code>jq</code> in the first place.</p>
+<p>It&rsquo;s not difficult to do JSON massaging in Python, Perl, NodeJS or any scripting
+language like that. But since the unflattening algorithm is actually trivial, it
+is questionable why one should create a Docker image with hundreds of megabytes
+of extra junk just for manipulating JSON, especially if the main application is
+written in some non-scripting language like Java.</p>
+<p>As a side note, refactoring the configuration fetching logic to the main
+application is a no-no, as it unnecessarily pulls in the AWS SDK dependency to
+the main application.</p>
+<p>The deeper issue here is that it&rsquo;s actually really difficult to realize the goal
+of hardening an application runtime to bare minimum. The scripting languages,
+with their CVEs and the AWS SDK, creep in very easily.</p>
+<p>To tell you my honest opinion, we should all just script in Perl even though it
+sucks (I&rsquo;ve actually never tried it).  It&rsquo;s there in practically every Docker
+image like it or not. In an ideal world, we could just use <code>curl</code> and <code>jq</code> for
+the configuration fetching step. But in the AWS land, that would raise the
+question of how to authenticate the <code>curl</code> call without external dependencies.
+Well, I do not know yet. I suppose I have to return to that in another blog
+post. Ta-ta for now!</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2019 Elias A. Toivanen</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+<script
+  charset="UTF-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/languages/typescript.min.js"
+></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

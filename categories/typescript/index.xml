@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2019 Elias A. Toivanen</copyright>
-    <lastBuildDate>Sun, 30 Jun 2019 09:04:43 +0300</lastBuildDate>
-    
-	<atom:link href="https://www.keksipurkki.net/categories/typescript/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 30 Jun 2019 09:04:43 +0300</lastBuildDate><atom:link href="https://www.keksipurkki.net/categories/typescript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>N-dimensional arrays</title>
       <link>https://www.keksipurkki.net/posts/typescript-ndarray/</link>

@@ -7,11 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2019 Elias A. Toivanen</copyright>
-    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0200</lastBuildDate><atom:link href="https://www.keksipurkki.net/tags/jq/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/tags/jq/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Musings about JSON and jq</title>
       <link>https://www.keksipurkki.net/posts/jq-march-21/</link>
-      <pubDate>Sat, 06 Mar 2021 00:00:00 +0200</pubDate>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/jq-march-21/</guid>
       <description>Introduction Oh, JSON, JSON, JSON…what would the world be without you? Let me show you what I have learned recently about this ubiquitous data-interchange format. It turns out you can manipulate complex JSON strings on the command line with ease. This came to me as somewhat of a surprise as I always thought that JSON is fundamentally incompatible with traditional command line tools, the Unix filters cat, grep, sed and friends, that operate on ad hoc structured text files in a line-oriented fashion.</description>

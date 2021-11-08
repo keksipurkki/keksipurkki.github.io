@@ -46,6 +46,28 @@
     <link rel="canonical" href="https://www.keksipurkki.net/posts/vim-oct-2019/" />
 
 
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 <link rel="apple-touch-icon" href="/logo.png" />
 <link
@@ -140,7 +162,7 @@ that are not easy to explain in words.  Your fingers know them best.</p>
 <p>When I&rsquo;m at a developer cocktail party or just straight-up boozing at the
 office, the subject of editors comes up every now and then. I&rsquo;ve always disliked
 these discussions. I think <a href="https://xkcd.com/378/">xkcd</a> explains it best:</p>
-<p><img src="https://imgs.xkcd.com/comics/real_programmers.png" /></p>
+<img src="https://imgs.xkcd.com/comics/real_programmers.png" />
 <p>The whole dispute over who uses what is just absurd and makes for studies in
 sociology under the topic <em>cultural identification</em>; I see the editor as
 the sword that I wield against my enemies time and entropy.</p>

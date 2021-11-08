@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maths on Keksipurkki</title>
+    <link>https://www.keksipurkki.net/tags/maths/</link>
+    <description>Recent content in Maths on Keksipurkki</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>🍪 2019 Elias A. Toivanen</copyright>
+    <lastBuildDate>Mon, 08 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/tags/maths/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Do you need maths to be a software developer?</title>
+      <link>https://www.keksipurkki.net/posts/maths-and-programming/</link>
+      <pubDate>Mon, 08 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.keksipurkki.net/posts/maths-and-programming/</guid>
+      <description>Would it be time to give maths a second chance? Every now and then I come across social media campaigns and the like that aim to inspire non-techies to take on programming. While I praise their goal, these campaigns tend to have one thing in common that makes me cringe. They try to be inclusive at the cost perpetuating a misguided image of the role of maths in software development. The sentiment is that you do not need maths to become a software developer.</description>
+    </item>
+    
+  </channel>
+</rss>

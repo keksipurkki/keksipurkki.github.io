@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content="Maths,
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="Do you need maths to be a software developer?" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="https://www.keksipurkki.net/posts/maths-and-programming/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2021-11-08
+" /> <meta property="article:modified_time" content="2021-11-08
+" />
+
+
+<meta property="article:tag" content="Maths" />
+
+
+
+
+
+
+    <title>Do you need maths to be a software developer?</title>
+    <link rel="canonical" href="https://www.keksipurkki.net/posts/maths-and-programming/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="https://www.keksipurkki.net/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
+/>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="https://www.keksipurkki.net/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw7 center">
+    <h1 itemprop="name" id="title">Do you need maths to be a software developer?</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2021-11-08</a>
+      
+
+
+
+  
+  
+
+  <button class="dn dib-ns button-reset relative hide-child-alt">
+  <i class="fa fa-history mr1"></i>
+  <span>3 revisions</span>
+  <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
+    <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2021-11-08 23:29Z Done!</li>
+    
+      <li>2021-11-08 18:20Z Work</li>
+    
+      <li>2021-11-07 19:50Z Work</li>
+    
+    </ul>
+    <span class="absolute top-0 left-2 nt2 w1 h1 bg-white bl bt b--moon-gray rotate-45"></span>
+  </span>
+</button>
+
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <h2 id="would-it-be-time-to-give-maths-a-second-chance">Would it be time to give maths a second chance?</h2>
+<p>Every now and then I come across social media campaigns and the like that aim to
+inspire non-techies to take on programming. While I praise their goal, these
+campaigns tend to have one thing in common that makes me cringe. They try to be
+inclusive at the cost perpetuating a misguided image of the role of maths in
+software development. The sentiment is that you do not need maths to become a
+software developer.</p>
+<img style="float:right;" src="/find_x.jpg">
+<p>I do not spend my time at work looking for <em>x</em>. It is a rare occasion if I get
+to divide two numbers — after <code>null</code> and <code>NaN</code> checks of course. Practically
+none of the stuff I do at work requires any maths.</p>
+<p>So I have to concur that you do not really <em>need</em> maths for programming, but my
+gripe is that the question is so loaded with prejudices that a simple <em>no</em> for
+an answer is not sufficient. And I bet the INTJ death stare accompanying my
+answer does not lighten the atmosphere either.</p>
+<p>You see, I find maths absolutely crucial for programming <em>well</em>, and I doubt if
+people are really that bad at it in the end.</p>
+<p>Not that you can flip some switch and suddenly become a math wizard, but I think
+the whole thing just goes to show how people&rsquo;s perception of maths is based on
+unfortunate circumstances at school.</p>
+<p>The problem is that we let education systems define what being good at maths
+means at a very delicate stage in our development. Children are even divided
+into groups by adults based on their performance. If you suck by the education
+system standards, you are singled out, and their policy will not be to pick you
+up. They will either dumb down the lectures, which you will notice, or give you
+more of the same. If you are somebody who finds sitting still difficult, too bad
+for you! You will carry the &lsquo;I suck at maths&rsquo; label for the rest of your life.</p>
+<p>I cannot give you a hero&rsquo;s story in which I would have struggled with maths and
+finally, after much strife, would have excelled. I did not give the subject much
+of a thought before university, and those times I did, I found it fascinating.
+Then as an adult, I have gotten to the point where I can safely say that I am a
+happy dilettante with no real skills to actually tackle mathematical problems. I
+use camomile tea and YouTube math lectures as a natural substitute for Valium.</p>
+<p>So, I can only imagine what it feels like to learn to doubt your maths skills
+and consequently learn to detest the subject, for this is the pattern I see.
+There&rsquo;s the doubt and then there&rsquo;s the hate.</p>
+<p>It takes brains to do maths. Ours is a social one. Perhaps here lies the crux of
+the problem. The natural state of affairs is that kids learn social behavior in
+their peer group with adults being the caretakers who&rsquo;ll accept you back once
+the day is done. When kids socialize, the rules of the play emerge
+spontaneously. Kids practice negotiating social situations through play.</p>
+<p>Maths is different. Maths is abstract and its rules are not set by the peer
+group. The rules of maths are of the form &ldquo;given <em>X</em>, then <em>Y</em>.&rdquo; If you get
+stuck at <em>X</em>, you are asking for trouble. The whole point is that <strong>if</strong> <em>X</em>
+holds, then <em>Y</em> follows, and the proof is in the pudding. Never mind how <em>X</em>
+came to be.</p>
+<p>Associating difficulties in maths with difficulties in abstract thinking is a
+no-brainer, but the more I think about it, refusal of the basic formula of a
+mathematical statement seems to be the one problem that rules them all.</p>
+<p>First, there&rsquo;s the agony of getting stuck in irrelevant details. I have great
+many examples of this from my own life, but I want to share an anecdote from the
+world of adult education recounted to me by my mother who is a teacher. Her
+maths teacher colleague was going over the geometrical properties of the circle
+and illustrated them on the blackboard. The problem was she drew the circle in a
+sloppy way. One of the adult students raised their hand and pointed this out.
+The teacher assured that this is not a problem — we can assume that the circle
+is drawn perfectly. &ldquo;But why, I never thought of that!&rdquo;, replied the student.
+&ldquo;All my life I thought you had to draw shapes perfectly in order to study them!&rdquo;</p>
+<p>Another variation of the theme is difficulties accepting a proposition because
+of aversion of authority figures. I have met so many people in my life who claim
+they suck at maths because they were at odds with their maths teacher. I think
+this is a case where the person found it difficult to toggle between the maths
+and social contexts of their brain. If a child or a teenager tries to learn
+maths in the social mode, it will appear that it is the adult who &ldquo;sets the
+rules&rdquo; which is a conflict. &ldquo;I do not accept <em>X</em> because it was you who proposed
+it.&rdquo;</p>
+<p>A third and final example that in my experience bites us adults the hardest is
+of the form &lsquo;if not entertaining, then zero f*cks given.&rsquo; Kids and adults
+alike enjoy solving puzzles for a dopamine rush. Maths is also a treasure trove
+of interesting historical anecdotes that relate to technology, like the birth of
+geometry in ancient Egypt to deal with land disputes after the Nile flooded. The
+problem with puzzles and stories is that maths is not about them: it is about
+the connection between <em>X</em> and <em>Y</em>. To truly enjoy maths, you want to be rather
+high…in Maslow&rsquo;s hierarchy of needs 😅. You want to study maths for its own
+sake.</p>
+<p>So, let&rsquo;s do a bit of a reset and let go of the grudges against the poor maths
+teacher who is senile by now anyway. And let&rsquo;s not immediately assume there has
+to be some shiny prize at the end of doing a bit of maths. If you were to give
+maths a second chance, what should you know if you want to become a software
+developer?</p>
+<p>I think a lot of it boils down to developing your intuition not just about the
+craft of designing data structures and algorithms, but the world of abstract
+things as a whole. It is nice to see where programming sits in the universe of
+geekiness. I could probably write the rest of my life on this topic, but let
+me just develop a couple of arguments with pointers to interesting stuff I have
+encountered on my math lecture adventures.</p>
+<h2 id="it-is-not-so-different-from-software-design">It is not so different from software design</h2>
+<p>Maths is made of a multitude of disciplines. Some of them are more mainstream,
+some are more esoteric. Every discipline comes with its own concepts and theory.
+If you want an overview of how the different mainstream areas mesh together, you
+may watch this piece of awesomeness:
+<a href="https://www.youtube.com/watch?v=OmJ-4B-mS-Y">link</a>.</p>
+<p>In my experience, no mathematical result will help you directly to write a
+single line of code. And I have my doubts about every piece of software produced
+by academics. So you could just yell &ldquo;YAGNI: You ain&rsquo;t gonna need it.&rdquo;
+But hold on, remember we should not look solely for utility? Let&rsquo;s consider the
+good ol' format &lsquo;given <em>X</em>, then <em>Y</em>&rsquo; but with a twist. What happens if the <em>X</em>
+part gets more and more elaborate?</p>
+<p>For example:</p>
+<ul>
+<li>Given a set <em>G</em> and operation · satisfying the group laws, the tuple (G,·)
+forms a group.</li>
+<li>An abelian group is one for which <em>g<sub>i</sub>·g<sub>j</sub>=g<sub>j</sub>·g<sub>i</sub></em>
+for all group elements in <em>G</em>.</li>
+<li>Let <em>F</em> be a set. Given an additive abelian group (F,+) and multiplicative
+abelian group (F — {0}, ×), the tuple (F,+,×) forms a field.</li>
+</ul>
+<p>While every statement on the list is true, I hope that they are gibberish to
+you. Naming things concisely and expressively is hard not only when it comes to
+code. But the other side of the coin is that sometimes certain concepts just
+have to be understood before you can make further progress. If you want to
+understand what a field is, you first need to understand what an abelian group
+is. And to understand abelian groups, you need to understand groups in general.</p>
+<p>The classification and hierarchy of structures is what mathematics ends up
+being. We arrange the structures into levels of abstraction to see patterns that
+are otherwise lost in details. You can classify and arrange the pieces to see
+different patterns. It is ultimately up to you, as long as you are honest and
+stick to the <em>Y</em> follows from <em>X</em> format.</p>
+<p>All of this has a major bearing to writing software well. It is not so much the
+mathematical results but the art of thinking systematically at different levels
+of abstraction.</p>
+<p>It is for example important to understand the notion of <em>referential
+transparency</em> that states that you can search-and-replace, i.e. inline, the term
+<em>group laws</em> above with the <a href="https://en.wikipedia.org/wiki/Group_(mathematics)">actual equations that define a
+group</a>. It is equally
+important to understand that doing so will introduce unnecessary details to the
+discussion. You pick the level of abstraction that is suitable at every
+particular context.</p>
+<p>From software architect&rsquo;s point of view, it is also important to understand that
+there are many ways to layer and organize a software system. Some serve a
+functional purpose while others a non-functional one. Some are present at
+(micro)service level, some at class method level. It is like looking at a map at
+different resolutions or turning the whole map upside down. Or maybe let&rsquo;s not
+turn a map upside down, but you get the point.</p>
+<p>Another aspect of mathematical theories relates to the way in which they emerge.
+You see, mathematics is discovered, not invented. This too has a great parallel
+with software development, for the only way to construct a complex piece of
+software is to discover its laws that often times relate directly to the
+physical world around us.</p>
+<p>It is only by discovering the algorithms and data structures that you can
+distinguish between accidental and essential complexity, which is one of the
+core skills of a software developer. And when it comes to data in the real
+world, why would you reject mathematically battle tested structures over
+something you roll on your using magical strings?</p>
+<p>And what do we do when things go awry? Treating a program like a mathematical
+proof, we rewind the argument to a point where we still understand what is going
+on. We literally pause the execution of a program with a debugger and follow its
+execution step by step until the bug is found. It is not so different from
+following a mathematical proof.</p>
+<h2 id="in-programming-a-little-logic-goes-a-long-way">In programming, a little logic goes a long way</h2>
+<figure style="display:inline;width:45%;float:right;">
+  <img src="/cpu.png">
+  <figcaption><small>Source: <a href="https://youtu.be/cNN_tTXABUA">YouTube</a></small></figcaption>
+</figure>
+<p>A computer is essentially a device that has two components called CPU and RAM.
+The job of the CPU is to write and read bit sequences to and from the RAM. The
+job of the RAM is to store those bit sequences. The stream of bit sequences from
+the RAM to the CPU is made of instructions and data. The instructions tell the
+CPU how the data is to be manipulated.</p>
+<p>I bet if you are reading this blog post you are a tech-savvy person and knew
+this much. By inspecting the picture on the right, you can also infer that it&rsquo;s
+depicting a computer with a 8-bit architecture. That is, a computer that
+manipulates data one byte at a time.</p>
+<p>The actual computation inside the CPU happens practically instantaneously and it
+takes time to shuffle the bits around. And if we were to extend the discussion
+to hard drives and network, the timescales blow up big time. In reality, CPUs
+end up idling most of the time. It is a relatively rare occurrence for the CPU
+to do anything smart.</p>
+<p>And once the CPU has a hold of a piece of data, what can it do with it? Take the
+derivative? Compute an integral? The technicality to understand is that the CPU
+reads data to so-called registers. For example, the registers might be 16-bit
+wide so that the above 8-bit machine would require two reads to fill it with
+bits. For the computer to be feature complete, it needs to be able to first read
+data to its register and then, after manipulating it, write the modified content
+back to memory. A 16-bit register has <em>2<sup>16</sup></em> inputs that map to
+<em>2<sup>16</sup></em> outputs. That&rsquo;s it. In a way, the CPU does not know what it is
+doing beyond the instruction it is currently executing.</p>
+<p>It is the job of computer programs to store instructions in the correct order to
+produce meaningful bit sequences in the memory. What is the role of maths here?
+What are the instructions to transform e.g. a 16-bit sequence to any other
+16-bit sequence.</p>
+<p>The question can be understood in two ways. We can talk either about the
+instruction set, the total number of instructions that the CPU understands, or
+the number of instructions to sequence to compute the desired outcome. If you
+think about this for a while, you will realize that this is a balancing act. The
+two approaches are a design with a handful of instructions that need to be
+sequenced or a lot of specialized instructions that get a particular bit
+transformation done in one go.</p>
+<p>Taken to the extreme, one can actually realize a working computer with just <a href="https://en.wikipedia.org/wiki/One-instruction_set_computer">one
+instruction</a>:
+flipping bits one at a time. Sure, it will be retarded, but hey, no difficult
+maths was involved!</p>
+<p>So, here&rsquo;s an electrical engineer&rsquo;s take on maths in programming. Would you like
+to have a program that takes one gigabyte of hard disk on your smartphone and
+takes an eternity to run or one that takes up say a megabyte or two and runs
+hella fast?</p>
+<p>Introducing logic!</p>
+<p>Thanks to logic, we can design instruction sets that work universally. We can
+frame all &ldquo;computation&rdquo; that the CPU can do in terms of a handful of binary
+operations and the bit flip, also know as logical negation. Take for example the
+logical operation called <em>XOR</em>, the exclusive or. Its truth table is on the
+right.</p>
+<p>The <em>XOR</em> of <em>11111111</em> and <em>00000000</em> is computed bitwise and the answer is
+<em>11111111</em>. Now you can for example clear a register to all zero bits by
+computing the <em>XOR</em> of its content with itself.</p>
+<p>You can write down all the other possible truth tables by permuting the output
+bits: <em>2<sup>4</sup></em> in total. That would suggest that we would require 16
+instructions on two operands and the negation instruction plus the instructions
+for reading and writing to memory. The reality is a bit more nuanced. For
+example, you may not want to use the logical operation of <em>contradiction</em> and
+it turns out that many of logical operations are actually redundant.</p>
+<table
+style="float:right;text-align:center;table-layout:fixed;width:16em;height:10em">
+<tbody>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p XOR q</th>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0
+</td></tr></tbody></table>
+<p>I hope  you are convinced that kind of maths involved here is dead simple. You
+apply the same logical rules over and over again until the desired result has
+been achieved. Indeed, a little logic will go a long way.</p>
+<h2 id="theres-no-escaping-it">There&rsquo;s no escaping it</h2>
+<p>Let us finally take an intuitionistic stance to the topic. You cannot ultimately
+escape maths. No matter how much you dislike it, you still want to be understood
+by others, right? Turns out that programming and human languages are both
+instances of &ldquo;first-order predicate calculus&rdquo;. That&rsquo;s one of those fancy
+abstract maths words, but it just means &ldquo;the theory of logical languages of
+practical utility in the real world&rdquo;. For you to fit into a social group, you
+have to make sense of yourself. Some exceptions to the rule apply to the social
+contract of <a href="https://www.youtube.com/watch?v=_JmA2ClUvUY">infants</a>,
+<a href="https://www.youtube.com/watch?v=Z6uXbiYk8iU">drunkards</a> and <a href="https://youtu.be/s-mOy8VUEBkhttps://youtu.be/s-mOy8VUEBk">Danish
+people</a>.</p>
+<p>And since the act of forming any sentence involves maths, you start to wonder if
+we can even perceive anything at all that would not have some mathematical
+structure behind it. I can only imagine the most primordial of things like pain.
+But then again, doing maths makes my brain hurt some times&hellip;</p>
+<p>No matter how trivial, chaotic or random, mathematicians have tried to tackle
+it. Not that maths is a panacea. On the contrary, there are great many fields of
+maths that are so difficult that nobody has made any progress in over a century
+and consequently you can be as wise as the next door university professor just
+by understanding the problem statement.</p>
+<p>The <a href="https://www.youtube.com/watch?v=094y1Z2wpJg">Collatz conjecture</a> comes to
+my mind as a nice real world example. In general, buzzwords like &lsquo;nonlinearity&rsquo;,
+&lsquo;chaos&rsquo; and &lsquo;curse of dimensionality&rsquo; are all related to phenomena that we as a
+species just do not grasp very well. But do not be fooled by <em>randomness</em>.
+Probability theory is one of most beautiful things I have ever seen and that, my
+friend, we have locked down.</p>
+<p>Let&rsquo;s flip the script. There are aspects of reality that we understand
+effortlessly, some require practice, and the nonlinear bits trip us every time.
+Maths requires effort and is able to describe complexity to the extent that we
+can make sense of it. You do not really need maths in programming, because in
+general, we would like to craft systems that operate effortlessly. What is
+perhaps sometimes extra, we would like the users of our systems to also interact
+with them effortlessly — drunk infant Danes included.</p>
+<p>But you nonetheless need maths to understand what it means to be a human. Maths
+is the template language of human perception. It is the very language of
+cultural evolution with no allegiance to any culture in particular, making it
+resilient to human screw-ups like genocides.</p>
+<p>Fragments of clay tablets showing how arithmetic was done millennia ago may be
+hidden in the sand but are perfectly understandable once restored, just like
+the shards of silicon that we will leave behind for future hominids to wrap
+their heads around.</p>
+<h2 id="references">References</h2>
+<p>This blog would not have been possible if it were not for the following
+courses/lectures that I sincerely recommend for everybody who&rsquo;s is even mildly
+interested in the topics I addressed:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=p-ME3DW2BVg&amp;list=PLzVTusWerVcKx3crsij5wrRfIqWp3UXc7">S. Ben-David: Logic for CS</a></li>
+<li><a href="https://www.youtube.com/watch?v=j9WZyLZCBzs&amp;list=PLUl4u3cNGP61MdtwGTqZA0MreSaDybji8">John Tsitsiklis: Probabilistic Systems Analysis and Applied Probability </a></li>
+<li><a href="https://www.youtube.com/watch?v=IOiZatlZtGU">Propositions as Types&quot; by Philip Wadler</a></li>
+<li><a href="https://www.youtube.com/watch?v=VdLhQs_y_E8&amp;list=PLelIK3uylPMGzHBuR3hLMHrYfMqWWsmx5">Abstract algebra</a></li>
+<li><a href="https://www.youtube.com/watch?v=AAJB9l-HAZs">Frederic Schuller: Axioms of set Theory</a></li>
+<li><a href="https://www.youtube.com/watch?v=JH_Ou17_zyU">Bartosz Milewski: A Crash Course in Category Theory</a></li>
+</ul>
+<!-- vim: set spell : -->
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2019 Elias A. Toivanen</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+<script
+  charset="UTF-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/languages/typescript.min.js"
+></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

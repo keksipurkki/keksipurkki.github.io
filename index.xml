@@ -7,16 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2019 Elias A. Toivanen</copyright>
-    <lastBuildDate>Tue, 28 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Ones and zeros</title>
-      <link>https://www.keksipurkki.net/posts/ones-and-zeros/</link>
-      <pubDate>Tue, 28 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.keksipurkki.net/posts/ones-and-zeros/</guid>
-      <description>Text to bytes Bytes to a number  </description>
-    </item>
-    
+    <lastBuildDate>Mon, 08 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Do you need maths to be a software developer?</title>
       <link>https://www.keksipurkki.net/posts/maths-and-programming/</link>

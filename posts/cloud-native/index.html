@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="referrer" content="unsafe-url">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content="REST APIs,
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="What cloud native should mean" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="https://www.keksipurkki.net/posts/cloud-native/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2022-05-01
+" /> <meta property="article:modified_time" content="2022-05-01
+" />
+
+
+<meta property="article:tag" content="REST APIs" />
+
+
+
+
+
+
+    <title>What cloud native should mean</title>
+    <link rel="canonical" href="https://www.keksipurkki.net/posts/cloud-native/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="https://www.keksipurkki.net/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
+/>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="https://www.keksipurkki.net/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw8 center">
+    <h1 itemprop="name" id="title">What cloud native should mean</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2022-05-01</a>
+      
+
+
+
+  
+  
+
+  <button class="dn dib-ns button-reset relative hide-child-alt">
+  <i class="fa fa-history mr1"></i>
+  <span>4 revisions</span>
+  <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
+    <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2022-05-01 16:04Z Publish</li>
+    
+      <li>2022-05-01 16:02Z Cloud native blog post</li>
+    
+      <li>2021-11-08 23:29Z Done!</li>
+    
+      <li>2021-11-07 19:50Z Work</li>
+    
+    </ul>
+    <span class="absolute top-0 left-2 nt2 w1 h1 bg-white bl bt b--moon-gray rotate-45"></span>
+  </span>
+</button>
+
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <p class="pa2 mw7 f6 lh-copy i">
+  Cloud native is one of the buzzwords tossed around in the developer world. What
+does the term mean? Here&rsquo;s my take on what it should mean. Worst comes to worst,
+you still want to a develop an application that can be run end-to-end on your
+own machine?
+</p>
+<h2 id="introduction">Introduction</h2>
+<figure style="float:right; width:45%; margin-right: 0.25em;">
+  <img  alt="Cloud native" src="/cloud_native.png" />
+  <figcaption><small>A cloud native startup in the 2010s.</small></figcaption>
+</figure>
+<p>I first encountered the term <em>cloud native</em> when I saw a cartoon contrasting the
+arduous journey of an enterprise migrating to a cloud platform versus a cloud
+native startup for which deploying changes to production is merely a matter of
+executing <code>heroku deploy</code>. I associated the term with &ldquo;digital native,&rdquo; which in
+turn made me think about all the legacy concepts I still cling on to. To think
+that some developer nowadays have not ever used a rotary dial telephone! Do they
+even <code>listen(2)</code> anymore?</p>
+<p>This was sometime in the 2010s. Since then, a countably infinite number of
+<a href="https://www.youtube.com/watch?v=Uo3cL4nrGOk">JavaScript frameworks</a> have seen
+the daylight, and great many feature level bumps have been witnessed in the few
+software libraries that run the world. I wonder what happened to the gleeful
+cloud native startup given that 99% of them fail. Are we yet again facing a
+monster, conquerable only by a team of unicorns that bill <a href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">mythical man
+hours</a>?</p>
+<h2 id="cloud-native">Cloud native</h2>
+<p>In my opinion, there should be nothing vendor specific in so-called cloud native
+applications.  To me, the term refers to a set of characteristics that an
+application has that make it <em>integrate</em> seamlessly to a cloud platform such as
+Amazon Web Services, Azure or Google Cloud Platform. This means things like
+Infrastructure-as-Code, elastic scalability based on resource utilization and,
+on the operations side, support for application performance monitoring (APM).</p>
+<figure style="float:left; width:35%; margin-left: 0.25em;">
+  <img src="/sammon_puolustus.jpg" />
+  <figcaption><small>A mythical team of cross-functional unicorns working with a cloud native app gone wrong.</small></figcaption>
+</figure>
+<p>There is no exhaustive list for all the characteristics. Setting conceptual
+ambiguities aside, defining what cloud native means is also confounded by the
+fact that the cloud landscape — or should I say sky? — is changing all the time.
+In addition, we implement applications not for the sake of running them in the
+cloud but for some grander purpose. If the idea of cloud native is going to have
+any merit, it had better be to enable you to write the application you were
+asked to implement and nothing else. The cloud infrastructure should then
+provide solutions for the boring and tedious stuff: compute capacity, credential
+keystores, certificate management, log file storage…</p>
+<p>Boring and tedious…unless you are a nerd of course.</p>
+<p>Perhaps another way to approach the topic is to think about service
+availability. The root cause for unexpected service breaks during my career has
+been more often than not some fault in some part that is external to the
+software. Think log files consuming the whole hard drive as a classic example. A
+cloud native application done right is one that taps into the ostensibly
+unlimited capacity of the cloud infrastructure in an efficient way. The
+application then has the best changes of reaching the coveted industry-grade
+<a href="https://aws.amazon.com/blogs/publicsector/achieving-five-nines-cloud-justice-public-safety/">&ldquo;five nines&rdquo; (99,999%)</a>
+level of availability.</p>
+<p>In my opinion, a cloud native application gone wrong is one that is so tightly
+coupled to a given vendor that the application simply cannot be ported to any
+other environment without a complete rewrite. As always, the ease of
+implementing unit tests is a good indicator that tells you how well you have
+encapsulated the implementation details of your application. Accidental
+complexity in test setups and extensive use of mock objects signal that you
+should take out your refactoring hammer to make your application more SOLID.</p>
+<!--
+Every now and then I bump into blog posts and keynote speeches by software
+architects that are at a very high level of abstraction. This is obviously
+useful for communicating reusable patterns and illustrating the pros and cons of
+a particular approach. However, abstraction has the side effect that is also
+idealizes the software. On the flipside is the grunt work that is programming.
+Many times it is doo-doo that "flows" thru the CI/CD pipelines because the whole
+system is dependent on a humble shell script that has some weird OS specific
+glitch that you now need to debug. Here is a video about what I am talking
+about: [click](https://www.youtube.com/watch?v=M_jjG9K5KEo).
+-->
+<h2 id="technology-choices">Technology choices</h2>
+<p>The core technology in cloud native applications is Linux and its
+<a href="https://man7.org/linux/man-pages/man7/cgroups.7.html%60"><code>cgroups(7)</code></a>, the magic
+that makes <a href="https://docs.docker.com/get-started/">Docker</a> work. Now, there might
+be another reincarnation of a tool like Docker in the future, but as for now,
+what you do is build a Docker image and ask the cloud provider to run it. What
+you get is a fully isolated runtime environment for your application, i.e. a
+Docker container.</p>
+<p>This means that the choice of a programming language or any of its frameworks is
+largely irrelevant from the cloud point of view. To talk to your Docker
+container, you end up with a server one way or another. Servers receive
+information from multiple clients in bursts and in parallel. Our job is to write
+code that keeps the server busy as long as there is something useful to do. An
+idling CPU is a useless CPU.</p>
+<p>The baseline performance is naturally affected by the choice of the programming
+language. And from a design point of view, there is no need to rely on virtual
+machines like the JVM (Java Virtual Machine) if we can virtualize the execution
+environment with Docker. Indeed, it feels slightly silly to be writing code for
+a virtual machine that is running inside a virtual server — can we get real for
+a second?</p>
+<p>Counting one plus one, it would then appear to be advantageous to choose a
+language like Rust that simply compiles down to native machine code.</p>
+<p>However, I would argue that thinking along these lines solves a problem that
+does not exist. For one thing, the performance of a server application is
+limited by the slowest link of the network. If you can identify the runtime as a
+performance bottleneck, go for native code by all means. But in my experience,
+the big wins in server application performance are more about caching, batching
+and connection pooling and things of that nature. For the second, a programming
+language is not the same as its runtime. If need be, JVM applications can be
+compiled down to native code with tools like
+<a href="https://www.graalvm.org/">GraalVM</a>, and a similar approach can be chosen for
+all the other mainstream programming languages as well.</p>
+<h2 id="going-serverless-or-not">Going serverless or not</h2>
+<p>When it comes to cloud native applications, I think the proper dimension of
+technology choices has to do with how <em>serverless</em> the application should be. As
+I have experience mainly with AWS, I will focus on its offerings. The three
+possible AWS services for running applications are:</p>
+<ul>
+<li>EC2</li>
+<li>AWS Fargate</li>
+<li>AWS Lambda</li>
+</ul>
+<p>EC2 is the <a href="https://aws.amazon.com/blogs/aws/happy-15th-birthday-amazon-ec2/">oldest AWS
+service</a>. It
+enables you to provision a virtual server and take it from there. You SSH into
+the server and run your installation scripts as usual. Docker is an opt-in. The
+end result is <em>serverless</em> in the sense that you do not need to bother about the
+physical server machine.</p>
+<p>In AWS Fargate, the whole notion of a virtual server has been abstracted away.
+You only specify a Docker image and the resources to allocate for running it. In
+AWS Lambda, you forgo even specifying the Docker image and just give AWS a bunch
+of scripts that should be run in response to events (e.g. HTTP request).
+However, you should know that AWS Lambda too is based on Docker behind the
+scenes: the scripts are copied to a container right when it is about to start.</p>
+<p>EC2 is not really attractive anymore, as you end up in a situation that just
+like your traditional server except with the clunkiness of AWS. The decision
+between AWS Fargate and AWS Lambda is a difficult one. Both choices have their
+pros and cons.</p>
+<p>AWS Lambda lures developers with its simple and fast development model. It&rsquo;s not
+that different from good ol&rsquo; CGI scripting. The AWS Lambda images come equipped
+with the AWS SDK giving your application superpowers. It is for example trivial
+to send SMS messages, something I always felt fascinating.</p>
+<p>On the scalability side, every Lambda function has a
+<a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">reserved concurrency limit</a>,
+allowing AWS to control the amount function instances. What&rsquo;s more, you only pay
+for the seconds of actual execution time, so you do not pay anything if there is
+no load. For periodic workloads, like batch jobs, the saving potential is so
+huge that picking AWS Lambda is really a nobrainer.</p>
+<p>The main issue I see here is that AWS Lambda is such a proprietary platform that
+you end up with a vendor lock in no matter how well you layer and interface your
+application. The lambda scripts live in a tight symbiosis with AWS. I would not
+give AWS this amount of control even if things are super-duper on a clear day,
+especially if we are talking about a mission critical service. If the goal was
+to reach 99,999% availability and you or your government has beef with AWS, the
+level can go to 0% all too easily.</p>
+<p>A second problem that is also related to lack of control is related to network
+programming fundamentals. The claim is that building on top first principles is
+sound engineering and leads to an end result that has the best chances to be
+performant and therefore cost effective. Put another way, good performance is an
+aspect of software that is present at every level of it. Wildly executing
+scripts left and right can sure lead to responsive systems, but I am not so sure
+about the amount of inefficiency and consequent waste that this approach
+entails.</p>
+<p>I would therefore lean ultimately on AWS Fargate or any offering that has the
+same contract. If you&rsquo;re asked to write a server, write a server. And do not
+make it depend on any proprietary SDK directly. Whenever possible, the
+dependencies should be handled by relying on standard protocols. A good example
+is the way applications connect to databases. Even though the database might be
+managed by AWS RDS, your application code does not care about this detail. It
+simply expects to talk SQL with some database.</p>
+<h2 id="event-loop-as-a-framework">Event loop as a framework</h2>
+<p>So, let&rsquo;s write a server from first principles. As far as I know, the present
+way of thinking about servers dates back to the
+<a href="http://www.kegel.com/c10k.html">C10k problem</a> coined by Dan Kegel in 1999. The
+advent of broadband Internet access plans revealed fundamental scaling issues
+with the then-prevalent approaches. Apache&rsquo;s <em>one-process-per-request</em> and Javas
+Servlets&rsquo; <em>one-thread-per-request</em> models were both shown to have inferior
+scaling properties in comparison to an <em>event loop</em> approach.</p>
+<p>An oldie but goodie on network performance fundamentals is
+<a href="/scalable-networking.pdf">this presentation</a> by Felix von Leitner from 2003. It
+does not directly talk about event loops, but explains quite well the issues
+with other approaches. I became aware of event loops after watching
+<a href="https://www.youtube.com/watch?v=ztspvPYybIY">Ryan Dahl&rsquo;s original Node.js presentation</a>
+from JSConf of 2009. The presentation is a classic and alludes to the
+observations present in von Leitner&rsquo;s presentation. I might also point to the
+chapter on <a href="http://aosabook.org/en/nginx.html">nginx</a> in The Architecture of
+Open Source Applications as nginx was one of the first projects to go mainstream
+with the event loop approach.</p>
+<p>I am not going to explain how to program an event loop. I&rsquo;ll just point to
+<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">this guide</a>
+and <a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">this presentation</a>. Both of
+these refer to NodeJS/JavaScript but the ideas are fundamentally language
+agnostic. In essence, it is possible to tell the operating system to execute a callback
+function whenever a TCP socket receives bytes from the network. The relevant
+syscall family in Linux goes by the name of
+<a href="https://man7.org/linux/man-pages/man7/epoll.7.html"><code>epoll(7)</code></a>.</p>
+<p>The fundamental part here is that there is a natural <em>inversion of control
+(IoC)</em> when it comes to server software. Instead of &ldquo;as a software architect, it
+is my responsibility to come up with a scalable system&rdquo;, you think &ldquo;I have a
+chunk of bytes from a client. What happens next?&rdquo;. The shift in thinking is
+literally about having the network and ultimately the thought processes of human
+beings drive the control flow of the server.</p>
+<p>I have read many blogs posts about if you really need a software framework for
+implementing the application you have been asked to write. When it comes to
+servers, the answer is resounding <em>yes</em>. What you need is a framework with an
+event loop. It is the only honest way to implement servers.</p>
+<p>The scaling properties of the event loop approach are just phenomenal. And to
+top it all, the event loop callback queue can be executed on a single thread.
+This completely obviates concurrency hazards that plague many multithreaded
+server applications. As long as the callbacks are chained together in the
+correct order and execute individually fast enough, the server keeps on churning
+requests to responses in a highly asynchronous manner.</p>
+<p>I have been a fan of NodeJS throughout my career and I can finally point out the
+reason. You see, JavaScript has had a specification of an event loop from day,
+as it was originally meant to spice up web browsers. As pointed out in e.g.
+Brian Goetz&rsquo;s <a href="https://jcip.net">Java Concurreny in Practice</a>, nobody has
+figured out how to write a robust GUI framework without an event loop.</p>
+<figure style="float:right; width:45%; margin-right: 0.25em;">
+  <img alt="Sampo" src="/sampo.jpg" />
+  <figcaption><small>The build stage of a CI/CD pipeline in the olden times.</small></figcaption>
+</figure>
+<p>However, it was the brilliant realisation of Ryan Dahl that he could take the
+specification of the JavaScript event loop and stick the <code>epoll(7)</code> bits in
+there. The elegance of this is that event loop framework is already baked in the
+NodeJS runtime itself and you do not have to patch the language with a library
+as with all the other mainstream languages.</p>
+<h2 id="concluding-remarks">Concluding remarks</h2>
+<p>In this blog post I put together some of the ideas I have developed over the
+years about programming in the cloud and servers in general. My AWS journey
+began in 2018, and perhaps an overarching lesson has been that <a href="https://en.wiktionary.org/wiki/tuli_on_hyv%C3%A4_renki,_mutta_huono_is%C3%A4nt%C3%A4">fire is a good
+servant but a bad master</a>
+as the Finnish expression goes.</p>
+<p>It is all too easy to give cloud providers too much control of your application,
+and I do not particularly like the way in which governments are sleeping at the
+helm when it comes to their national ICT infrastructure. And I hope that the
+codebase of the startup of the 2010s is clean — even though I have my doubts.</p>
+<p>Be it as it may, engineering like life is about finding a balance. In truth, I
+find the idea of application containerization so natural that I have
+difficulties thinking about my job without it. Perhaps I am a digital native in
+the end?</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2022 Elias A. Toivanen</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+<script
+  charset="UTF-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/languages/typescript.min.js"
+></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

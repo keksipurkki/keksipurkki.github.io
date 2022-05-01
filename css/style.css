@@ -132,3 +132,7 @@ blockquote p {
   transition: all .15s ease-in;
   z-index: 1;
 }
+
+figcaption {
+  line-height: 1;
+}

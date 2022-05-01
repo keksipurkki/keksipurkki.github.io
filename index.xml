@@ -6,7 +6,7 @@
     <description>Recent content on Keksipurkki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>🍪 2019 Elias A. Toivanen</copyright>
+    <copyright>🍪 2022 Elias A. Toivanen</copyright>
     <lastBuildDate>Mon, 08 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Do you need maths to be a software developer?</title>
@@ -79,6 +79,15 @@ On a personal note, one of the highlights of the year was that I left Europe for
       
       <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
       <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.keksipurkki.net/posts/5-steps-to-better-code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.keksipurkki.net/posts/5-steps-to-better-code/</guid>
+      <description></description>
     </item>
     
   </channel>

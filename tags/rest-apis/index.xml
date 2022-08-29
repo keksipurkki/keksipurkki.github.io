@@ -14,7 +14,7 @@
       <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://www.keksipurkki.net/posts/cloud-native/</guid>
-      <description>Cloud native is one of the buzzwords tossed around in the developer world. What does the term mean? Here&amp;rsquo;s my take on what it should mean. Worst comes to worst, you still want to a develop an application that can be run end-to-end on your own machine? Introduction A cloud native startup in the 2010s.  I first encountered the term cloud native when I saw a cartoon contrasting the arduous journey of an enterprise migrating to a cloud platform versus a cloud native startup for which deploying changes to production is merely a matter of executing heroku deploy.</description>
+      <description>Cloud native is one of the buzzwords tossed around in the developer world. What does the term mean? Here&amp;rsquo;s my take on what it should mean. Worst comes to worst, you still want to a develop an application that can be run end-to-end on your own machine? Introduction A cloud native startup in the 2010s. I first encountered the term cloud native when I saw a cartoon contrasting the arduous journey of an enterprise migrating to a cloud platform versus a cloud native startup for which deploying changes to production is merely a matter of executing heroku deploy.</description>
     </item>
     
   </channel>

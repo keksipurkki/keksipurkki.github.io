@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2022 Elias A. Toivanen</copyright>
-    <lastBuildDate>Mon, 29 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>On programming well</title>
+      <link>https://www.keksipurkki.net/posts/better-code-nov-2022/</link>
+      <pubDate>Tue, 29 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.keksipurkki.net/posts/better-code-nov-2022/</guid>
+      <description>Data is king The light-emitting diodes of a display under a microscope. Although I could describe my work by saying that I write code, the end result does not somehow really even matter compared to the data the code processes. There is a fundamental duality between code and data. Code is either correct or incorrect — black and white so to speak. Data on the other hand is very colorful and often beautiful.</description>
+    </item>
+    
     <item>
       <title>Scrum: Stages of Grief</title>
       <link>https://www.keksipurkki.net/posts/scrum-08-2022/</link>

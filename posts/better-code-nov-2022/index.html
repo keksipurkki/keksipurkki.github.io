@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="referrer" content="unsafe-url">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content=",
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="On programming well" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="https://www.keksipurkki.net/posts/better-code-nov-2022/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2022-11-29
+" /> <meta property="article:modified_time" content="2022-11-29
+" />
+
+
+<meta property="article:tag" content="" />
+
+
+
+
+
+
+    <title>On programming well</title>
+    <link rel="canonical" href="https://www.keksipurkki.net/posts/better-code-nov-2022/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="https://www.keksipurkki.net/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
+/>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="https://www.keksipurkki.net/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw8 center">
+    <h1 itemprop="name" id="title">On programming well</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2022-11-29</a>
+      
+
+
+
+  
+  
+
+  <button class="dn dib-ns button-reset relative hide-child-alt">
+  <i class="fa fa-history mr1"></i>
+  <span>1 revisions</span>
+  <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
+    <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2022-11-29 17:31Z On programming well (Nov 2022)</li>
+    
+    </ul>
+    <span class="absolute top-0 left-2 nt2 w1 h1 bg-white bl bt b--moon-gray rotate-45"></span>
+  </span>
+</button>
+
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <h2 id="data-is-king">Data is king</h2>
+<figure style="float:right; width:40%; margin-right: 0.25em;">
+  <img alt="Red green and blue" src="https://upload.wikimedia.org/wikipedia/commons/4/42/LED_Display_under_microscope.png" />
+  <figcaption><small>The light-emitting diodes of a display under a microscope.</small></figcaption>
+</figure>
+<p>Although I could describe my work by saying that I write code, the end result
+does not somehow really even matter compared to the data the code processes.
+There is a fundamental duality between code and data. Code is either correct or
+incorrect — black and white so to speak. Data on the other hand is very colorful
+and often beautiful. Sometimes quite literally. When seen as data, an image is
+nothing else than a collection of intensity values for the red, green and blue
+diodes for a display.</p>
+<p>Data is also in some sense something that is real, while code is invisible and
+something you can forget about — as long as it works correctly. Besides, the
+data in my line of work is of immense value. You see, in banking &ldquo;cash is king&rdquo;
+and data is basically money.</p>
+<p>I cannot give you a formal proof of correctness of anything I&rsquo;ve written. The
+code seems to be correct to the extent that I do not worry about it at night.
+Sometimes code reaches 100% correctness when all its bugs are declared to be
+features. But other than that, how does one write a piece of code that works
+well?</p>
+<p>A good starting point is to understand that you, the developer, are a conduit
+between the real and the digital world not unlike the shamans of the past. It is
+your understanding of the digital world that determines how well the software is
+going to work in real life and vice versa. The way in which this understanding
+manifests itself has a lot do with data. The only practical way to verify the
+correctness of a complex program is to examine the data flowing in it.</p>
+<p>It&rsquo;s an evergreen wisdom in software development that you should &ldquo;fold knowledge
+into data, so programming logic can be stupid and robust&rdquo; as described by the
+legendary Eric S. Raymond in The Art of Unix Programming. The more I think about
+it, the more I like this statement and the more multifaceted it feels. I decided
+to pick three aspects for this blog post: first is the level of domain-driven
+design, the second is the ease of writing code, and the last point is how to put
+the pieces together.</p>
+<h2 id="domain-driven-design">Domain-driven design</h2>
+<p>The standard way to design enterprise software is to have it <em>model</em> something
+in the real world by using data objects that encapsulate terms and ideas from
+the business domain. The idea is to produce a system that is a reflection of its
+business requirements. While <em>domain-driven design (DDD)</em> continues to be a
+sound way to approach enterprise software, the way in which software is actually
+produced has started to change — hopefully for the better.</p>
+<p>As digitalization has seeped deeper into our lives and the first generation of
+&ldquo;smartphone native&rdquo; people enter the workforce, the software we produce does not
+just merely model reality, it is increasingly an integral part of it. When a
+child born in the 2010s was shown a floppy disk and asked what it is, their
+answer was: &ldquo;Somebody made a toy of the save button.&rdquo; There will become a point
+when nobody will understand the anecdote. The notion of a floppy disk will be
+forever fossilized as a symbol for saving.</p>
+<p>When there is then nothing to model, the business requirements must be expressed
+in some other way. In particular, separating the developers from the business
+end and having them imitate it is more and more a losing proposition and my
+first guess at why so many software projects keep on failing.</p>
+<p>Instead, I see that winning businesses embrace the shamanic qualities of the
+developer. The developers are supposed to create and shape the digital world,
+not model some obsolete process of past millennia. I understand that this is a
+tall order, and I haven&rsquo;t yet seen a job ad that would state &ldquo;creation of
+reality&rdquo; as one of the duties. But then again, I suppose this is the evil
+machination at the core of Mark Zuckerberg&rsquo;s Metaverse.</p>
+<p>Be it as it may, the target for writing a good piece of software remains. It
+should exploit and reflect the data structures of its domain, and the extent
+that the software developers truly understand the name of the game is of crucial
+importance. What does this mean in practice?</p>
+<p>A repeating theme in software development is that we humans can really solve a
+problem only if it&rsquo;s of the &ldquo;divide and conquer&rdquo; nature. We may dabble with
+other classes of problems, but so far there has not been a &ldquo;cure for cancer.&rdquo; If
+a problem can be divided into sub-problems, the sub-problems can be solved not
+only one at a time but also collaboratively by teams of people. The sub-problems
+work the same way. If they can be decomposed to their constituents, the process
+continues. Think about the TCP/IP stack for example. It has this structure. At
+the leaf level the &ldquo;solutions&rdquo; are about data that instructs the computer to do
+interesting side effects. What else can a computer really do?</p>
+<p>While it&rsquo;s important to have the <em>model objects</em> right, this only gets you so
+far. The big wins of understanding the domain is that you get to delineate the
+first line of division to sub-problems you are solving. The definitive textbook
+on the topic is by Eric Evans and goes by the name <em>Domain-Driven Design:
+Tackling Complexity in the Heart of Software</em> published in 2003. Truth to be
+told, I have not read it, and from what I have gathered, the book is a
+long-winded affair.</p>
+<p>However, I know that the book defines the term <em>bounded context</em> which people
+say is the most important concept in it. It is easy to describe what it means. A
+bounded context represents some kind of an independent subsystem of a bigger
+system. Figuring out what the bounded contexts are in practice is another
+matter.</p>
+<figure style="float:left; width:30%; margin-left: 0.25em;">
+  <img alt="David of Michelangelo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/%27David%27_by_Michelangelo_Fir_JBU013.jpg/400px-%27David%27_by_Michelangelo_Fir_JBU013.jpg" />
+  <figcaption><small>David looks a bit fearful but it's not because of a messy
+  codebase.
+  </small></figcaption>
+</figure>
+<p>The discovery of a bounded context is best recognized as an emergent process and
+requires a high degree of trust between developers, architects, business people
+and domain experts. To pick just one of the bones of contention: from the
+business point of view, quick entry to market is a matter of life and death and
+the middle part of the software life cycle is a worry for another day.
+Experienced software developers know the business is heading to a tar pit,
+because the cost of change rises exponentially with time. They know that code
+starts to solidify and getting the fundamentals right can be attempted only
+once. The fear is that what should have been the equivalent of David of
+Michelangelo ends up having its most masculine subsystem protrude from the
+forehead.</p>
+<p>It requires an extraordinary team of people to to resolve the conflicts. The
+best way seems to do what they have done in the emerging whiskey scene of
+Finland. One can sell gin while the whiskey is in the barrels.</p>
+<p>Finally, bounded contexts are not a silver bullet. It may be impossible to
+define them if the business itself is still emerging. For this reason I think it
+is almost impossible to write code of the highest quality in a startup context.
+Also, many large businesses seem to be completely fine with a monolithic
+approach to software design. A good example is
+<a href="https://stackexchange.com/performance">StackOverflow.com</a>. The key is to not
+approach software design mindlessly and understand that a domain-driven design
+pays big dividends if implemented correctly. Dividing software components
+willy-nilly leads to the same outcome as blindly imitating a business without a
+thorough analysis of its boundaries. The outcome can be a mess that no amount of
+code formatting can fix.</p>
+<h2 id="when-code-starts-to-whisper">When code starts to whisper</h2>
+<p>When I code something non-trivial, there always comes a distinct moment where
+all the pieces, code and data, sort of snap together and the damn thing
+compiles. A mysterious force akin to magnetism takes over, aligning and
+directing the flow of data. It is as though no computation actually ever
+happens. Whenever there&rsquo;s a question, there&rsquo;s an answer that can be constructed
+from the data at hand. An electrical engineer would perhaps say that the circuit
+closes. A psychologist would say that my mind is in the flow state.</p>
+<p>It is a highly satisfying experience, and it is joys like this that makes
+programming uniquely rewarding. Data is ultimately made of bits, ones and zeros.
+Like an ant, each bit is individually meaningless and miniscule. Like a child
+marvelling at an ant colony, I am delighted to see the data in my program flow
+effortlessly and produce the expected output. I do not frankly understand why so
+few people become software developers. It is like you get to work for your
+internal child instead of some parent called the boss.</p>
+<p>It pays to emphasize that nothing good comes from negative thinking. Programming
+well requires a lot of effort but I suppose the trick is to not think about it
+that way. I think that programming should be effortless. I have also observed
+that I have a tendency to remove myself from the picture. It is not me writing
+the code; the code writes itself. It whispers to me. Crazy, I know.</p>
+<p>The act of programming well has a lot to do with visualizing code and forming
+hypotheses. I&rsquo;ve understood visualization is also a core practice in other
+disciplines. It is pleasant to actually see on the screen something that existed
+in your mind in the morning. Similarly, it feels good to validate your
+hypothesis in the affirmative. Being proven wrong in the programming world is
+not that unpleasant either. You learn something new that makes your next
+hypothesis that much better.</p>
+<p>It seems to me that I leverage my experience by ignoring a lot of the
+unnecessary details that I know are getting in the way. Too much information
+wrecks productivity. Sure enough I have difficulties to focus every now and
+then, but I have also taken drastic countermeasures to not be distracted. For
+example, I have gotten to the point where I do not use (much of) syntax
+highlighting in my editor anymore. Colors hurt my eyes. Code should be black and
+white and the colors that I see are the traffic lights of the test suite.</p>
+<p>In short, programming well requires that you are in the zone. Rather than being
+overwhelmed by external stimuli, your mind takes in only that part that is
+relevant for you to have an internal dialogue of what should done and then doing
+just that, in your terms and at the pace that suits you. Caveat: you will lose
+track of time.</p>
+<h2 id="composition">Composition</h2>
+<p>Got your mind in the right place and a solid understanding of a bounded context
+for your next microservice. Great! It is almost done except for actually
+programming it. I want to describe how I go about it in a bit more detail and
+how the &ldquo;snapping effect&rdquo; comes about. What follows is basically a speedrun of
+Clean Architecture by Robert C. Martin but with my idiosyncrasies thrown in.</p>
+<p>The starting point is to have the domain objects fleshed out. These are your
+<code>User</code>, <code>Pet</code>, <code>PetCategory</code> and so forth. An object-oriented programming
+textbook would then instruct to start thinking about what kind of messages these
+objects could send to each other. However, as anybody that has worked with big
+systems knows, this is a dead end, precisely because we want to verify the
+correctness of the system by examining the data flowing in it. To do that, the
+domain objects need to be serializable (to JSON). Data does not talk, it flows.</p>
+<p>That is why we typically end up with the so-called <em>anemic domain model</em> in
+which you only have a redundant layer or getter methods to access data. An
+immutable record sounds much better so let&rsquo;s do some rebranding — it is
+basically the same thing but remember that nothing good comes from negative
+thinking.</p>
+<p>In addition to having readable names, the value of domain objects comes from the
+ability to control how they are constructed. The idea is that the construction
+of a domain object is kind of a gate between potentially dangerous data from the
+external world to the sanitized internal world of the application. The contract
+is that whenever there&rsquo;s an instance of a <code>Pet</code>, it is unnecessary to null-check
+its fields anymore. You do not constantly worry if Fluffy has its tail missing,
+do you?</p>
+<p>In practice, I tend to declare the constructor private and have it only bind
+values to the fields of the data structure, following the guideline
+&ldquo;constructors do no work.&rdquo; It is then the job of static factory methods to
+describe all the supported ways in which the object can be constructed. Standard
+best practices apply: you can remove runtime assertions by leveraging static
+typing and benefit from the flexibility of polymorphism by depending on
+interfaces, not concrete implementations.</p>
+<p>The story of the domain object is therefore not what kind of messages it can
+receive and send. It is the story of how it can be constructed. The story has a
+second chapter which tells what kind of relations the object has. In practices,
+the predicate function over the domain object are best implemented as methods of
+domain object. Coincidentally, these are precisely the ingredients that define a
+1st order logic. You have objects and their relations.</p>
+<p>Taking a view on all the data, the process of creating the domain objects
+divides it into sets of &lsquo;good&rsquo; and &lsquo;bad&rsquo; data. It then follows that functions
+operating on the domain objects can rely on sort of an implicit certificate. The
+inputs were OK upon invocation. In contrast, if there&rsquo;s a function with a string
+argument as so often happens, one should ask if the parameter should be named
+<code>attackerControlled</code>. See for yourself in your codebase how deep to the system
+raw user input can travel.</p>
+<p>Settling on interfaces that only depend on the domain objects directs the
+codebase into two directions. It necessitates some kind of a cleansing layer to
+be implemented. When input from the user comes in, it is validated by feeding it
+to the factory methods. That would be the controller layer or anything of that
+nature. I think of it as the &lsquo;protective shell&rsquo;. The other direction is to think
+about how the internals of system can be designed to be stable over time.</p>
+<p>In software development, reusability is basically the same thing as
+composability. The way I have approached this so far has been through an <em>ad
+hoc</em> analysis of all the ways the domain objects snap together to produce some
+more interesting results. This then gives you functions like
+<code>Bill sell(User buyer, Pet pet)</code>, <code>Invoice invoice(Bill bill)</code> where perhaps an
+invoice object can be converted to a PDF document. I remember once working for
+months with a project to discover that I had ultimately come up with a way to do
+the most complicated ETL job of the business with a single line of code by
+composing the right function calls together. Everything just snapped together. I
+had just the right pieces.</p>
+<h2 id="concluding-remarks">Concluding remarks</h2>
+<p>I was proud of the ETL code. It ended up in the trash bin, though. While the end
+result was spanking clean, the problem with an <em>ad hoc</em> approach is that the end
+result is fragile when business requirements change. There will be an urge to
+sacrifice the interfaces and stick just one boolean or string argument
+somewhere, causing a painful ripple effect in the test suite that does not
+compile anymore. Often this is because it takes effort to understand the
+abstraction. The cleaner it looks, the more effectively it hides complexity that
+nonetheless exists. Meanwhile, many developers would just like to get the job
+done and forgo a week-long analysis of the source code.</p>
+<p>I think it&rsquo;s in this context where functional programming ideas come into play.
+Rather than having an <em>ad hoc</em> collection of service interfaces, why not ask the
+even more abstract question of how to compose data types in general? We
+understand the process of solving a problem in software development as a process
+of decomposition. It is then only natural to ask what are the natural ways to
+compose things back together.</p>
+<p>One of the most recent developments in my programming career has been to get to
+know <em>algebraic data types</em>, as lectured by
+<a href="https://www.youtube.com/watch?v=w1WMykh7AxA">Dr. Bartosz Milewski</a> among other
+FP wizards. I must admit though that I usually fall asleep while watching
+Milewski&rsquo;s lectures, which is not an unhappy end result either.</p>
+<p>Anybody who has spent a lot time with C++ template metaprogramming or TypeScript
+knows there is something more to data types than is generally understood in
+mainstream software development circles. I touched on this topic in my
+<a href="https://www.keksipurkki.net/posts/typescript-redux-types/">ReactJS/Redux</a> blog.</p>
+<p>Turns out that there are ways in which you can take types like <code>User</code> and <code>Pet</code>
+and form meaningful types <code>User + Pet</code> and <code>User * Pet</code>. You can further go on
+to write equations on data types and solve them. The mathematical structure of
+these algebraic data types is a
+<a href="https://en.wikipedia.org/wiki/Semiring">semiring</a>.</p>
+<figure style="float:right; width:30%; margin-right: 0.25em;">
+  <img alt="Bartosz Milewski" src="https://corecursive.com/assets/generated/035/action-315-43c354be4.webp" />
+  <figcaption><small>Algebraic data types with Dr. Bartosz Milewski. Verdict: Good shit.</small></figcaption>
+</figure>
+<p>Dr Milewski&rsquo;s claim is that this is the missing piece when designing reusable
+code. Once mastered, the composition rules are fully general and at disposal in
+every codebase. Think of them as some kind of design patterns from eternity. It
+is interesting to see how the story of <em>algebraic data types</em> unfolds in my
+career.</p>
+<p>I would like to conclude by stating that programming well is about understanding
+data one way or the other. We do not generally write software for the sake of
+software. It is the revenue of a business that puts food on the table. Best
+programmers go out of their way and try to actively understand what is expected
+of the software. Then they encode that understanding to the data types of the
+software. Secondly, if you are going to be doing this for decades, it had better
+be fun. Finally, best programmers understand the process of decomposing and
+composing data both intuitively and at a theoretical level. Programming well is
+never about internalizing a fixed set of rules. You create the rules in the form
+of code. The data is then all that can be produced by running the code over and
+over again. If the code answers to all the questions posed to it, it is good
+code.</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2022 Elias A. Toivanen</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+<script
+  charset="UTF-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/languages/typescript.min.js"
+></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

@@ -112,9 +112,11 @@
 
   <button class="dn dib-ns button-reset relative hide-child-alt">
   <i class="fa fa-history mr1"></i>
-  <span>5 revisions</span>
+  <span>6 revisions</span>
   <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
     <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-04-27 15:04Z Style and polishing</li>
     
       <li>2023-04-27 14:20Z Add figures</li>
     
@@ -140,9 +142,9 @@
         <p class="pa2 mw7 f6 lh-copy i">
   I put on my monocle and top hat and booked a ticket to London to attend my first
 <a href="https://apiconference.net/app">conference</a>. The topic of the conference was
-APIs, i.e.  the stuff I develop and design at work. The trip took place in late
+APIs, i.e. the stuff I develop and design at work. The trip took place in late
 April 2023 under the auspices of my employer, OP Financial Group. I attended a
-dozen or so lectures.  What follows are the highlights of three of them.
+dozen or so lectures. What follows are the highlights of three of them.
 </p>
 <h4 id="the-myth-of-api-monetization---and-how-companies-really-create-business-value-with-apis">The Myth of API Monetization - and How Companies Really Create Business Value With APIs</h4>
 <figure style="float:right; width:40%; margin-right: 0.25em;">
@@ -156,7 +158,7 @@ the price tag is \$100 per month. Access for enterprises costs \$42,000 per mont
 Ouch!</p>
 <p>The lecturer, <a href="https://api-university.com/start/team/">Matthias Biehl</a> from
 API-University.com, advised against blindly following the big tech and aiming at
-this kind of direct monetization.  Instead, one should look at the business
+this kind of direct monetization. Instead, one should look at the business
 model of a company as a whole and take it from there. It is more often the case
 that companies can make good money out of their APIs through indirect means.</p>
 <p>Well, kind of obvious, I thought to myself. But then again, I started to think
@@ -164,14 +166,14 @@ about the generic developer organization that is separated from the business end
 to its own unit — something I criticized in my <a href="/posts/better-code-nov-2022/">previous
 post</a>. Without visibility to production and not
 having compensation levels that reflect the bottom line of the business, the
-developers are in danger of adopting a &ldquo;cost center mentality.&rdquo; It is then very
+developers are in danger of adopting a &ldquo;cost center mentality&rdquo;. It is then very
 difficult to see how APIs can generate income.</p>
 <p>This realization in turn made me rather grateful for the way our business unit
 at OP is organized. Stress-free it is not, but you get to see how a bank
-operates from close range which is basically a mental exercise in following the
-multiple levels of indirections of money as it circulates in the economy. The
-agile demos we have typically involve a segment called the &ldquo;latest figures&rdquo; from
-the business side. Heck, nowadays I even know what &ldquo;top line&rdquo; means!</p>
+operates from a close range. It is basically a mental exercise in following the
+causal chain of money as it circulates in the economy. The agile demos we have
+typically involve a segment called the &ldquo;latest figures&rdquo; from the business side.
+Heck, nowadays I even know what &ldquo;top line&rdquo; means!</p>
 <p>The lecture provided me with a nice closure to the debates I have had with my
 colleagues over the years. You see, there was a time when I wanted to design
 APIs for the sake of APIs. And I truly believed that we could profit from my
@@ -211,23 +213,22 @@ segmentation that are highly relevant topics in banking.</p>
 <p>A particular highlight of the lecture was the mentioning of
 <a href="https://owasp.org/www-project-top-ten/">OWASP</a>. If API security is a topic that
 you find daunting and too abstract, I definitely recommend checking out
-<a href="https://github.com/Checkmarx/capital">Checkmarx</a>. It is basically a
-puzzle/reference app that provides you with a concrete examples of what
-vulnerabilities look like in practice.</p>
+<a href="https://github.com/Checkmarx/capital">Checkmarx</a>. It is a puzzle/reference app
+that provides you with a concrete examples of what vulnerabilities look like in
+practice.</p>
 <p>We have worked hard to harden the security of our APIs. This is required already
 by legislation such as the PSD2 directive. I felt therefore relieved that our
-public APIs at OP tick basically all the boxes when it came to the best
-practices presented by Erez. Perhaps this goes to show that &ldquo;what gets
-regulated, gets done.&rdquo;</p>
-<p>Another mark of API security maturity has to do with the old adage &ldquo;what is
-measured, gets managed.&rdquo; If I was to audit an API, I would not look at the code;
-I would audit the ways of working of the development team.</p>
-<p>You see, it takes keen eyes to spot a line of code that is exploitable, and it&rsquo;s
-the nature of a human being to become blind to code. It therefore takes a joint
-effort by a team software developers to build secure APIs.  Basically, you have
-to have the mindset of a baddie to be a goodie. Given that most teams cannot
-even agree on whether to use tabs or spaces for indentation, is it then any
-wonder that the products they ship are infested with security issues?</p>
+public APIs at OP tick all the boxes when it came to the best practices
+presented by Erez. This goes to show that &ldquo;what gets regulated, gets done.&rdquo;</p>
+<p>A final and perhaps the most important aspect of API security has to do with the
+old adage &ldquo;what is measured, gets managed.&rdquo; If I was to audit an API, I would
+not focus on the code; I would audit the ways of working of the development
+team. You see, it takes keen eyes to spot a line of code that is exploitable,
+and it&rsquo;s human nature to become blind to code. It therefore takes a joint effort
+by a team software developers to build secure APIs. Basically, you have to have
+the mindset of a baddie to be a goodie. Given that most teams cannot even agree
+on whether to use tabs or spaces for indentation, is it then any wonder that the
+products they ship are infested with security issues?</p>
 <h3 id="browsers-are-the-new-containers">Browsers are the new containers!</h3>
 <figure style="float:left; width:40%; margin-left: 0.25em;">
   <img alt="Matrix meme" src="/free_cloud.jpg" />
@@ -274,7 +275,7 @@ the miniapps were written in JavaScript and would execute in their own React
 Native sandbox. The miniapps were versioned and could be independently deployed
 to the host app.</p>
 <p>Sadly, the miniapps had limited use and we somehow could not realize their full
-potential. However, the basic idea remains interesting.  Nowadays I could
+potential. However, the basic idea remains interesting. Nowadays I could
 envision some kind of a &ldquo;bring your own server&rdquo; mobile app, that would be split
 to a frontend and serverless backend that would largely execute in the mobile
 app itself. I imagine an app that would receive an instruction stream from the
@@ -282,9 +283,8 @@ server. Much like the OS syscalls, the server could instruct the app to execute
 <em>serverless functions</em> in the frontend. And like kernel code that executes in
 kernel context, the serverless functions could execute under the <em>security
 context</em> of the end user.</p>
-<p>The offloaded serverless functions could be for example WebAssembly that the app
-would update and cache as needed. The connection to the instruction stream could
-be a WebSocket connection.</p>
+<p>The offloaded serverless functions could be implemented in WebAssembly. The
+instruction stream could be implemented on top of a WebSocket connection.</p>
 <figure style="float:right; width:40%; margin-right: 0.25em;">
   <img alt="API Conference end" src="/api_conference_end.jpg" />
   <figcaption><small>The end</small></figcaption>

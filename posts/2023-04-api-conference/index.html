@@ -112,9 +112,13 @@
 
   <button class="dn dib-ns button-reset relative hide-child-alt">
   <i class="fa fa-history mr1"></i>
-  <span>3 revisions</span>
+  <span>5 revisions</span>
   <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
     <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-04-27 14:20Z Add figures</li>
+    
+      <li>2023-04-27 12:41Z Roy Thomas Fielding&#39;s name</li>
     
       <li>2023-04-27 12:33Z Fix the release date</li>
     
@@ -135,13 +139,16 @@
       <article itemprop="articleBody" id="content" class="lh-copy">
         <p class="pa2 mw7 f6 lh-copy i">
   I put on my monocle and top hat and booked a ticket to London to attend my first
-conference as a software developer. The topic of the
-<a href="https://apiconference.net/app">conference</a> was APIs, i.e.  the stuff I develop
-and design at work. The trip took place in late April 2023 under the auspices of
-my employer, OP Financial Group. I attended a dozen or so lectures.  What
-follows are the highlights of three of them.
+<a href="https://apiconference.net/app">conference</a>. The topic of the conference was
+APIs, i.e.  the stuff I develop and design at work. The trip took place in late
+April 2023 under the auspices of my employer, OP Financial Group. I attended a
+dozen or so lectures.  What follows are the highlights of three of them.
 </p>
 <h4 id="the-myth-of-api-monetization---and-how-companies-really-create-business-value-with-apis">The Myth of API Monetization - and How Companies Really Create Business Value With APIs</h4>
+<figure style="float:right; width:40%; margin-right: 0.25em;">
+  <img alt="API Conference welcome" src="/api_conference_start.jpg" />
+  <figcaption><small>API Conference 2023</small></figcaption>
+</figure>
 <p>The first keynote I attended was on API monetization, which is a topic that has
 also been in the tech news lately. For example, <a href="https://developer.twitter.com/en/products/twitter-api">Twitter</a> has started to charge
 fees, and pretty hefty ones at that, for access to their APIs. For individuals,
@@ -222,6 +229,10 @@ to have the mindset of a baddie to be a goodie. Given that most teams cannot
 even agree on whether to use tabs or spaces for indentation, is it then any
 wonder that the products they ship are infested with security issues?</p>
 <h3 id="browsers-are-the-new-containers">Browsers are the new containers!</h3>
+<figure style="float:left; width:40%; margin-left: 0.25em;">
+  <img alt="Matrix meme" src="/free_cloud.jpg" />
+  <figcaption><small>A lead architect from the dystopian future.</small></figcaption>
+</figure>
 <p>The most interesting presentation of the conference was the second lecture by
 Dan Erez. It is pretty evident by now that going serverless offers some pretty
 big benefits in the world of distributed computing. For example, the
@@ -233,10 +244,6 @@ contingencies of adopting the serverless paradigm are just too worrisome for any
 architect worth of their salt. A self-inflicted denial of service due to a
 vendor lock-in sounds just like the dystopian reality George Orwell could have
 written about if he had known REST APIs.</p>
-<figure style="float:right; width:40%; margin-right: 0.25em;">
-  <img alt="Matrix meme" src="/free_cloud.jpg" />
-  <figcaption><small>A lead architect from the dystopian future.</small></figcaption>
-</figure>
 <p>Using a Matrix meme picture, Erez then asks &ldquo;What if I told you that you already
 have a free cloud?&rdquo; The basic idea would be to leverage the existing compute
 capacity of a company by distributing computations to the workstations and
@@ -278,6 +285,10 @@ context</em> of the end user.</p>
 <p>The offloaded serverless functions could be for example WebAssembly that the app
 would update and cache as needed. The connection to the instruction stream could
 be a WebSocket connection.</p>
+<figure style="float:right; width:40%; margin-right: 0.25em;">
+  <img alt="API Conference end" src="/api_conference_end.jpg" />
+  <figcaption><small>The end</small></figcaption>
+</figure>
 <p>The beauty of this approach is that not only is computation distributed but we
 would also distribute identity management. The user identity could be backed by
 a key pair whose private part could be stored securely on the mobile device,

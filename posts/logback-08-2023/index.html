@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="referrer" content="unsafe-url">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content=",
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="JSON lines for fun and profit" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="https://www.keksipurkki.net/posts/logback-08-2023/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2023-09-02
+" /> <meta property="article:modified_time" content="2023-09-02
+" />
+
+
+<meta property="article:tag" content="" />
+
+
+
+
+
+
+    <title>JSON lines for fun and profit</title>
+    <link rel="canonical" href="https://www.keksipurkki.net/posts/logback-08-2023/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="https://www.keksipurkki.net/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/ascetic.css"
+/>
+
+<style>
+.hljs-addition, .hljs-attribute, .hljs-bullet, .hljs-link, .hljs-section, .hljs-string, .hljs-symbol, .hljs-template-variable, .hljs-variable {
+  color: black !important;
+}
+</style>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="https://www.keksipurkki.net/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw8 center">
+    <h1 itemprop="name" id="title">JSON lines for fun and profit</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2023-09-02</a>
+      
+
+
+
+  
+  
+
+  <button class="dn dib-ns button-reset relative hide-child-alt">
+  <i class="fa fa-history mr1"></i>
+  <span>2 revisions</span>
+  <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
+    <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-09-02 12:19Z Release</li>
+    
+      <li>2023-09-02 12:18Z JSON lines for the win</li>
+    
+    </ul>
+    <span class="absolute top-0 left-2 nt2 w1 h1 bg-white bl bt b--moon-gray rotate-45"></span>
+  </span>
+</button>
+
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <p class="pa2 mw7 f6 lh-copy i">
+  Observability is one of the concepts attached to modern cloud
+native applications. Applications logs are arguably the most important aspect of
+it. In this blog post I want to show you a variation of my current setup in the
+hope that it gives you ideas on how to pimp up your own applications as well.
+Reader discretion is advised as this blog contains vanilla Java code listings
+which some people might find disturbing.
+</p>
+<h2 id="introduction">Introduction</h2>
+<p>This blog is a walk-through of a
+<a href="https://www.youtube.com/watch?v=Ibjm2KHfymo">Java</a> application I wrote to
+illustrate how to output logs as
+<a href="https://jsonlines.org/">newline-delimited JSON</a> and incorporate tracing
+identifiers into your logs. The application is built on top of
+<a href="https://logback.qos.ch/index.html">Logback</a>,
+<a href="https://github.com/FasterXML/jackson">Jackson</a>, <a href="https://vertx.io/">Vert.x</a> and
+the <a href="https://opentelemetry.io/">OpenTelemetry</a> framework.</p>
+<p>The end game is to produce logs like these:</p>
+<img src="/logback/json_logs.png">
+<p>The color highlighting you see above is not a trick made for this blog. I took
+the extra steps to ensure that the requirement of machine-readability does not
+come at the expense of &ldquo;human-readability.&rdquo; I guess these tweaks make for the
+most interesting part of the blog, as all the other material I&rsquo;ve read on this
+topic have left me a bit disappointed in the &ldquo;developer experience&rdquo; department.</p>
+<p>The motivation to produce machine-readable logs in the first place is to make
+efficient log analysis possible. At work, we can have basically all our key
+performance indicators computed at the snap of a finger just by querying our
+logs. Think
+<a href="https://www.infoworld.com/article/3638693/the-red-method-a-new-strategy-for-monitoring-microservices.html">rate, error and duration</a>
+for assessing how the software itself is doing. It is also vital to see an
+end-to-end trail of logs across different services, which is why request tracing
+is of importance.</p>
+<h2 id="logging-basics">Logging basics</h2>
+<p>In the Java world, the effective standard for logging goes by the name
+<a href="https://www.slf4j.org/">Simple Logging Facade for Java</a> (SLF4J). There are
+alternatives but
+<a href="https://dev.to/ardc_overflow/a-brief-intro-to-slf4j-and-the-java-logging-hell-2gfj">mistakes</a>
+<a href="https://en.wikipedia.org/wiki/Log4Shell">have been made</a>.</p>
+<p>The SLF4J approach to logging is to embrace the maxim <em>code to an interface, not
+an implementation</em>. You are only allowed to import classes from the SLF4J API in
+your own code. Then, by having a service provider of the SLF4J API in your
+classpath, the Java runtime knows how to relay calls to a logging implementation
+using dynamic dispatch.</p>
+<p>The reference implementation of the SLF4J API is
+<a href="https://logback.qos.ch/">Logback</a>. After installing it, you end up with code
+like this</p>
+<pre><code>package net.keksipurkki.demos;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Main {
+
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
+    public static void main(String... args) {
+        log.info(&quot;Starting {}&quot;, Main.class);
+        System.exit(0);
+    }
+}
+</code></pre>
+<p>As for configuring the log output, you provide a configuration file called
+<code>logback.xml</code> whose contents might look like something like this</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration&gt;
+&lt;configuration&gt;
+  &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder class=&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;&gt;
+      &lt;pattern&gt;%date %logger %highlight(%level) %message %ex{short} %n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;root level=&quot;DEBUG&quot;&quot;&gt;
+    &lt;appender-ref ref=&quot;STDOUT&quot;/&gt;
+  &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>The output from the application might then look like this:</p>
+<pre><code class="language-txt">2023-08-04 19:57:16,175 net.keksipurkki.demos.Main INFO Starting class net.keksipurkki.demos.Main
+</code></pre>
+<h2 id="json-lines">JSON lines</h2>
+<p>The plain text format for application logs is a bit ill-suited for analysing
+logs programmatically. To extract a particular value of interest, you would need
+to rely on regular expressions and the like. That&rsquo;s why it has become standard
+practice to output the logs as JSON and dump them into a NoSQL database from
+which they can be queried later on. Sounds like a hassle, but in actuality this
+is what happens under the hood with no effort on your part when using a cloud
+provider.</p>
+<p>To convert the log output to JSON lines format in the SLFJ4 paradigm, you would
+have traditionally relied on the
+<a href="https://github.com/qos-ch/logback-contrib/wiki">Logback contrib</a> library, no
+doubt after reading the somewhat outdated
+<a href="https://www.baeldung.com/java-log-json-output">Baeldung</a> tutorial about it. The
+library provides a <code>JsonLayout</code> class that gets the job done. Nowadays, the
+<a href="https://logback.qos.ch/manual/encoders.html#JsonEncoder">Logback core library itself</a>
+ships with a <code>JsonEncoder</code> as well so that enabling JSON output is in theory
+only a matter of tweaking the configuration file.</p>
+<pre><code class="language-xml">  &lt;appender name=&quot;JsonLinesContrib&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder class=&quot;ch.qos.logback.core.encoder.LayoutWrappingEncoder&quot;&gt;
+      &lt;layout class=&quot;ch.qos.logback.contrib.json.classic.JsonLayout&quot;&gt;
+          &lt;jsonFormatter class=&quot;ch.qos.logback.contrib.jackson.JacksonJsonFormatter&quot;&gt;
+              &lt;prettyPrint&gt;true&lt;/prettyPrint&gt;
+          &lt;/jsonFormatter&gt;
+      &lt;/layout&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;appender name=&quot;JsonLinesVanilla&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder class=&quot;ch.qos.logback.classic.encoder.JsonEncoder&quot;/&gt;
+  &lt;/appender&gt;
+
+  &lt;root&gt;
+    &lt;!-- Change ref to change the implementation --&gt;
+    &lt;appender-ref ref=&quot;JsonLinesVanilla&quot;/&gt;
+  &lt;/root&gt;
+
+</code></pre>
+<p>However, neither of these approaches quite does it for me. There are details
+related JSON serialization that neither of these solutions addresses.</p>
+<p>It makes a difference if <code>null</code> values are serialized as the null symbol,
+<code>{ &quot;prop&quot;: null }</code>, or if they are simply omitted <code>{}</code>. In contrast, the output
+from the <code>JsonEncoder</code> is very verbose with no apparent way to trim it down.
+Using it would have a price tag attached to it when a single application
+produces logs to the tune of million messages per day.</p>
+<!--
+This is not to say that the native `JsonEncoder` is rubbish. It would just call
+for a completely different approach to handling logging. Perhaps one could use
+it as a building block for a log analysis pipeline that would involve
+transmitting the logs over the wire in a binary format.
+-->
+<p>Then, there&rsquo;s the pesky case of logging a JSON string that gets escaped by the
+logging library, resulting in logs like this:</p>
+<pre><code>{
+  &quot;timestamp&quot; : &quot;1691230909203&quot;,
+  &quot;level&quot; : &quot;INFO&quot;,
+  &quot;thread&quot; : &quot;vert.x-eventloop-thread-1&quot;,
+  &quot;logger&quot; : &quot;net.keksipurkki.demos.HelloWorld&quot;,
+  &quot;message&quot; : &quot;{\&quot;message\&quot;:\&quot;Hello world!\&quot;}&quot;,
+  &quot;context&quot; : &quot;default&quot;
+}
+</code></pre>
+<p>Finally, both of the approaches provide some ways to add extra fields to the
+logged output by relying on concepts like
+<a href="https://logback.qos.ch/manual/mdc.html">Mapped Diagnostic Context</a> or other
+extension mechanisms, but this is not really what I want. I liked the way in
+which the <code>PatternLayoutEncoder</code> lets you to just specify a self-documenting
+pattern that can be modified to your heart&rsquo;s content.</p>
+<p>So, I rolled up my sleeves and decided to implement a custom <code>JsonLineLayout</code>
+that can be configured with exactly the same kind of pattern string as
+<code>PatternLayoutEncoder</code>. To my knowledge, nobody has come up with this brilliant
+albeit nerdy realization before. As an extra bonus with this approach, one can
+even highlight the logs with colors again!</p>
+<h2 id="creating-a-custom-layout">Creating a custom layout</h2>
+<p>The starting point for a custom Logback layout is to extend <code>LayoutBase&lt;T&gt;</code> and
+implement a <code>doLayout</code> method. A skeletal implementation using the Jackson
+library could look like this:</p>
+<pre><code class="language-java">public class JsonLinesLayout extends LayoutBase&lt;ILoggingEvent&gt; {
+
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    static {
+
+        // Hide null values from logs
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        // Json arrays elements on new lines
+        var prettyPrinter = new DefaultPrettyPrinter()
+            .withArrayIndenter(SYSTEM_LINEFEED_INSTANCE)
+            .withObjectIndenter(SYSTEM_LINEFEED_INSTANCE);
+
+        mapper.setDefaultPrettyPrinter(prettyPrinter);
+
+    }
+
+    private boolean prettyPrint;
+
+    public void setPrettyPrint(boolean prettyPrint) {
+        this.prettyPrint = prettyPrint;
+    }
+
+    @SneakyThrows
+    @Override
+    public String doLayout(ILoggingEvent event) {
+        var json = Map.of(&quot;message&quot;, event.getFormattedMessage());
+        var writer = prettyPrint ? mapper.writerWithDefaultPrettyPrinter() : mapper.writer();
+        return writer.writeValueAsString(json) + &quot;\n&quot;;
+    }
+}
+</code></pre>
+<p>The implementation only prints the message of the log. The next step is to parse
+the pattern of logged properties so that we can construct a JSON string as
+specified by the configuration:</p>
+<pre><code class="language-xml">...
+  &lt;layout class=&quot;net.keksipurkki.demos.logging.JsonLineLayout&quot;&gt;
+    &lt;pattern&gt;%date{yyyy-MM-dd'T'HH:mm:ssXXX,Europe/Helsinki} %logger %highlight(%level) %message %ex{short} %n&lt;/pattern&gt;
+    &lt;prettyPrint&gt;${app.logs.prettyPrint:-true}&lt;/prettyPrint&gt;
+  &lt;/layout&gt;
+...
+</code></pre>
+<p>Sounds daunting but luckily we can extend <code>PatternLayout</code> that has this
+functionality already in place</p>
+<pre><code class="language-java">public class JsonLinesLayout extends PatternLayout {
+
+  ...
+
+    private Converter&lt;ILoggingEvent&gt; head;
+
+    @Override
+    public void start() {
+
+        if (getPattern() == null || getPattern().isEmpty()) {
+            addError(&quot;Empty or null pattern.&quot;);
+            return;
+        }
+
+        var p = new Parser&lt;ILoggingEvent&gt;(getPattern());
+
+        if (this.getContext() != null) {
+            p.setContext(this.getContext());
+        }
+
+        this.head = p.compile(p.parse(), getEffectiveConverterMap());
+
+        ConverterUtil.setContextForConverters(this.getContext(), this.head);
+        ConverterUtil.startConverters(this.head);
+    }
+
+  ...
+
+}
+</code></pre>
+<p>The end result is that we store a <code>head</code> converter as a field. It represents the
+head of a linked list of converters parsed from a pattern string like the one
+shown above.</p>
+<p>The native <code>PatternLayout</code> is implemented so that it just concatenates all the
+converted values to a string:</p>
+<pre><code class="language-java">StringBuilder strBuilder = new StringBuilder(256);
+
+for (var c = this.head; c != null; c = c.getNext()) {
+    c.write(strBuilder, event);
+}
+
+return strBuilder.toString();
+</code></pre>
+<p>In our case, the situation is a bit more complicated because we want to
+construct an intermediate map that is then serialized to a JSON string.</p>
+<pre><code class="language-java">var json = new HashMap&lt;String, Object&gt;();
+
+for (var c = this.head; c != null; c = c.getNext()) {
+    var key = &quot;?&quot;; // Figure out the key?
+    json.put(key, c.convert(event));
+}
+
+return json;
+</code></pre>
+<p>We would need to figure out a way to map instances of let&rsquo;s say <code>DateConverter</code>
+to the string <code>date</code>. The opposite can be realized very easily as the
+<code>PatternLayout</code> implements a method <code>getEffectiveConverterMap()</code> that maps
+<code>date</code> to <code>DateConverter.class</code>. The problem is that it also maps <code>d</code> to the
+same thing. Similarly, the message of the log can be referenced with <code>%m</code>,
+<code>%msg</code> or <code>%message</code>.</p>
+<p>We can work around this issue by constructing a mapping table
+<code>CONVERTER_CLASS_TO_KEY</code> as follows:</p>
+<pre><code>private static final Map&lt;String, String&gt; CONVERTER_CLASS_TO_KEY = new HashMap&lt;&gt;();
+...
+
+BinaryOperator&lt;String&gt; longerString = (a,b) -&gt; a.length() &gt; b.length() ? a : b;
+
+for (var entry : getEffectiveConverterMap().entrySet()) {
+    CONVERTER_CLASS_TO_KEY.putIfAbsent(entry.getValue(), entry.getKey());
+    CONVERTER_CLASS_TO_KEY.computeIfPresent(entry.getValue(), (_k, v) -&gt; longerString.apply(v, entry.getKey()));
+}
+
+</code></pre>
+<p>The map will use the longest field name found from the effective converter map.
+Now we can determine the field name with a lookup to <code>CONVERTER_CLASS_TO_KEY</code>.
+Well, not quite. Turns out that the converters can be nested like in the case
+<code>%highlight(%level)</code> so we have to extract the leaf converter:</p>
+<pre><code class="language-java">private &lt;E&gt; Converter&lt;E&gt; leafConverter(Converter&lt;E&gt; converter) {
+  if (converter instanceof CompositeConverter&lt;E&gt; composite) {
+    return leafConverter(composite.getChildConverter());
+  } else {
+    return converter;
+  }
+}
+</code></pre>
+<p>Putting these two together yields:</p>
+<pre><code class="language-java">var key = CONVERTER_CLASS_TO_KEY.get(leafConverter(converter).getClass().getName());
+</code></pre>
+<p>and our revised <code>doLayout</code> method becomes:</p>
+<pre><code>@SneakyThrows
+@Override
+public String doLayout(ILoggingEvent event) {
+    var json = doJsonLayout(event);
+    var writer = prettyPrint ? mapper.writerWithDefaultPrettyPrinter() : mapper.writer();
+    return unescape(writer.writeValueAsString(json)) + &quot;\n&quot;;
+}
+
+private Map&lt;String, Object&gt; doJsonLayout(ILoggingEvent event) {
+
+    var json = new HashMap&lt;String, Object&gt;();
+
+    for (var c = this.head; c != null; c = c.getNext()) {
+        var key = CONVERTER_CLASS_TO_KEY.get(leafConverter(c).getClass().getName());
+        json.put(key, c.convert(event));
+    }
+
+    return json;
+
+}
+
+private String unescape(String input) {
+    var ESCAPE_KEY = &quot;\u001B&quot;;
+    return input.replaceAll(&quot;\\\\u001B&quot;, ESCAPE_KEY);
+}
+</code></pre>
+<p>The <code>unescape</code> method restores colored output that gets garbled by JSON
+serialization. I looked for hours for a library that would know how to convert
+those annoying color codes like <code>\u001B[34m</code> to something that the console
+understands. Turns out that <code>\u001B</code> stands for the ESC key. All I had to do is
+replace all the escaped escape characters with the real thing.</p>
+<h2 id="json-in-json">JSON in JSON</h2>
+<p>At this point the output from the custom JSON layout looks decent enough but is
+still lacking when the message itself is a JSON string:</p>
+<pre><code>{&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Handling request. Method = GET. URI = http://localhost:8080/hello-world&quot;}
+{&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;{\&quot;message\&quot;:\&quot;Hello world!\&quot;}&quot;}
+</code></pre>
+<p>The irony is that this is a tricky problem even though the JSON format is
+specifically designed with nesting in mind. The root cause is that the SLFJ4 API
+and Java itself come from an era before the rise of JSON. Imagining if Java had
+native support for JSON, one could simply extend the SLFJ4 API to have methods
+like <code>&lt;P extends JsonSerializable&gt; void info(String message, P payload)</code> and be
+happy. Instead, the APIs are currently geared towards interpolating values to
+more or less free format strings that are intended to be read by a human being,
+typically a sysadmin in some dim-lit room of unspecified location.</p>
+<p>Limiting myself to the constraints of the SLFJ4 API, I settled for a solution
+that is based on a custom log marker:</p>
+<pre><code class="language-java">public static final Marker JSON_MESSAGE = MarkerFactory.getMarker(&quot;JSON_MESSAGE&quot;);
+</code></pre>
+<p>The calling code would then look like this:</p>
+<pre><code class="language-java">var resp = new JsonObject() // From the Vert.x framework
+        .put(&quot;message&quot;, &quot;Hello world!&quot;);
+
+log.info(JSON_MESSAGE, resp.encode()); // JSON serialization happens here
+</code></pre>
+<p>And the <code>JsonLineLayout</code> class is modified to treat <code>JSON_MESSAGE</code>s like so:</p>
+<pre><code class="language-java">private Map&lt;String, Object&gt; doJsonLayout(ILoggingEvent event) {
+    var json = new HashMap&lt;String, Object&gt;();
+
+    for (var c = head; c != null; c = c.getNext()) {
+
+        var leaf = leafConverter(c);
+        var key = jsonLineKey(leaf);
+
+        if (leaf instanceof LineSeparatorConverter) {
+            continue;
+        }
+
+        if (leaf instanceof MessageConverter m) {
+            var value = m.convert(event);
+            json.put(key, isJsonMessage(event) ? new RawValue(value) : value);
+            continue;
+        }
+
+        if (nonNull(key)) {
+            var value = c.convert(event);
+            json.put(key, value);
+        }
+    }
+
+    return json;
+
+}
+
+private boolean isJsonMessage(ILoggingEvent event) {
+    return nonNull(event.getMarkerList()) &amp;&amp; event.getMarkerList().contains(JSON_MESSAGE);
+}
+
+</code></pre>
+<p>The <code>RawValue</code> wrapper class comes from Jackson and instructs the library to
+skip serialization and escaping. The output will then be what we want:</p>
+<pre><code>{&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Handling request. Method = GET. URI = http://localhost:8080/hello-world&quot;}
+{&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:{&quot;message&quot;:&quot;Hello world!&quot;}}
+</code></pre>
+<h2 id="request-correlation">Request correlation</h2>
+<p>A log analysis usually starts with getting all the logs of a given request.
+Further, it is often necessary to get a trace of the logs across multiple
+applications. In practice, the applications need to look for certain HTTP
+headers and pass them on to service requests they make themselves.</p>
+<p>Request correlation can be approached in a manual fashion but this makes for a
+brittle system. It is much better if the system uses some kind of a general
+approach that handles the request correlation logic for you. In other words,
+request correlation is a cross-cutting concern.</p>
+<p><a href="https://opentelemetry.io/">OpenTelemetry</a> is a solution like that, although
+truth to be told, the framework looks like a veritable <em>tour de force</em> of
+over-engineering. To the extent that I understand the OpenTelemetry concepts,
+the request traces are identified by <code>traceId</code>s which further break down to
+spans identified by their <code>spanId</code>s. As for the HTTP headers themselves, one
+should study the <a href="https://www.w3.org/TR/trace-context/">W3C Trace Context</a>
+specification.</p>
+<p>As I only have experience with OpenTelemetry in conjunction with the Vert.x
+framework, I can only show you how it works using Vert.x. Luckily, the setup is
+very simple:</p>
+<pre><code class="language-java">public class Main {
+
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
+    public static void main(String... args) {
+
+        log.info(&quot;Starting {}&quot;, Main.class);
+        var sdkTracerProvider = SdkTracerProvider.builder().build();
+
+        var openTelemetry = OpenTelemetrySdk.builder()
+            .setTracerProvider(sdkTracerProvider)
+            .setPropagators(ContextPropagators.create(W3CTraceContextPropagator.getInstance()))
+            .buildAndRegisterGlobal();
+
+        var opts = new VertxOptions()
+            .setTracingOptions(new OpenTelemetryOptions(openTelemetry));
+
+        var vertx = Vertx.vertx(opts);
+
+        // ... instantiate the application using the configured Vert.x instance
+    }
+}
+</code></pre>
+<p>The code depends on the following artifacts</p>
+<pre><code>&lt;!-- Vert.x --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.vertx&lt;/groupId&gt;
+  &lt;artifactId&gt;vertx-core&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;!-- OpenTelemetry --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.opentelemetry&lt;/groupId&gt;
+  &lt;artifactId&gt;opentelemetry-sdk&lt;/artifactId&gt;
+  &lt;version&gt;1.28.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.vertx&lt;/groupId&gt;
+  &lt;artifactId&gt;vertx-opentelemetry&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>That&rsquo;s it as far as application code is concerned. As there should be only one
+Vert.x instance in a Vert.x application, the framework is able to inject
+OpenTelemetry hooks to all the necessary parts of the application. The
+OpenTelemetry identifiers can be accessed from <code>Span.current().getSpanContext()</code>
+where the <code>Span</code> class comes from the OpenTelemetry SDK.</p>
+<p>The remaining piece of the puzzle is to have Logback output the correlation
+identifiers. After looking for inspiration from
+<a href="https://reactiverse.io/reactiverse-contextual-logging/">community contributions</a>,
+I came up with a solution that is based on implementing a custom Logback
+converter:</p>
+<pre><code>  &lt;conversionRule conversionWord=&quot;trace&quot;
+                  converterClass=&quot;net.keksipurkki.demos.logging.OpenTelemetryConverter&quot;/&gt;
+  ...
+
+  &lt;layout class=&quot;net.keksipurkki.demos.logging.JsonLineLayout&quot;&gt;
+    &lt;pattern&gt;%trace{traceId} %trace{spanId} ...&lt;/pattern&gt;
+    &lt;prettyPrint&gt;${app.logs.prettyPrint:-true}&lt;/prettyPrint&gt;
+  &lt;/layout&gt;
+
+</code></pre>
+<p>The implementation selects the identifier to extract based on the first option
+passed in the configuration XML:</p>
+<pre><code class="language-java">public class OpenTelemetryConverter extends ClassicConverter {
+
+    final private Map&lt;String, Supplier&lt;String&gt;&gt; suppliers = Map.of(
+        &quot;spanId&quot;, this::getSpanId,
+        &quot;traceId&quot;, this::getTraceId
+    );
+
+    private Supplier&lt;String&gt; supplier;
+
+    @Override
+    public void start() {
+        supplier = suppliers.getOrDefault(getFirstOption(), () -&gt; &quot;&quot;);
+    }
+
+    @Override
+    public String convert(ILoggingEvent iLoggingEvent) {
+        return supplier.get();
+    }
+
+    private String getTraceId() {
+        return Span.current().getSpanContext().getTraceId();
+    }
+
+    private String getSpanId() {
+        return Span.current().getSpanContext().getSpanId();
+    }
+
+}
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>There you have it. The full source code of the demo application is available on
+<a href="https://github.com/keksipurkki/demos-logging">GitHub</a> and contains a couple of
+extra tweaks not discussed in this blog.</p>
+<p>Speaking from my own experience, having machine-readable logs makes a world of
+difference and opens the avenue to further automate work. As already discussed
+in the <a href="https://12factor.net/logs">12 factor app manifest</a>, the application logs
+should be treated as an event stream. I can easily imagine lots of applications
+that would be designed to specifically consume these streams in order to produce
+some result, say a business intelligence report for example.</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2023 Elias A. Toivanen</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/typescript.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

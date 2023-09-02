@@ -3,12 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.keksipurkki.net/</loc>
-    <lastmod>2023-04-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.keksipurkki.net/posts/</loc>
-    <lastmod>2023-04-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.keksipurkki.net/posts/logback-08-2023/</loc>
+    <lastmod>2023-09-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.keksipurkki.net/posts/2023-04-api-conference/</loc>
     <lastmod>2023-04-27T00:00:00+00:00</lastmod>

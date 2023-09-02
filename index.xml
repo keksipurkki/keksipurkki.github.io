@@ -6,8 +6,17 @@
     <description>Recent content on Keksipurkki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>🍪 2022 Elias A. Toivanen</copyright>
-    <lastBuildDate>Thu, 27 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>🍪 2023 Elias A. Toivanen</copyright>
+    <lastBuildDate>Sat, 02 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JSON lines for fun and profit</title>
+      <link>https://www.keksipurkki.net/posts/logback-08-2023/</link>
+      <pubDate>Sat, 02 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.keksipurkki.net/posts/logback-08-2023/</guid>
+      <description>Observability is one of the concepts attached to modern cloud native applications. Applications logs are arguably the most important aspect of it. In this blog post I want to show you a variation of my current setup in the hope that it gives you ideas on how to pimp up your own applications as well. Reader discretion is advised as this blog contains vanilla Java code listings which some people might find disturbing.</description>
+    </item>
+    
     <item>
       <title>API Conference 2023 London</title>
       <link>https://www.keksipurkki.net/posts/2023-04-api-conference/</link>

@@ -81,8 +81,14 @@
 
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/highlightjs@9.12.0/styles/ascetic.css"
+  href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/ascetic.css"
 />
+
+<style>
+.hljs-addition, .hljs-attribute, .hljs-bullet, .hljs-link, .hljs-section, .hljs-string, .hljs-symbol, .hljs-template-variable, .hljs-variable {
+  color: black !important;
+}
+</style>
 
   </head>
 
@@ -248,18 +254,15 @@ to Hurme&rsquo;s poem analyses in the language of California, &ldquo;I feel you 
   </section>
   <footer>
   <p class="f6 tc gray lh-copy">
-    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2022 Elias A. Toivanen</a>
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2023 Elias A. Toivanen</a>
   </p>
 </footer>
   
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
-<script
-  charset="UTF-8"
-  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/languages/typescript.min.js"
-></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/typescript.min.js"></script>
 
 <script>
-  hljs.initHighlightingOnLoad();
+  hljs.highlightAll();
 </script>
 
 <script type="module" src="/js/keksipurkki.js">

@@ -119,9 +119,11 @@
 
   <button class="dn dib-ns button-reset relative hide-child-alt">
   <i class="fa fa-history mr1"></i>
-  <span>2 revisions</span>
+  <span>3 revisions</span>
   <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
     <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-12-30 22:43Z Grammar</li>
     
       <li>2023-12-30 21:17Z Grammar</li>
     
@@ -185,8 +187,8 @@ vectors with associated weight coefficients. The weight coefficients order the
 vectors in terms of how well they explain the variation within the data. More
 visually, imagine a cloud of data point in a multidimensional space. PCA is a
 technique for drawing coordinate axes in this space. The axes are ordered in
-such a way that less and less data points aggregate along them if you imagine
-looking at the data along each axis in turn.</p>
+such a way that less and less points aggregate along them if you imagine looking
+at the data along each axis in turn.</p>
 <p>As imagining multidimensional data is a tall order, it is perhaps helpful to
 think about a two-dimensional example. The data will have two principal
 component axes. The first axis corresponds to a least squares fit to the data,
@@ -195,9 +197,9 @@ is only one choice up to sign.</p>
 <p>I also like the analogy given by
 <a href="https://www.youtube.com/watch?v=FgakZw6K1QQ">Josh Starmer</a> on his StatQuest
 channel. Imagine that you are a chemist and you are given a bunch of cocktails.
-You are not allowed to drink them. Instead, you asked to come up with a recipe
-for each cocktail (data point). A principal component analysis on the cocktails
-yields a list of the liquors (vectors) and their proportions (weight
+You are not allowed to drink them. Instead, you are asked to come up with a
+recipe for each cocktail (data point). A principal component analysis on the
+cocktails yields a list of the liquors (vectors) and their proportions (weight
 coefficients). You may then hypothesize that the first principal component of a
 cocktail is vodka with weight 40 ml × 0.916 g/ml = 36.64 g (🤓).</p>
 <p>I should also mention that in practice PCA is equivalent to performing
@@ -213,8 +215,8 @@ makes things like <a href="https://en.wikipedia.org/wiki/Eigenface">face recogni
 possible.</p>
 <p>Suffice it to say that the legendary
 <a href="https://www.youtube.com/watch?v=YPe5OP7Clv4">Gilbert Strang</a> ranked SVD as the
-most elegant piece of mathematics there is. His lectures on linear algebra are
-freely accessible from
+most elegant piece of linear algebra there is. His lectures on linear algebra
+are freely accessible from
 <a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/video_galleries/video-lectures/">here</a>.</p>
 <h2 id="the-algorithm">The algorithm</h2>
 <p>I still have to say something about how PCA helps in the task at hand. I need to
@@ -293,8 +295,8 @@ This is called <em>rank reduction</em> and it is the central goal of many applic
 of PCA. I played around with values ranging from 2 to 30 and settled with 5 in
 the end. Because of the way the sorting step is implemented for this blog, the
 choice is not that important. For serious work, there are techniques for picking
-the rank intelligently based on the <a href="https://www.cs.ox.ac.uk/people/james.worrell/SVD-thin.pdf">Eckart—Young
-theorem</a>.</p>
+the rank intelligently based on the
+<a href="https://www.cs.ox.ac.uk/people/james.worrell/SVD-thin.pdf">Eckart—Young theorem</a>.</p>
 <p>The loop over the countries is then a simple matter of picking a country code
 like FI and mapping it to an emoji 🇫🇮. This can be done based on a nifty trick I
 learned
@@ -582,12 +584,12 @@ on the flags distort the PCA procedure at the selected image resolution.</p>
 <p>That Nordic countries do not neatly align with each other is a result I can live
 with. Hopefully we will find unity in the imminent WW3.</p>
 <p>Be that as it may, the principal problem I noticed while playing with this
-problem is that the procedure is extremely sensitive to slight tweaks in the
-data. This seems to be related to the fact that singular values do not decay as
-rapidly as I would have wished. A second issue is that the sorting logic does
-not seem to exploit the full amount of information provided by the PCA
-procedure. The next step would be to cluster the flags based on their PCA scores
-more intelligently, but that is beyond of the scope of this blog.</p>
+problem is that the procedure is extremely sensitive to any tweaks in the data.
+This seems to be related to the observations that the singular values did not
+decay as rapidly as I would have wished. A second issue is that the sorting
+logic does not seem to exploit the full amount of information provided by the
+PCA procedure. The next step would be to cluster the flags more intelligently,
+but that is beyond of the scope of this blog.</p>
 <p>In closing, this was a really fun exercise! It made me think about my memories
 and how human memory works in the first place. It seems that fingers have
 memories of their own, and the act of getting your hands dirty is the only way

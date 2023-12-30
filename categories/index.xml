@@ -7,51 +7,42 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2023 Elias A. Toivanen</copyright>
-    <lastBuildDate>Mon, 29 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.keksipurkki.net/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Books</title>
       <link>https://www.keksipurkki.net/categories/books/</link>
       <pubDate>Mon, 29 Aug 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/categories/books/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Servers</title>
       <link>https://www.keksipurkki.net/categories/servers/</link>
       <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/categories/servers/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Development</title>
       <link>https://www.keksipurkki.net/categories/development/</link>
       <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/categories/development/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Literature</title>
       <link>https://www.keksipurkki.net/categories/literature/</link>
       <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/categories/literature/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>TypeScript</title>
       <link>https://www.keksipurkki.net/categories/typescript/</link>
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
-      
       <guid>https://www.keksipurkki.net/categories/typescript/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

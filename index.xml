@@ -7,124 +7,105 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2023 Elias A. Toivanen</copyright>
-    <lastBuildDate>Sat, 02 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Dec 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flags of the world apart</title>
+      <link>https://www.keksipurkki.net/posts/svd-12-2023/</link>
+      <pubDate>Sat, 30 Dec 2023 00:00:00 +0000</pubDate>
+      <guid>https://www.keksipurkki.net/posts/svd-12-2023/</guid>
+      <description>Introduction A professor I met at a university far away. I like to play quizzes with my nephew. A particular favorite of ours is to pair the flags of the world to countries. I have noticed that the task gets a lot easier if you can tell a short story about each country in your head. The superb GeographyNow series on YouTube has proven to be mightily useful for this purpose despite the platform&amp;rsquo;s general demise to clickbait-ridden crap.</description>
+    </item>
     <item>
       <title>JSON lines for fun and profit</title>
       <link>https://www.keksipurkki.net/posts/logback-08-2023/</link>
       <pubDate>Sat, 02 Sep 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/logback-08-2023/</guid>
       <description>Observability is one of the concepts attached to modern cloud native applications. Applications logs are arguably the most important aspect of it. In this blog post I want to show you a variation of my current setup in the hope that it gives you ideas on how to pimp up your own applications as well. Reader discretion is advised as this blog contains vanilla Java code listings which some people might find disturbing.</description>
     </item>
-    
     <item>
       <title>API Conference 2023 London</title>
       <link>https://www.keksipurkki.net/posts/2023-04-api-conference/</link>
       <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/2023-04-api-conference/</guid>
       <description>I put on my monocle and top hat and booked a ticket to London to attend my first conference. The topic of the conference was APIs, i.e. the stuff I develop and design at work. The trip took place in late April 2023 under the auspices of my employer, OP Financial Group. I attended a dozen or so lectures. What follows are the highlights of three of them. The Myth of API Monetization - and How Companies Really Create Business Value With APIs API Conference 2023 The first keynote I attended was on API monetization, which is a topic that has also been in the tech news lately.</description>
     </item>
-    
     <item>
       <title>On programming well</title>
       <link>https://www.keksipurkki.net/posts/better-code-nov-2022/</link>
       <pubDate>Tue, 29 Nov 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/better-code-nov-2022/</guid>
       <description>I was at my colleague&amp;rsquo;s housewarming party not so long time ago. After some sauna and refreshments the discussion turned to — surprise, surprise — programming. One of the guests opined that understanding data is all there is to programming. I nodded my head. After pondering about it for a while, I came up with this blog. Enjoy! Data is king The light-emitting diodes of a display under a microscope.</description>
     </item>
-    
     <item>
       <title>Scrum: Stages of Grief</title>
       <link>https://www.keksipurkki.net/posts/scrum-08-2022/</link>
       <pubDate>Mon, 29 Aug 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/scrum-08-2022/</guid>
       <description>Scrum is a methodology to organize team work. Created by Jeff Sutherland and Ken Schwaber in the early 1990s, it is a perfect example of combining tried and true ideas from the Orient and the Occident until you arrive at something novel. In the case of Scrum, the problem it sought to initially solve is how to develop enterprise software in a way that actually creates value to end users.</description>
     </item>
-    
     <item>
       <title>What cloud native should mean</title>
       <link>https://www.keksipurkki.net/posts/cloud-native/</link>
       <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/cloud-native/</guid>
       <description>Cloud native is one of the buzzwords tossed around in the developer world. What does the term mean? Here&amp;rsquo;s my take on what it should mean. Worst comes to worst, you still want to a develop an application that can be run end-to-end on your own machine? Introduction A cloud native startup in the 2010s. I first encountered the term cloud native when I saw a cartoon contrasting the arduous journey of an enterprise migrating to a cloud platform versus a cloud native startup for which deploying changes to production is merely a matter of executing heroku deploy.</description>
     </item>
-    
     <item>
       <title>Do you need maths to be a software developer?</title>
       <link>https://www.keksipurkki.net/posts/maths-and-programming/</link>
       <pubDate>Mon, 08 Nov 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/maths-and-programming/</guid>
       <description>Would it be time to give maths a second chance? Every now and then I come across social media campaigns and the like that aim to inspire non-techies to take on programming. While I praise their goal, these campaigns tend to have one thing in common that makes me cringe. They try to be inclusive at the cost perpetuating a misguided image of the role of maths in software development. The sentiment is that you do not need maths to become a software developer.</description>
     </item>
-    
     <item>
       <title>Musings about JSON and jq</title>
       <link>https://www.keksipurkki.net/posts/jq-march-21/</link>
       <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/jq-march-21/</guid>
       <description>Introduction Oh, JSON, JSON, JSON…what would the world be without you? Let me show you what I have learned recently about this ubiquitous data-interchange format. It turns out you can manipulate complex JSON strings on the command line with ease. This came to me as somewhat of a surprise as I always thought that JSON is fundamentally incompatible with traditional command line tools, the Unix filters cat, grep, sed and friends, that operate on ad hoc structured text files in a line-oriented fashion.</description>
     </item>
-    
     <item>
       <title>Top reads of 2019: Juha Hurme — Niemi (2017)</title>
       <link>https://www.keksipurkki.net/posts/2019-books-pt1/</link>
       <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/2019-books-pt1/</guid>
-      <description>New year, new gear. Time to reflect on the lessons learned during 2019, a year that I remember from its warm and pleasant summer, Greta Thunberg and climate anxiety, Brexit drama, and the &amp;ldquo;stable genius&amp;rdquo; of Donald Trump.
-On a personal note, one of the highlights of the year was that I left Europe for the first time for a summer holiday in California, USA. I traveled alone, even though a travel companion or an entourage of such would have been nice.</description>
+      <description>New year, new gear. Time to reflect on the lessons learned during 2019, a year that I remember from its warm and pleasant summer, Greta Thunberg and climate anxiety, Brexit drama, and the &amp;ldquo;stable genius&amp;rdquo; of Donald Trump.&#xA;On a personal note, one of the highlights of the year was that I left Europe for the first time for a summer holiday in California, USA. I traveled alone, even though a travel companion or an entourage of such would have been nice.</description>
     </item>
-    
     <item>
       <title>vim - Vi IMproved, a programmer&#39;s text editor</title>
       <link>https://www.keksipurkki.net/posts/vim-oct-2019/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/vim-oct-2019/</guid>
       <description>Vim has been my editor of choice from day one, and I have been using the same setup for years. I pimped up my Vim to match what&amp;rsquo;s possible in October 2019. Here are my thoughts about coding editors and a breakdown of my setup. My first stab at programming was writing shell scripts for fun. I started by watching a video course on the topic. I would not know the name nor the publisher of this course anymore.</description>
     </item>
-    
     <item>
       <title>A Redux/ReactJS app done right</title>
       <link>https://www.keksipurkki.net/posts/typescript-redux-types/</link>
       <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/typescript-redux-types/</guid>
       <description>There has been a lot of developer buzz around TypeScript, ReactJS and Redux for many years already and the interest does not shows signs of subsiding. Here are my reflections on the lessons learned on writing type-safe and deterministic applications with the combo. A demo app and its source code are provided. In this blog post I will show you how you can implement a strongly-typed Redux/ReactJS app in TypeScript with the bare minimum of type-annotations and external dependencies.</description>
     </item>
-    
     <item>
       <title>Tunnelvision</title>
       <link>https://www.keksipurkki.net/posts/tunnelvision/</link>
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/tunnelvision/</guid>
       <description>SSH reverse port forwarding is a technique that powers services that let you instantly share any server application on your LAN to the public Internet. After realizing that these services are not so secure as you might think, I decided to roll my own tunnelling service by the name of Tunnelvision. Wouldn&amp;rsquo;t it be awesome to instantly show the web application you are developing from your local machine to the rest of the world?</description>
     </item>
-    
     <item>
       <title>About me</title>
       <link>https://www.keksipurkki.net/about/</link>
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
-      
       <guid>https://www.keksipurkki.net/about/</guid>
       <description> GitHub LinkedIn PayPal </description>
     </item>
-    
     <item>
       <title>N-dimensional arrays</title>
       <link>https://www.keksipurkki.net/posts/typescript-ndarray/</link>
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
       <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
     </item>
-    
   </channel>
 </rss>

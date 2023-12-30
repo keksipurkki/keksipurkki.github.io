@@ -1,0 +1,620 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="referrer" content="unsafe-url">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="description" content="A demonstration of principal component analysis" />
+
+<meta name="keywords" content=",
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A demonstration of principal component analysis" />
+<meta property="og:title" content="Flags of the world apart" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="https://www.keksipurkki.net/posts/svd-12-2023/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2023-12-30
+" /> <meta property="article:modified_time" content="2023-12-30
+" />
+
+
+<meta property="article:tag" content="" />
+
+
+
+
+
+
+    <title>Flags of the world apart</title>
+    <link rel="canonical" href="https://www.keksipurkki.net/posts/svd-12-2023/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="https://www.keksipurkki.net/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://www.keksipurkki.net/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/ascetic.css"
+/>
+
+<style>
+.hljs-addition, .hljs-attribute, .hljs-bullet, .hljs-link, .hljs-section, .hljs-string, .hljs-symbol, .hljs-template-variable, .hljs-variable {
+  color: black !important;
+}
+</style>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="https://www.keksipurkki.net/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw8 center">
+    <h1 itemprop="name" id="title">Flags of the world apart</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2023-12-30</a>
+      
+
+
+
+  
+  
+
+  <button class="dn dib-ns button-reset relative hide-child-alt">
+  <i class="fa fa-history mr1"></i>
+  <span>1 revisions</span>
+  <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
+    <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-12-30 21:14Z Flags of the world apart</li>
+    
+    </ul>
+    <span class="absolute top-0 left-2 nt2 w1 h1 bg-white bl bt b--moon-gray rotate-45"></span>
+  </span>
+</button>
+
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <h2 id="introduction">Introduction</h2>
+<figure style="float:right; width:40%; margin-right: 0.0em;">
+  <img alt="A meme picture featuring Obi-Wan Kenobi" src="/pca.jpg" />
+  <figcaption><small>A professor I met at a university far away.</small></figcaption>
+</figure>
+<p>I like to play quizzes with my nephew. A particular favorite of ours is to pair
+the flags of the world to countries. I have noticed that the task gets a lot
+easier if you can tell a short story about each country in your head. The superb
+<a href="https://www.youtube.com/@GeographyNow">GeographyNow</a> series on YouTube has
+proven to be mightily useful for this purpose despite the platform&rsquo;s general
+demise to clickbait-ridden crap. As for my nephew, I suspect he just uses raw
+cognitive power and the flags served as a mere gateway drug to Pokémon.</p>
+<p>I have long pondered about an observation I have made when playing the quiz on
+two competing sites,
+<a href="https://www.jetpunk.com/quizzes/flags-of-the-world-quiz">JetPunk</a> and
+<a href="https://www.sporcle.com/games/g/worldflags">Sporcle</a>. One version of the quiz
+has the flags loosely grouped by similarity while the other randomizes the list
+on each trial. At least for me, the first variant is significantly easier to
+play.</p>
+<p>This observation is sure to have some solid neuroscience behind it; all I can
+remember for this blog post are the chapters on associative memory in
+<a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow">Kahneman&rsquo;s Thinking, Fast and Slow (2011)</a>.
+As I am not a brain surgeon nor a mind reader, I do not have much more to say
+about the functioning of the human brain. But since I am a programmer, I also
+find the following simpler question interesting: <em>How would you order the flags
+of the world based on visual similarity programmatically?</em></p>
+<p>A faint voice whispered in my head: &ldquo;Use Principal Component Analysis, son.&rdquo;
+Indeed, I vaguely remember reading about this topic almost a decade ago at
+university but the references are just about garbage-collected from my main
+memory. I therefore decided that now is as good time as any to get my hands
+dirty and wrote this blog.</p>
+<h2 id="principal-component-analysis">Principal component analysis</h2>
+<p>Linear algebra is a discipline taught at university to just about all students
+of the STEM subjects. It is concerned with vector spaces. Statistics is a
+trauma-inducing compulsory course for humanists. It is concerned with aggregates
+of data. Data science is the bastard son of the two, and
+<a href="https://en.wikipedia.org/wiki/Principal_component_analysis">Principal Component Analysis (PCA)</a>
+is a technique born out of this unholy cerebral knowledge.</p>
+<figure style="float:right; width:40%; margin-right: 0.0em;">
+  <img alt="A scatter plot of samples that are distributed according a multivariate (bivariate) Gaussian distribution centered at (1,3) with a standard deviation of 3 in the (0.866, 0.5) direction and of 1 in the orthogonal direction. The directions represent the Principal Components (PC) associated with the distribution." src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/GaussianScatterPCA.svg/600px-GaussianScatterPCA.svg.png" />
+  <figcaption><small>Principal component analysis of two-dimensional data. Wikipedia © CC BY 4.0</small></figcaption>
+</figure>
+<p>More technically, PCA takes <em>any</em> data matrix and outputs a list of orthogonal
+vectors with associated weight coefficients. The weight coefficients order the
+vectors in terms of how well they explain the variation within the data. More
+visually, imagine a cloud of data point in a multidimensional space. PCA is a
+technique for drawing coordinate axes in this space. The axes are ordered in
+such a way that less and less data points aggregate along them if you imagine
+looking at the data along each axis in turn.</p>
+<p>As imagining multidimensional data is a tall order, it is perhaps helpful to
+think about a two-dimensional example. The data will have two principal
+component axes. The first axis corresponds to a least squares fit to the data,
+while the second axis is orthogonal to the first one — in two dimensions there
+is only one choice up to sign.</p>
+<p>I also like the analogy given by
+<a href="https://www.youtube.com/watch?v=FgakZw6K1QQ">Josh Starmer</a> on his StatQuest
+channel. Imagine that you are a chemist and you are given a bunch of cocktails.
+You are not allowed to drink them. Instead, you asked to come up with a recipe
+for each cocktail (data point). A principal component analysis on the cocktails
+yields a list of the liquors (vectors) and their proportions (weight
+coefficients). You may then hypothesize that the first principal component of a
+cocktail is vodka with weight 40 ml × 0.916 g/ml = 36.64 g (🤓).</p>
+<p>I should also mention that in practice PCA is equivalent to performing
+<a href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Singular Value Decomposition (SVD)</a>
+on the data matrix. However, that is the extent I want to touch on the theory.
+It is futile for me to attempt any in-depth explanation. Firstly, SVD is
+typically the pinnacle of a course in linear algebra and its beauty and
+significance can only be appreciated once the foundational aspects of the
+discipline are mastered. Secondly, PCA and its connection to SVD has been widely
+discussed in several blogs in recent years as the technique is highly useful in
+all kinds of machine learning applications — this is very much the math that
+makes things like <a href="https://en.wikipedia.org/wiki/Eigenface">face recognition</a>
+possible.</p>
+<p>Suffice it to say that the legendary
+<a href="https://www.youtube.com/watch?v=YPe5OP7Clv4">Gilbert Strang</a> ranked SVD as the
+most elegant piece of mathematics there is. His lectures on linear algebra are
+freely accessible from
+<a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/video_galleries/video-lectures/">here</a>.</p>
+<h2 id="the-algorithm">The algorithm</h2>
+<p>I still have to say something about how PCA helps in the task at hand. I need to
+convince you that it&rsquo;s possible to write a program that takes the flags of the
+world as input and spit them out in a such a way that flags resembling each
+other are grouped together. For example, one could argue that the flags of the
+Nordic countries should more or less follow each other: 🇩🇰, 🇫🇮, 🇮🇸, 🇳🇴, 🇸🇪.</p>
+<p>There is plenty of room for creativity for this problem, but a relatively
+straightforward recipe is as follows:</p>
+<ol>
+<li>Construct a data matrix <strong>X</strong> out of the bitmaps of the country flags</li>
+<li>Perform SVD on the data matrix <strong>X</strong>=<strong>UΣV</strong><sup>T</sup></li>
+<li>Construct the PCA score matrix <strong>T</strong>=<strong>UΣ</strong></li>
+<li>Truncate the score matrix to the first <em>rank</em> columns</li>
+<li>For each country <em>n</em>, output the country emoji and the <em>n</em>th row of <strong>T</strong></li>
+<li>Sort the output based on the scores</li>
+</ol>
+<p>The first step is to design the data matrix. The convention in PCA literature is
+to construct it so that each row corresponds to a repetition of an experiment
+while each column is a feature of the experiment such as a reading on some kind
+of a sensor. On the other hand, one can easily download images of the country
+flags from <a href="https://flagpedia.net/download">here</a>. One then ends up with a bunch
+of PNG images in the downloads folder. So much for experiments and sensors.</p>
+<p>This did not prevent me from experimentation. In the end I decided that each row
+of the data matrix will correspond to a country (experiment) and each column
+corresponds to a pixel value in a bitmap version of the PNG image (the
+features). As aside, I must admit that countries as experiments has a certain
+poetic air to it.</p>
+<p>It may be confusing to think that flags that are inherently two-dimensional
+objects become the rows of another two-dimensional object, a matrix. However, as
+the bitmap images are read from the disk as contiguous chunks of bytes, they are
+row vectors from the point of view of this problem. It matters not what the
+exact bitmap data layout is as long as it is the same for all the flags.</p>
+<p>I therefore chose the size of each bitmap to be exactly 128×85 pixels.
+This was more or less an arbitrary choice except for the fact that PCA is not
+the cheapest of procedures. In addition, since PCA is highly sensitive to
+outliers, I ruled out a handful of flags. I discarded Nepal (🇳🇵) because of its
+aspect ratio. Sorry Nepal. The rest of the outliers were territories with
+non-unique flags like Svalbard and Jan Mayen (🇸🇯) and the kingdoms of the UK as
+these do not have a two-letter country code. All in all, the set of unique flags
+with unique two-letter country codes comprised 244 elements in total.</p>
+<p>At this point, we have constructed the data matrix <strong>X</strong> whose shape is <em>(244,
+3×128×85)</em> (RGB) or <em>(244, 128×85)</em> (Greyscale). A final
+caveat about it is that the PCA literature recommends normalizing the data so
+that it has column-wise zero mean and unit variance.</p>
+<p>The second step is to perform singular value decomposition. I consequently went
+shopping for an implementation. The choice pretty much determines the
+implementation language for this problem. Options are to use Matlab or one of
+its competitors (R, SciPy, Octave…) or go old-school and use C/C++ or
+Fortran. I also gave Swift a shot. Based on
+<a href="https://developer.apple.com/documentation/accelerate/compressing_an_image_using_linear_algebra">Apple&rsquo;s documentation</a>,
+it should possible to compute SVD with Apple&rsquo;s SDK, but the implementation seems
+to be a mere rehashed hipster facade in front of good ol&rsquo; Fortran.</p>
+<p>I ultimately chose Fortran and travelled back in time to the 1970&rsquo;s. I am not
+kidding either. A portable single-file SVD implementation can be found from
+<a href="https://jblevins.org/mirror/amiller/dsvdc.f90">Alan Miller&rsquo;s</a> site. The source
+code lists a certain G.W. Stewart from the Argonne National Lab as the original
+author and mentions that the version dates back to the year 1979. The code is in
+the public domain. Kudos to the gentlemen for their work.</p>
+<p>I used to program in Fortran at the university so writing a piece of code that
+crashes without any error messages is something I can do. However, the most
+difficult part of this problem was to understand conceptually the idea behind
+the PCA score matrix <strong>T</strong>. I wrote in the introduction that the output of PCA
+is a list of vectors and weight coefficients. The score matrix combines the two
+as it is formed from the diagonal matrix of singular values <strong>Σ</strong> and the
+left-singular vectors <strong>U</strong>: <strong>T</strong>=<strong>UΣ</strong>. So what?</p>
+<p>After a certain amount of wondering, it finally dawned to me. The whole point
+about the score matrix is that its columns are the scaled PCA axes, and its
+<em>rows</em> are the coordinates per country in the PCA coordinate system. For
+example, if the bitmap for the flag of Finland is at row index <em>n</em> in the data
+matrix, the row <em>n</em> of the score matrix will contain the &ldquo;PCA recipe&rdquo; for
+Finland.</p>
+<p>What is more, the score matrix can be truncated because of the way the singular
+values are ordered. It is sufficient to pick only a couple of the first columns.
+This is called <em>rank reduction</em> and it is the central goal of many applications
+of PCA. I played around with values ranging from 2 to 30 and settled with 5 in
+the end. Because of the way the sorting step is implemented for this blog, the
+choice is not that important. For serious work, there are techniques for picking
+the rank intelligently based on the <a href="https://www.cs.ox.ac.uk/people/james.worrell/SVD-thin.pdf">Eckart—Young
+theorem</a>.</p>
+<p>The loop over the countries is then a simple matter of picking a country code
+like FI and mapping it to an emoji 🇫🇮. This can be done based on a nifty trick I
+learned
+<a href="https://gist.github.com/keksipurkki/4044067818df192d3b4f41787a11bba7">a while ago</a>
+and now adapted to &ldquo;modern&rdquo; Fortran:</p>
+<pre><code>function country_emoji(code)
+  character(len=2), intent(in) :: code
+  integer, parameter :: ucs2 = selected_char_kind('ISO_10646')
+  character(kind=ucs2, len=2) :: country_emoji
+  integer, allocatable :: codepoints(:)
+  integer, parameter :: offset = 127365
+  integer :: i
+  codepoints = [( ichar(code(i:i)) + offset, i = 1, len(code) )]
+  country_emoji = transfer(codepoints, country_emoji)
+end function
+</code></pre>
+<p>At each country, the corresponding row of the score matrix is then read and the
+output is as follows:</p>
+<pre><code>ad;🇦🇩;61;38;-26;-13;59
+ae;🇦🇪;68;-41;106;46;31
+af;🇦🇫;-214;76;-17;-10;-9
+ag;🇦🇬;96;7;-6;-28;26
+ai;🇦🇮;32;-93;-11;48;-55
+...
+zw;🇿🇼;46;33;-44;-28;-52
+</code></pre>
+<p>Finally, the sorting of the output can accomplished with the <code>sort(1)</code> command
+line tool. The command <code>sort -k3,5 -t';' -n | cut -f2 -d';'</code> sorts the input
+numerically based on columns 3 to 5. The <code>cut(1)</code> call extracts the second
+column, the emoji. The sorting uses the higher order scores only if it gets
+stuck in a tie-break with the lower order scores.</p>
+<h2 id="source-code">Source code</h2>
+<p>The full source code is available at my
+<a href="https://github.com/keksipurkki/keksipurkki-demos-pca">GitHub</a>. I will include
+the main program here for a reference:</p>
+<pre><code class="language-f95">include 'assertions.f90'
+include 'utils.f90'
+
+module image_class
+  use iso_fortran_env
+  implicit none
+
+  type :: image
+    character(:), allocatable :: file_name
+    integer(int32), allocatable :: bitmap(:,:)
+  end type
+
+  type :: image_matrix
+    type(image), allocatable :: images(:)
+  end type
+
+  contains
+
+    !!
+    !! Output shape: x(samples, image_bytes)
+    !! Columns : rgb_1,rgb_2,rgb_3...
+    !!
+    function matrix(self)
+      class(image_matrix), intent(in) :: self
+      real(real64), allocatable :: matrix(:,:)
+      integer :: i, rows, cols
+      integer(int32), allocatable :: bytes(:)
+
+      rows = size(self%images)
+      cols = 0
+
+      do i = 1, rows
+        cols = max(cols, size(self%images(i)%bitmap))
+      enddo
+
+      allocate(matrix(rows, cols), source=0.0d0)
+
+      do i = 1, rows
+        bytes = reshape(self%images(i)%bitmap, [cols])
+        matrix(i,:) = 1.0d0 * bytes
+      enddo
+
+    end function
+
+end module
+
+program main
+  use image_class
+  use dispmodule
+  use iso_fortran_env
+  use assertions
+  use utils
+  implicit none
+
+  character(len=32), allocatable :: args(:)
+  integer :: n, rank
+  real(real64), allocatable :: x(:,:)
+
+  call disp_set(sep = ', ', orient='row')
+  open(output_unit, encoding='utf-8')
+
+  args = cli_arguments()
+  n = size(args)
+  rank = 5
+
+  if (n == 0) then
+    call disp(&quot;Expected at least one argument&quot;)
+    stop 0
+  endif
+
+  call disp('Args: ', n)
+  call disp('Rank: ', rank)
+
+  call disp('-------------------------------------------------------------------')
+
+  call disp('RGB')
+  x = 1.0d0*nint(normalize(input(args)))
+  call output('rgb.txt', args, pca(x, rank))
+
+  call disp('-------------------------------------------------------------------')
+
+  call disp('Grayscale')
+  x = 1.0d0*nint(normalize(grayscale(input(args))))
+  call output('grayscale.txt', args, pca(x, rank))
+
+contains
+
+  function input(arguments) result(x)
+    use, intrinsic :: iso_c_binding
+    real(real64), allocatable :: x(:,:)
+    character(len=*), intent(in) :: arguments(:)
+    integer(int32), allocatable :: bytes(:)
+    integer(int32) :: offset, i, file_size
+    type(image) :: images(size(arguments))
+    type(image_matrix) :: m
+    character(c_char), allocatable :: buffer(:)
+
+    integer, allocatable, target :: rgba(:,:)
+    integer, pointer :: alpha(:), rgb(:,:)
+
+    do i = 1, size(arguments)
+      inquire(file=arguments(i), size=file_size)
+      allocate(buffer(file_size))
+
+      open(10, file = arguments(i), access = 'stream', form = 'unformatted')
+      read(10) buffer
+      close(10)
+
+      ! BMP image spec. Start of the bitmap array
+      offset = transfer(buffer(11:14), 1_int32) + 1
+      buffer = buffer(offset:)
+
+      ! Sanity check
+      call assert(mod(size(buffer), 4) == 0, 'Array size mismatch')
+
+      rgba = reshape(ichar(buffer), [4, size(buffer)/4])
+      rgb =&gt; rgba(1:3,:)
+      alpha =&gt; rgba(4,:)
+
+      ! Sanity check
+      call assert(all(alpha == 255), 'Expected full opacity')
+
+      images(i) = image(file_name=arguments(i), bitmap=rgb)
+      deallocate(buffer)
+    enddo
+
+    m = image_matrix(images)
+    x = matrix(m)
+
+    call disp('Data shape = ', shape(x))
+
+  end function
+
+  subroutine output(fname, args, result)
+    character(len=*), intent(in) :: fname
+    character(len=32), intent(in) :: args(:)
+    real(real64), intent(in), target :: result(:,:)
+    integer :: i
+
+    integer :: io
+
+    open(newunit=io, file=fname, status=&quot;replace&quot;, action=&quot;write&quot;, encoding='utf-8')
+
+    do i = 1, size(args)
+      write (io, '(AA)', advance='no') country_code(args(i)), &quot;;&quot;
+      write (io, '(AA)', advance='no') country_emoji(country_code(args(i))), &quot; ;&quot;
+      write (io, '(*(G0.5,:&quot;;&quot;))', advance='no') nint(result(i, :))
+      write (io, '(A)', advance='yes') ''
+    enddo
+
+    close(io)
+  end subroutine
+
+  function pca(x, rank) result(t)
+
+    real(real64), allocatable, intent(in) :: x(:,:)
+    integer, intent(in) :: rank
+
+    real(real64), allocatable :: t(:,:)
+    real(real64), allocatable :: s(:), u(:,:), v(:,:)
+    integer :: i
+
+    call dsvd(x, s, u, v)
+    call disp('Left singular vectors = ', shape(u))
+    call disp('Sigma = ', reshape(s, [size(s)/10, 10], order=[2,1]))
+
+    allocate(t(size(u,1), size(u, 2)), source=0.0d0)
+
+    do i = 1, size(t, 2)
+      t(:,i) = u(:,i) * s(i)
+    enddo
+
+    call disp('Result shape = ', shape(t))
+
+    t = t(:, 1:rank) ! Rank reduction
+
+    call disp('Truncated result shape = ', shape(t))
+  end function
+
+  subroutine dsvd(x, s, u, v)
+    use svd, only: dsvdc
+    real(real64), intent(in) :: x(:,:)
+    real(real64), intent(out), allocatable :: s(:), u(:,:), v(:,:)
+    real(real64), allocatable :: e(:)
+    real(real64), allocatable :: xx(:,:)
+    integer :: n, p, job, info
+
+    ! automatic allocation
+    xx = x
+
+    n = size(xx, 1)
+    p = size(xx, 2)
+
+    call disp('SVD shape = ', shape(xx))
+    call assert(n &lt; p, 'Expected a matrix with shape n &lt; p')
+
+    job = 10
+    allocate(s(min(n + 1, p)), source=0.0d0)
+    allocate(e(p), source=0.d0)
+    allocate(u(n, n), source=0.0d0)
+
+    call dsvdc(xx, n, p, s, e, u, v, job, info)
+    call assert(info == 0, 'Singular value decomposition failed.')
+    call assert(all(e(1:n) &lt; epsilon(1.0_real64)), 'Singular value decomposition failed')
+
+  end subroutine
+
+end program
+
+</code></pre>
+<h2 id="results-and-discussion">Results and discussion</h2>
+<p>As promised, here are the country flags sorted according to the procedure I
+described in this blog post. The list is based on the values for the RGB data
+matrix. The raw output data table is available from <a href="/pca/rgb.txt">rgb.txt</a>. You
+may inspect and generate a similar ordering for the greyscale variant from
+<a href="/pca/grayscale.txt">grayscale.txt</a>.</p>
+<span style="font-size:48px;">
+🇨🇾 🇦🇫 🇯🇵 🇾🇹 🇧🇱 🇰🇷 🇸🇲 🇻🇮 🇫🇴 🇱🇨 🇫🇮 🇬🇬 🇺🇾 🇭🇳 
+🇵🇼 🇮🇱 🇬🇪 🇬🇹 🇦🇶 🇦🇷 🇯🇪 🇫🇲 🇬🇷 🇰🇿 🇻🇦 🇪🇪 🇫🇯 🇧🇼 
+🇩🇯 🇸🇴 🇦🇼 🇩🇿 🇹🇻 🇺🇿 🇳🇮 🇸🇬 🇸🇻 🇵🇱 🇮🇪 🇷🇸 🇳🇬 🇨🇩 
+🇸🇱 🇨🇮 🇽🇰 🇮🇩 🇲🇨 🇨🇷 🇮🇸 🇷🇼 🇬🇮 🇮🇴 🇧🇶 🇬🇱 🇸🇪 🇵🇦 
+🇸🇮 🇧🇬 🇬🇦 🇱🇺 🇷🇪 🇷🇺 🇵🇲 🇸🇰 🇲🇬 🇮🇹 🇱🇸 🇲🇹 🇨🇿 🇺🇸 
+🇨🇺 🇦🇽 🇺🇦 🇨🇻 🇦🇿 🇲🇾 🇱🇷 🇸🇷 🇫🇷 🇳🇫 🇰🇲 🇬🇧 🇶🇦 🇧🇮 
+🇹🇭 🇨🇱 🇲🇭 🇧🇷 🇲🇵 🇴🇲 🇨🇦 🇵🇷 🇧🇳 🇲🇽 🇵🇰 🇹🇿 🇨🇽 🇳🇨 
+🇲🇴 🇮🇷 🇬🇾 🇵🇭 🇦🇸 🇸🇧 🇸🇹 🇸🇨 🇸🇿 🇳🇺 🇧🇦 🇧🇩 🇧🇭 🇰🇵 
+🇪🇷 🇵🇾 🇧🇸 🇳🇪 🇨🇫 🇭🇺 🇳🇱 🇱🇧 🇵🇫 🇲🇿 🇧🇹 🇰🇮 🇨🇬 🇭🇷 
+🇳🇦 🇹🇬 🇲🇺 🇹🇯 🇹🇲 🇩🇲 🇰🇭 🇲🇲 🇿🇼 🇵🇪 🇿🇦 🇬🇫 🇬🇶 🇮🇳 
+🇬🇳 🇹🇫 🇫🇰 🇵🇸 🇨🇰 🇲🇩 🇸🇽 🇧🇿 🇬🇼 🇩🇴 🇦🇮 🇦🇺 🇨🇲 🇰🇾 
+🇪🇨 🇯🇲 🇲🇸 🇸🇳 🇧🇫 🇱🇰 🇧🇯 🇻🇨 🇻🇬 🇨🇼 🇬🇸 🇵🇳 🇸🇭 🇹🇰 
+🇳🇿 🇸🇸 🇹🇨 🇧🇧 🇲🇱 🇲🇷 🇳🇷 🇪🇭 🇰🇼 🇯🇴 🇦🇩 🇲🇶 🇬🇭 🇨🇴 
+🇬🇺 🇭🇹 🇱🇻 🇸🇦 🇻🇺 🇲🇳 🇦🇲 🇨🇨 🇱🇹 🇻🇪 🇬🇩 🇪🇹 🇱🇾 🇰🇪 
+🇹🇴 🇲🇼 🇦🇪 🇧🇪 🇳🇴 🇷🇴 🇹🇩 🇿🇲 🇦🇹 🇩🇪 🇩🇰 🇬🇲 🇺🇬 🇾🇪 
+🇪🇬 🇮🇶 🇰🇳 🇧🇴 🇸🇾 🇧🇲 🇬🇵 🇲🇰 🇸🇩 🇪🇸 🇱🇮 🇹🇹 🇧🇾 🇦🇬 
+🇼🇫 🇨🇭 🇱🇦 🇹🇼 🇲🇪 🇵🇹 🇲🇻 🇼🇸 🇹🇷 🇹🇳 🇭🇰 🇹🇱 🇵🇬 🇨🇳 
+🇮🇲 🇰🇬 🇻🇳 🇲🇦 🇦🇱 🇦🇴 
+</span>
+<p>Going over the list, one can definitely see a trend going from white to red
+flags. One can also see definite smaller patterns sprouting here and there. That
+Monaco and Indonesia follow each other is reassuring. Similarly, the trio of
+Yemen, Egypt and Iraq appear together and Syria is not far either.</p>
+<p>However, it is clear that this is not the optimal ordering. A discrepancy that
+is immediately noticeable is the flag of Afghanistan, the second on the list. It
+turns out that the program used the current white
+<a href="https://en.wikipedia.org/wiki/Afghanistan#/media/File:Flag_of_the_Taliban.svg">Taliban flag</a>
+of the country, and the country emojis have yet not been updated, perhaps in the
+hope that the regime would topple on its own. Another discrepancy seems to be
+that the various flags of the Polynesian islands resembling the flag of New
+Zealand/Australia do not cluster together. It may be because the fine features
+on the flags distort the PCA procedure at the selected image resolution.</p>
+<p>That Nordic countries do not neatly align with each other is a result I can live
+with. Hopefully we will find unity in the imminent WW3.</p>
+<p>Be that as it may, the principal problem I noticed while playing with this
+problem is that the procedure is extremely sensitive to slight tweaks in the
+data. This seems to be related to the fact that singular values do not decay as
+rapidly as I would have wished. A second issue is that the sorting logic I
+cannot exploit the full amount of information provided by the PCA procedure. The
+next step would be to cluster the flags based on their PCA scores more
+intelligently, but that is beyond of the scope of this blog.</p>
+<p>In closing, this was a really fun exercise! It made me think about my memories
+and how human memory works in the first place. It seems that fingers have
+memories of their own, and the act of getting your hands dirty is the only way
+to become conscious of them. Even thought a decade had passed since my Fortran
+days, my fingers still remembered it.</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 2023 Elias A. Toivanen</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/typescript.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/fortran.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

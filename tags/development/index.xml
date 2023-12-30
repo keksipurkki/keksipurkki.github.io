@@ -7,51 +7,42 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>🍪 2023 Elias A. Toivanen</copyright>
-    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.keksipurkki.net/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.keksipurkki.net/tags/development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Musings about JSON and jq</title>
       <link>https://www.keksipurkki.net/posts/jq-march-21/</link>
       <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/jq-march-21/</guid>
       <description>Introduction Oh, JSON, JSON, JSON…what would the world be without you? Let me show you what I have learned recently about this ubiquitous data-interchange format. It turns out you can manipulate complex JSON strings on the command line with ease. This came to me as somewhat of a surprise as I always thought that JSON is fundamentally incompatible with traditional command line tools, the Unix filters cat, grep, sed and friends, that operate on ad hoc structured text files in a line-oriented fashion.</description>
     </item>
-    
     <item>
       <title>vim - Vi IMproved, a programmer&#39;s text editor</title>
       <link>https://www.keksipurkki.net/posts/vim-oct-2019/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/vim-oct-2019/</guid>
       <description>Vim has been my editor of choice from day one, and I have been using the same setup for years. I pimped up my Vim to match what&amp;rsquo;s possible in October 2019. Here are my thoughts about coding editors and a breakdown of my setup. My first stab at programming was writing shell scripts for fun. I started by watching a video course on the topic. I would not know the name nor the publisher of this course anymore.</description>
     </item>
-    
     <item>
       <title>A Redux/ReactJS app done right</title>
       <link>https://www.keksipurkki.net/posts/typescript-redux-types/</link>
       <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/typescript-redux-types/</guid>
       <description>There has been a lot of developer buzz around TypeScript, ReactJS and Redux for many years already and the interest does not shows signs of subsiding. Here are my reflections on the lessons learned on writing type-safe and deterministic applications with the combo. A demo app and its source code are provided. In this blog post I will show you how you can implement a strongly-typed Redux/ReactJS app in TypeScript with the bare minimum of type-annotations and external dependencies.</description>
     </item>
-    
     <item>
       <title>Tunnelvision</title>
       <link>https://www.keksipurkki.net/posts/tunnelvision/</link>
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/tunnelvision/</guid>
       <description>SSH reverse port forwarding is a technique that powers services that let you instantly share any server application on your LAN to the public Internet. After realizing that these services are not so secure as you might think, I decided to roll my own tunnelling service by the name of Tunnelvision. Wouldn&amp;rsquo;t it be awesome to instantly show the web application you are developing from your local machine to the rest of the world?</description>
     </item>
-    
     <item>
       <title>N-dimensional arrays</title>
       <link>https://www.keksipurkki.net/posts/typescript-ndarray/</link>
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
-      
       <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
       <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
     </item>
-    
   </channel>
 </rss>

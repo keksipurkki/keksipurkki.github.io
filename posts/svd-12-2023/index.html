@@ -119,9 +119,11 @@
 
   <button class="dn dib-ns button-reset relative hide-child-alt">
   <i class="fa fa-history mr1"></i>
-  <span>3 revisions</span>
+  <span>4 revisions</span>
   <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
     <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-12-31 08:11Z Add a note about coarse-graining and grammar</li>
     
       <li>2023-12-30 22:43Z Grammar</li>
     
@@ -185,9 +187,9 @@ is a technique born out of this unholy cerebral knowledge.</p>
 <p>More technically, PCA takes <em>any</em> data matrix and outputs a list of orthogonal
 vectors with associated weight coefficients. The weight coefficients order the
 vectors in terms of how well they explain the variation within the data. More
-visually, imagine a cloud of data point in a multidimensional space. PCA is a
+visually, imagine a cloud of data points in a multidimensional space. PCA is a
 technique for drawing coordinate axes in this space. The axes are ordered in
-such a way that less and less points aggregate along them if you imagine looking
+such a way that fewer and fewer points aggregate along them if you imagine looking
 at the data along each axis in turn.</p>
 <p>As imagining multidimensional data is a tall order, it is perhaps helpful to
 think about a two-dimensional example. The data will have two principal
@@ -213,10 +215,10 @@ discussed in several blogs in recent years as the technique is highly useful in
 all kinds of machine learning applications — this is very much the math that
 makes things like <a href="https://en.wikipedia.org/wiki/Eigenface">face recognition</a>
 possible.</p>
-<p>Suffice it to say that the legendary
-<a href="https://www.youtube.com/watch?v=YPe5OP7Clv4">Gilbert Strang</a> ranked SVD as the
-most elegant piece of linear algebra there is. His lectures on linear algebra
-are freely accessible from
+<p>Suffice it to say that the legendary <a href="https://www.youtube.com/watch?v=YPe5OP7Clv4">Gilbert
+Strang</a> ranked SVD as the most
+elegant piece of linear algebra there is. His lectures are freely accessible
+from
 <a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/video_galleries/video-lectures/">here</a>.</p>
 <h2 id="the-algorithm">The algorithm</h2>
 <p>I still have to say something about how PCA helps in the task at hand. I need to
@@ -324,10 +326,15 @@ ai;🇦🇮;32;-93;-11;48;-55
 zw;🇿🇼;46;33;-44;-28;-52
 </code></pre>
 <p>Finally, the sorting of the output can accomplished with the <code>sort(1)</code> command
-line tool. The command <code>sort -k3,5 -t';' -n | cut -f2 -d';'</code> sorts the input
-numerically based on columns 3 to 5. The <code>cut(1)</code> call extracts the second
-column, the emoji. The sorting uses the higher order scores only if it gets
-stuck in a tie-break with the lower order scores.</p>
+line tool. The command <code>sort -k3,3 -k4,4 -k5,5 -k6,6 -k7,7 -t';' -n</code> sorts the
+input numerically based on columns 3 thru 7. The sorting uses the higher order
+scores if it gets stuck in a tie-break. This can be exploited to devise a simple
+strategy for using the PCA scores to the fullest. If the scores are
+coarse-grained to say the nearest multiple of 10, the number of tie-breaks is
+increased and the sort command is encouraged to explore the higher order scores.
+The resulting sort will then use information from multiple features
+simultaneously at the cost of discarding finer details at each individual
+feature.</p>
 <h2 id="source-code">Source code</h2>
 <p>The full source code is available at my
 <a href="https://github.com/keksipurkki/keksipurkki-demos-pca">GitHub</a>. I will include
@@ -478,7 +485,7 @@ contains
     do i = 1, size(args)
       write (io, '(AA)', advance='no') country_code(args(i)), &quot;;&quot;
       write (io, '(AA)', advance='no') country_emoji(country_code(args(i))), &quot; ;&quot;
-      write (io, '(*(G0.5,:&quot;;&quot;))', advance='no') nint(result(i, :))
+      write (io, '(*(G0.5,:&quot;;&quot;))', advance='no') 10d0*nint(0.1d0*result(i, :)) ! Coarse-grain features
       write (io, '(A)', advance='yes') ''
     enddo
 
@@ -540,7 +547,6 @@ contains
   end subroutine
 
 end program
-
 </code></pre>
 <h2 id="results-and-discussion">Results and discussion</h2>
 <p>As promised, here are the country flags sorted according to the procedure I
@@ -549,24 +555,24 @@ matrix. The raw output data table is available from <a href="/pca/rgb.txt">rgb.t
 may inspect and generate a similar ordering for the greyscale variant from
 <a href="/pca/grayscale.txt">grayscale.txt</a>.</p>
 <span style="font-size:48px;">
-🇨🇾 🇦🇫 🇯🇵 🇾🇹 🇧🇱 🇰🇷 🇸🇲 🇻🇮 🇫🇴 🇱🇨 🇫🇮 🇬🇬 🇺🇾 🇭🇳 
-🇵🇼 🇮🇱 🇬🇪 🇬🇹 🇦🇶 🇦🇷 🇯🇪 🇫🇲 🇬🇷 🇰🇿 🇻🇦 🇪🇪 🇫🇯 🇧🇼 
-🇩🇯 🇸🇴 🇦🇼 🇩🇿 🇹🇻 🇺🇿 🇳🇮 🇸🇬 🇸🇻 🇵🇱 🇮🇪 🇷🇸 🇳🇬 🇨🇩 
-🇸🇱 🇨🇮 🇽🇰 🇮🇩 🇲🇨 🇨🇷 🇮🇸 🇷🇼 🇬🇮 🇮🇴 🇧🇶 🇬🇱 🇸🇪 🇵🇦 
-🇸🇮 🇧🇬 🇬🇦 🇱🇺 🇷🇪 🇷🇺 🇵🇲 🇸🇰 🇲🇬 🇮🇹 🇱🇸 🇲🇹 🇨🇿 🇺🇸 
-🇨🇺 🇦🇽 🇺🇦 🇨🇻 🇦🇿 🇲🇾 🇱🇷 🇸🇷 🇫🇷 🇳🇫 🇰🇲 🇬🇧 🇶🇦 🇧🇮 
-🇹🇭 🇨🇱 🇲🇭 🇧🇷 🇲🇵 🇴🇲 🇨🇦 🇵🇷 🇧🇳 🇲🇽 🇵🇰 🇹🇿 🇨🇽 🇳🇨 
-🇲🇴 🇮🇷 🇬🇾 🇵🇭 🇦🇸 🇸🇧 🇸🇹 🇸🇨 🇸🇿 🇳🇺 🇧🇦 🇧🇩 🇧🇭 🇰🇵 
-🇪🇷 🇵🇾 🇧🇸 🇳🇪 🇨🇫 🇭🇺 🇳🇱 🇱🇧 🇵🇫 🇲🇿 🇧🇹 🇰🇮 🇨🇬 🇭🇷 
-🇳🇦 🇹🇬 🇲🇺 🇹🇯 🇹🇲 🇩🇲 🇰🇭 🇲🇲 🇿🇼 🇵🇪 🇿🇦 🇬🇫 🇬🇶 🇮🇳 
-🇬🇳 🇹🇫 🇫🇰 🇵🇸 🇨🇰 🇲🇩 🇸🇽 🇧🇿 🇬🇼 🇩🇴 🇦🇮 🇦🇺 🇨🇲 🇰🇾 
-🇪🇨 🇯🇲 🇲🇸 🇸🇳 🇧🇫 🇱🇰 🇧🇯 🇻🇨 🇻🇬 🇨🇼 🇬🇸 🇵🇳 🇸🇭 🇹🇰 
-🇳🇿 🇸🇸 🇹🇨 🇧🇧 🇲🇱 🇲🇷 🇳🇷 🇪🇭 🇰🇼 🇯🇴 🇦🇩 🇲🇶 🇬🇭 🇨🇴 
-🇬🇺 🇭🇹 🇱🇻 🇸🇦 🇻🇺 🇲🇳 🇦🇲 🇨🇨 🇱🇹 🇻🇪 🇬🇩 🇪🇹 🇱🇾 🇰🇪 
-🇹🇴 🇲🇼 🇦🇪 🇧🇪 🇳🇴 🇷🇴 🇹🇩 🇿🇲 🇦🇹 🇩🇪 🇩🇰 🇬🇲 🇺🇬 🇾🇪 
-🇪🇬 🇮🇶 🇰🇳 🇧🇴 🇸🇾 🇧🇲 🇬🇵 🇲🇰 🇸🇩 🇪🇸 🇱🇮 🇹🇹 🇧🇾 🇦🇬 
-🇼🇫 🇨🇭 🇱🇦 🇹🇼 🇲🇪 🇵🇹 🇲🇻 🇼🇸 🇹🇷 🇹🇳 🇭🇰 🇹🇱 🇵🇬 🇨🇳 
-🇮🇲 🇰🇬 🇻🇳 🇲🇦 🇦🇱 🇦🇴 
+🇨🇾 🇦🇫 🇾🇹 🇯🇵 🇰🇷 🇧🇱 🇸🇲 🇫🇴 🇻🇮 🇱🇨 🇫🇮 🇬🇬 🇵🇼 🇭🇳 
+🇮🇱 🇺🇾 🇦🇶 🇬🇹 🇦🇷 🇯🇪 🇬🇪 🇬🇷 🇫🇲 🇰🇿 🇪🇪 🇻🇦 🇫🇯 🇧🇼 
+🇩🇯 🇹🇻 🇸🇴 🇳🇮 🇦🇼 🇺🇿 🇩🇿 🇸🇻 🇮🇪 🇸🇬 🇵🇱 🇸🇱 🇨🇩 🇳🇬 
+🇷🇸 🇽🇰 🇮🇸 🇷🇼 🇮🇴 🇨🇷 🇨🇮 🇲🇨 🇮🇩 🇬🇮 🇸🇪 🇬🇦 🇵🇲 🇱🇺 
+🇷🇪 🇧🇶 🇵🇦 🇸🇮 🇷🇺 🇧🇬 🇬🇱 🇱🇸 🇲🇬 🇮🇹 🇺🇸 🇨🇿 🇸🇰 🇲🇹 
+🇨🇻 🇦🇽 🇨🇺 🇺🇦 🇦🇿 🇲🇾 🇱🇷 🇲🇵 🇲🇭 🇧🇷 🇳🇫 🇸🇷 🇬🇧 🇰🇲 
+🇹🇭 🇫🇷 🇶🇦 🇧🇮 🇨🇱 🇹🇿 🇵🇰 🇲🇽 🇴🇲 🇵🇷 🇨🇦 🇧🇳 🇲🇴 🇨🇽 
+🇸🇧 🇳🇨 🇦🇸 🇬🇾 🇸🇹 🇵🇭 🇮🇷 🇧🇩 🇧🇦 🇵🇾 🇸🇿 🇪🇷 🇰🇵 🇳🇪 
+🇸🇨 🇳🇺 🇧🇭 🇧🇸 🇳🇱 🇳🇦 🇭🇷 🇹🇬 🇰🇮 🇭🇺 🇲🇿 🇨🇫 🇨🇬 🇱🇧 
+🇵🇫 🇧🇹 🇹🇲 🇩🇲 🇰🇭 🇿🇦 🇲🇺 🇹🇯 🇮🇳 🇬🇶 🇬🇫 🇿🇼 🇲🇲 🇵🇪 
+🇦🇺 🇨🇰 🇰🇾 🇹🇫 🇦🇮 🇫🇰 🇵🇸 🇧🇿 🇸🇽 🇩🇴 🇬🇼 🇬🇳 🇨🇲 🇲🇩 
+🇳🇷 🇹🇨 🇬🇸 🇸🇭 🇻🇬 🇨🇼 🇲🇸 🇳🇿 🇵🇳 🇪🇭 🇸🇸 🇹🇰 🇧🇧 🇯🇲 
+🇧🇫 🇲🇷 🇻🇨 🇧🇯 🇱🇰 🇲🇱 🇸🇳 🇪🇨 🇬🇺 🇯🇴 🇲🇶 🇭🇹 🇬🇭 🇰🇼 
+🇦🇩 🇨🇴 🇨🇨 🇸🇦 🇻🇺 🇱🇻 🇪🇹 🇲🇳 🇦🇲 🇬🇩 🇱🇹 🇻🇪 🇲🇼 🇰🇪 
+🇱🇾 🇿🇲 🇦🇪 🇬🇲 🇳🇴 🇩🇪 🇷🇴 🇹🇩 🇧🇪 🇦🇹 🇹🇴 🇬🇵 🇮🇶 🇸🇾 
+🇸🇩 🇾🇪 🇪🇬 🇰🇳 🇧🇴 🇺🇬 🇧🇲 🇩🇰 🇲🇰 🇱🇮 🇧🇾 🇦🇬 🇹🇹 🇼🇫 
+🇨🇭 🇪🇸 🇱🇦 🇵🇹 🇹🇼 🇲🇪 🇲🇻 🇼🇸 🇭🇰 🇹🇳 🇹🇷 🇵🇬 🇹🇱 🇮🇲 
+🇰🇬 🇻🇳 🇨🇳 🇦🇴 🇲🇦 🇦🇱 
 </span>
 <p>Going over the list, one can definitely see a trend going from white to red
 flags. One can also see definite smaller patterns sprouting here and there. That

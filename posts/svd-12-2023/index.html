@@ -119,9 +119,11 @@
 
   <button class="dn dib-ns button-reset relative hide-child-alt">
   <i class="fa fa-history mr1"></i>
-  <span>4 revisions</span>
+  <span>5 revisions</span>
   <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
     <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2023-12-31 08:35Z Grammar</li>
     
       <li>2023-12-31 08:11Z Add a note about coarse-graining and grammar</li>
     
@@ -295,10 +297,9 @@ Finland.</p>
 values are ordered. It is sufficient to pick only a couple of the first columns.
 This is called <em>rank reduction</em> and it is the central goal of many applications
 of PCA. I played around with values ranging from 2 to 30 and settled with 5 in
-the end. Because of the way the sorting step is implemented for this blog, the
-choice is not that important. For serious work, there are techniques for picking
-the rank intelligently based on the
-<a href="https://www.cs.ox.ac.uk/people/james.worrell/SVD-thin.pdf">Eckart—Young theorem</a>.</p>
+the end. For serious work, there are techniques for picking the rank
+intelligently based on the <a href="https://www.cs.ox.ac.uk/people/james.worrell/SVD-thin.pdf">Eckart—Young
+theorem</a>.</p>
 <p>The loop over the countries is then a simple matter of picking a country code
 like FI and mapping it to an emoji 🇫🇮. This can be done based on a nifty trick I
 learned
@@ -576,8 +577,8 @@ may inspect and generate a similar ordering for the greyscale variant from
 </span>
 <p>Going over the list, one can definitely see a trend going from white to red
 flags. One can also see definite smaller patterns sprouting here and there. That
-Monaco and Indonesia follow each other is reassuring. Similarly, the trio of
-Yemen, Egypt and Iraq appear together and Syria is not far either.</p>
+Monaco and Indonesia follow each other is reassuring. Similarly, the countries
+Yemen, Egypt, Syria, Palestine and Iraq appear rightfully together.</p>
 <p>However, it is clear that this is not the optimal ordering. A discrepancy that
 is immediately noticeable is the flag of Afghanistan, the second on the list. It
 turns out that the program used the current white
@@ -585,17 +586,16 @@ turns out that the program used the current white
 of the country, and the country emojis have yet not been updated, perhaps in the
 hope that the regime would topple on its own. Another discrepancy seems to be
 that the various flags of the Polynesian islands resembling the flag of New
-Zealand/Australia do not cluster together. It may be because the fine features
+Zealand/Australia do not completely cluster together. It may be because the fine features
 on the flags distort the PCA procedure at the selected image resolution.</p>
 <p>That Nordic countries do not neatly align with each other is a result I can live
 with. Hopefully we will find unity in the imminent WW3.</p>
 <p>Be that as it may, the principal problem I noticed while playing with this
 problem is that the procedure is extremely sensitive to any tweaks in the data.
-This seems to be related to the observations that the singular values did not
+This is perhaps related to the observation that the singular values did not
 decay as rapidly as I would have wished. A second issue is that the sorting
-logic does not seem to exploit the full amount of information provided by the
-PCA procedure. The next step would be to cluster the flags more intelligently,
-but that is beyond of the scope of this blog.</p>
+logic presented here is perhaps inferior to more advanced clustering techniques,
+but exploring them is beyond the scope of this blog.</p>
 <p>In closing, this was a really fun exercise! It made me think about my memories
 and how human memory works in the first place. It seems that fingers have
 memories of their own, and the act of getting your hands dirty is the only way

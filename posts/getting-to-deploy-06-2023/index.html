@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8" />
+
+    <meta name="referrer" content="unsafe-url">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content=",
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="Getting to Deploy: Negotiating A Sprint Without Giving In" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="http://localhost:1313/posts/getting-to-deploy-06-2023/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2024-04-20
+" /> <meta property="article:modified_time" content="2024-04-20
+" />
+
+
+<meta property="article:tag" content="" />
+
+
+
+
+
+
+    <title>Getting to Deploy: Negotiating A Sprint Without Giving In</title>
+    <link rel="canonical" href="http://localhost:1313/posts/getting-to-deploy-06-2023/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="http://localhost:1313/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="http://localhost:1313/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/ascetic.css"
+/>
+
+<style>
+.hljs-addition, .hljs-attribute, .hljs-bullet, .hljs-link, .hljs-section, .hljs-string, .hljs-symbol, .hljs-template-variable, .hljs-variable {
+  color: black !important;
+}
+</style>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="http://localhost:1313/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw8 center">
+    <h1 itemprop="name" id="title">Getting to Deploy: Negotiating A Sprint Without Giving In</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2024-04-20</a>
+      
+
+
+  <button class="button-reset dib relative hide-child">
+    <i class="fa fa-history mr1"></i>
+    <span>No revisions</span>
+  </button>
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <p class="pa2 mw7 f6 lh-copy i">
+</p>
+<h2 id="introduction">Introduction</h2>
+<p>December 2023 was a big one for me. I completed a project at work I have been
+working on for the last 3 years. What I did and what the project was about is
+doubly-irrelevant for this blog. For the first, in my line of business one is
+not supposed to talk shop in the public. For the second, I ultimately do not
+care.</p>
+<figure style="float:right; width:50%; margin-right: 0.25em;">
+  <img alt="Pyramid and UFOs" src="/pyramid_ufos.png" />
+  <figcaption><small>At least some of the ways of working of ancient Egyptians
+  seem alien to us.</small></figcaption>
+</figure>
+<p>I argue that the biggest blunder of my generation is to insist that work should
+have some deep fulfilling meaning. I think this is asking too much. For the
+purposes of one&rsquo;s mental health, it is sufficient that it make some sense most
+of the time. Just think about the pyramids in Egypt. They look miraculous not
+only as physical objects but also as reminders of the work of countless hordes
+of people. Yet, at least I struggle to find meaning in any of it.</p>
+<p>Imagine the construction site of a pyramid. There were a handful of assholes who
+whipped the slaves and thereby denied themselves the pride of having actually
+created something really beautiful with their own hands, for there are more
+beautiful things in this world than scars. Then there were the slaves who did
+not fight back despite being in the majority, so denying themselves the logic of
+arithmetic. And finally there was the dead pharaoh whom they all worshipped and
+who was at the same time absent and omnipresent.</p>
+<p>Some progress has surely been made in the last 5000 years as at least some of
+the passage seems alien to us. The basic power structure has nonetheless
+remained the same. There is the absent but omnipresent boss. There is the middle
+management. And then there are the doers. To make matters worse, if I left it at
+that, I would already manifest some ideology because ideologies are defined by
+their boundaries — they are born whenever certain people are left out and they
+are born whenever people <em>feel</em> they are left out. Of course there were the
+countless people I omitted. There were the multitude of bakers, whores, cooks,
+brewers and so forth working amidst the biblical swarms of flies.</p>
+<p>I am afraid that as long as there are pesky insects there will be ideologies
+which ultimately serve the same purpose of sucking the life energy from us. But
+there is still some hope. If we leave meaning by the wayside, it still makes a
+difference <em>how</em> we work. That I do care about in a deep way. It is also
+something that I have been thinking and studying for the past years. You could
+even say that my last project was an experiment whose final report this blog
+post is. It is only now that I am able to connect the dots.</p>
+<p>Luckily for me, it only took one good book to sum up all the wisdom I have
+gathered over the years. What do you know, work and equitability are topics that
+have vexed the minds of many thinkers in the past! My role here is merely to
+raise my hand up and tell you that I got the lesson. If I&rsquo;m lucky, I&rsquo;ll get you
+to read the book I&rsquo;m talking about:
+<a href="https://www.amazon.com/Getting-Yes-Negotiating-Agreement-Without/dp/0140157352">Roger Fisher, William L. Ury, Bruce Patton: Getting to Yes: Negotiating Agreement Without Giving In</a>.</p>
+<p>You see, it was only quite recently that I realized that I have been trying to
+be a <em>principled negotiator</em> all along. I finally see that there are more
+fundamental aspects to organizing work than what usually falls under the
+umbrella of <a href="https://agilemanifesto.org/">Agile</a> that is once studied so hard.</p>
+<p>In particular, it has become apparent to me that the benefits promised by agile
+methodologies are subject to how well the work is lead which in turn is in large
+part about how you negotiate. In other words, the work can be as agile as your
+HR department declares, no doubt based on some arbitrary set of metrics, but
+without proper leadership, the work will be mostly about fixing defects and ways
+to masquerade confusion with agile jargon.</p>
+<p>&ldquo;Thanks Cpt. Obvious&rdquo;, you might say, &ldquo;any more of these truths that you would
+like to vent out?&rdquo; Well, let me try to be constructive and put some flesh on the
+bones of my argument by summarizing what Fisher, Ury and Patton discuss in their
+book. I want to talk about how to get the most of agile by following the four
+key principles the authors present.</p>
+<p>As an aside, <em>Getting to Yes</em> is a real page-turner. It contains a lot of
+real-life examples of conflicts, from car insurance disputes to full-fledged
+wars. No wonder the book is is a perennial best-seller and a classic among the
+business-savvy. Reading the book, I felt like eavesdropping on the training
+material for lawyers and business executives. Indeed, the authors
+<a href="https://en.wikipedia.org/wiki/Roger_Fisher_(academic)">Roger Fisher</a> and
+<a href="https://www.pon.harvard.edu/faculty/william-ury/">William Ury</a> are the founders
+of the Harvard Programme on Negotiation.</p>
+<p>The authors have also published a whole host of sequels to the original book.
+There is <em>Getting to Yes with Yourself</em> for the self-help market and <em>Getting
+Past No</em> for those who did not get to yes. Then there is <em>Getting It DONE: How
+to Lead When You&rsquo;re Not in Charge</em> whose title would be perfect for this blog,
+with a tongue in cheek reference to
+<a href="https://www.atlassian.com/software/jira">Jira</a> and everything. Being aware of
+the copyrights of the authors, I suppose they are nonetheless cool if I stick to
+their formula and call this blog the next best thing: &ldquo;Getting to Deploy:
+Negotiating A Sprint Without Giving In&rdquo;.</p>
+<h2 id="separate-the-people-from-the-problem">Separate the people from the problem</h2>
+<figure style="float:left;width:20%">
+  <img alt="Cover of Getting to Yes by Roger Fisher and William Ury (1981)" src="https://upload.wikimedia.org/wikipedia/en/2/29/Getting_to_Yes.jpg" />
+  <figcaption><small>The cover of the first edition of Getting to Yes: Negotiating Agreement Without Giving In (1981)</small></figcaption>
+</figure>
+<p>The theory of negotiation as presented in <em>Getting to Yes</em> is rather
+straightforward. Negotiation is a process that aims at an agreement. While good
+negotiators approach their work from a humans-first point of view, good
+interpersonal skills alone will not lead to wise agreements. The agreement
+should be formulated as a solution to a problem that can be described in a
+rational way. This does not imply a dichotomy between reason and emotions. It
+merely means that good negotiators are emotionally intelligent. If for example
+some aspect of the agreement involves &ldquo;saving face&rdquo;, a good negotiator knows how
+to factor this in their arguments without getting caught up in their own pride.</p>
+<p>In a software development context, the situation is also rather straightforward.
+It is often easy to point at the problem: the software does not exist, it lacks
+a feature or is found to be defective. The situation gets a lot more interesting
+when dealing with distributed systems. When a new feature requires a
+modification in another piece of software, developers need to meet and
+negotiate.</p>
+<p>The authors of <em>Getting to Yes</em> go to great lengths at describing the crippling
+effects of <em>positional bargaining</em>. This means a situation where the negotiating
+parties go down the path of offers and counteroffers where the stronger party
+will most likely have the final say. I recognize the situation. In software
+development, it takes the form of &ldquo;backlog-driven development&rdquo;. Rather than
+trying to solve the problem in a rational way, the solution is based on how
+little work ends up in <em>my</em> team&rsquo;s backlog.</p>
+<p>The first step in being principled about these negotiations is to separate
+people problems from the problem itself. As far as the problem itself goes, it
+is necessary to do due diligence and read the documentation on the architecture
+and system design. These are the documents that should show what the principles
+are. No architecture documentation? Well, a principled negotiator should forget
+about the original problem and start to work on getting the documentation. I
+have once received it in the form of an <em>ad hoc</em> puppet show where the marker
+pens in the meeting room played the role of actors and miscellaneous office
+trinkets played the role of APIs.</p>
+<p>An important of aspect of these negotiations is to be also mindful of what the
+whole point of system design is. It is to create cohesive components that depend
+on abstractions and not on implementation details. As these designs are mostly
+crafted by introverts with strong system thinking capabilities, it is no wonder
+that the ideal situation is to minimize dependencies in the first place — then
+the need to negotiate is minimized as well. It therefore pays to understand that
+starting a negotiation has already a hidden psychological cost associated to it.
+In general, developers are not like the jolly hagglers you encounter in the
+bazaars of the Orient. The starting point of a negotiation is often that we have
+a leaky abstraction on our hands.</p>
+<p>If we then focus on the people problems, I suppose they are not that different
+from any other discipline. Too much work, too little time. <a href="https://www.youtube.com/@programmersarealsohuman5909">Programmers are also human</a>.</p>
+<p>The one aspect of dealing with time pressure I want to highlight has to do with
+what agile aficionados have been championing all along. Namely, it is necessary
+to leave some slack in the day-to-day work so that developers have the mental
+capacity to approach problems creatively. I remember reading about &ldquo;80%
+capacity&rdquo; being optimal, but cannot give you better sources except <a href="https://en.wikipedia.org/wiki/Pareto_principle">&ldquo;Pareto&rsquo;s
+principle&rdquo;</a> accompanied by my jazz hands.</p>
+<p>The people problem can also be about bad timing. These feature request meetings
+have the tendency to emerge randomly, and sometimes it just happens that
+something is amuck in production at the same day, which creates an emotionally
+unproductive setting for collaboration. Again, factoring in the necessary time
+to let things cool down is what gives better results. For example, I have found
+it useful to start from asking when people are on holidays. It is a far better
+ice breaker question than &ldquo;when do you have free time to do this annoying thing
+I would need from you.&rdquo;</p>
+<p>Finally, I should also add that a negotiation that ends with wishful thinking
+about fixing the problem properly sometime in the future does not constitute a
+real agreement. I have yet to see a situation when this future event would
+arrive. To be principled in these matters is to deal with real timetables and
+real commitments.</p>
+<h2 id="focus-on-interests-not-positions">Focus on interests, not positions</h2>
+<p>I once watched a very interesting analysis of
+<a href="https://www.youtube.com/watch?v=i3aK-EK5V2k">The Cats</a>, the musical and the
+movie. The analysis starts by claiming that songs in musicals can be roughly
+divided into two classes. There are the &ldquo;I am&rdquo; songs and the &ldquo;I want&rdquo; songs. The
+villains typically sing the &ldquo;I am&rdquo; songs which help to establish their nefarious
+nature and hide their true interests. The heroes on the other hand sing songs
+about what they aspire to be or what they wish to accomplish. The end result is
+then that Cats is the ultimate musical as it consists of many hours of boring &ldquo;I
+am&rdquo; songs by the different cats as they introduce themselves, followed by one
+hell of a &ldquo;I want&rdquo; song — <a href="https://www.youtube.com/watch?v=8gd_ohoPzYc">Memory</a>.</p>
+<p>This observation has a parallel in the world of negotiation. If the story is
+about who is who, it ends quite quickly and lacks all of the momentum a good
+story has. If on the hand, we give a voice to the characters and let them
+describe what they want, the story starts to unfold almost on its own. The same
+applies to negotiating.</p>
+<p>Indeed, if you want to play the villain in a negotiation, the recipe is to just
+describe your position and then shut up. To be a principled negotiator means to
+arrange the negotiation so that participants are encouraged to describe their
+interests. They need to be given the chance to be the heroes of the story.</p>
+<figure style="float:right;">
+  <iframe width="350" height="315" src="https://www.youtube.com/embed/NUC2EQvdzmY?si=eA4MYcA-PixBJvV-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <figcaption><small>DJ Shadow: Nobody speak. A song about an unprincipled negotiation.</small></figcaption>
+</figure>
+<p>The result is then obviously a conflict as not all interests can be satisfied.
+It is a fact of human existence that we end up bickering about the small stuff
+and value different things. However, somehow we nonetheless thrive because of
+these conflicting interests. The authors of <em>Getting to Yes</em> point out in a very
+illuminating fashion that a conflict of interest is often the precondition to
+reach an agreement in the first place. Just think about it. A cabbage peddler in
+the proverbial bazaar has to value money more than their produce in order to
+sell it.</p>
+<p>Software development is in principle no ways different from the general case. It
+is helpful to consciously try to encourage people to state their interests.
+Sometimes the negotiation gets stuck as people formulate their interests based
+on other people&rsquo;s interests. They perhaps lack the courage to be so selfish as
+they privately would like to be. Another bone of contention is that some people
+would really like to be just told what to do and others prefer autonomy.</p>
+<p>However, after the interests are known, I have more often than once witnessed a
+miraculous event. The solution to the problem at hand just pops out of nowhere.
+For example, if a developer identifies the location of the problem in the source
+code during the negotiation, it can sometimes happen that the fix is just a
+minor tweak and that the fix is deployed to the test environment by the end of
+the meeting.</p>
+<h2 id="invent-options-for-mutual-gain">Invent options for mutual gain</h2>
+<p>The third aspect of being a disciplined negotiator is to understand that our
+collective capacity to solve problems is damn near infinite. If we were forced
+to rebuild the pyramids, we could easily do it at a fraction of the cost spent
+in the war in Ukraine. Yet, the obvious question would be whom would this
+benefit: <em>Cui bono?</em></p>
+<p>I suppose you are aware of the term win-win and how it is important in closing
+business deals. Let me not go down that route. Rather, I want to highlight again
+the emotional intelligence that is required to reach the coveted <em>win-win</em>. It
+is the mark of a principled negotiator that they try to separate the problem
+solving capacity of human beings from the stressful grind of the negotiation
+proper.</p>
+<p>Every negotiated agreement has a component of an ego trip to it. My intuition
+tells me that introverted people underperform in these situations despite often
+having superior substantive understanding of the problem at hand. By the same
+token, people&rsquo;s stress coping skills are not the same as their problem solving
+skills. It is therefore beneficial to create an environment where every
+stakeholder can contribute irrespective of how power hungry they are.</p>
+<p>The practical solution is then to have separate <em>workshops</em> leading up to the
+<em>negotiation</em>. If I was setting up these events, I would specifically stress
+that the workshop is about throwing out ideas, no matter how wild they are. It
+is then an indicator of psychological safety how wild the ideas are. These
+workshops help to reduce the solution to a finite set of candidates, each with
+agreed upon pros and cons. This is an effective strategy because it involves
+reaching pre-agreements about the different alternatives so that the final
+agreement is reduced to picking a solution out of a menu based on the best
+possible knowledge that was available.</p>
+<p>I recognize that this chapter is a bit idealistic in the context of software
+development. The tricky part is that in real software projects there is often no
+sense of strong psychological safety: developers can easily feel that they are
+not being heard. It is very much like in the poem
+<a href="https://runosto.net/eino-leino/tahtitarha/se-kuitenkin-liikkuu/">&ldquo;It still moves&rdquo; by Eino Leino</a>:
+&ldquo;When the gentle is put amidst the rough, it is often the rough who prevail.&rdquo;</p>
+<p>I have participated in all kinds of workshops that had the grand goal of
+figuring out possible solution alternatives so that the powers that be could
+then decide the proper course of action. In truth, I always felt I was wasting
+my time. From an enterprise software developer&rsquo;s point of view, the solutions
+can be expressed rather simply in software terms. It is an unsolved problem how
+to communicate this to business owners who think in terms of budgets and
+resources. It seems that the alternatives are for us developers to acquire a MBA
+degree from some Caribbean online university or business owners to take on
+<a href="https://www.dummies.com/book/technology/programming-web-design/java/java-for-dummies-2-281748/">&ldquo;Java for dummies&rdquo;</a>.</p>
+<h2 id="insist-on-using-objective-criteria">Insist on using objective criteria</h2>
+<p>Finally, the last principle of being a principled negotiator is in my opinion
+the most important one with regard to agile way of working. It has also a lot to
+do with buzzwords like <em>lean manufacturing</em>, <em>CI/CD</em> and <em>DevOps</em>.</p>
+<p>The need to negotiate fills up our calenders and leads to the wet dream of
+anybody working in the enterprise: &ldquo;How could I get a day in the week just to
+focus on one thing at a time?&rdquo; It&rsquo;s simple in practice. Simply decline to attend
+the meetings you are invited to. The authors of <em>Getting to Yes</em> discuss in
+length this question and provide a handy concept to assess whether or not you
+should negotiate in the first place. One should always be mindful one&rsquo;s <em>BATNA</em>,
+the Best Alternative to Negotiated Agreement.</p>
+<p>If your BATNA is better than what can be achieved by participated in the
+meeting, there is no need to negotiate. If you can limit your work in progress
+to one thing, your primary interest should be to get that piece of work done. If
+the meeting does not advance that goal, there is no need to attend it. Mind you,
+if you attend meetings muted, you are a villain. I recognize the harshness of my
+tone, but I am frankly fed up with people who fail to apply any of the thinking
+behind agile in practice. Their calendars look like a mess. There should be a
+separate negotiation guide for the extremely agreeable: <em>Saying No: A little bit
+of self-interest goes a long way</em>.</p>
+<p>I have been in several heated and unresolved debates about this matter. I am
+willing to admit that not all people in the enterprise have the luxury to focus
+on only one thing at the time. The pressure to multitask is many orders of
+magnitude stronger when moving from a software team level to a whole business
+unit. However, my argument, as corroborated by <em>Getting to Yes</em>, remains. It
+pays to be mindful of when negotiation is even required. Instead of even trying
+to agree, the BATNA should be that there is an pre-existing agreement, a
+procedure, on how to get a particular thing done. Sounds a lot like good
+governance to me.</p>
+<p>Suppose you limit your time to the negotiation that actually matter. The authors
+of <em>Getting to Yes</em> further stress to insist on objective criteria as a basis of
+reaching an agreement. This has the effect of further freeing up time from your
+calendar. Just take a look at it. How many of the meetings last week were
+essentially about the back and forth among people who do not understand what was
+agreed upon?</p>
+<figure style="float:right; width:40%; margin-right: 0.25em;">
+  <img alt="Jeff Sutherland on Acceptance Tests" src="/uat.jpg" />
+  <figcaption><small>Acceptance test as the objective criteria</small></figcaption>
+</figure>
+<p>Principled negotiators recognize that a hidden motivation in reaching an
+agreement is to not return upon the matter in the foreseeable future. The better
+the agreement, the less likely it is that it needs to be renegotiated. Like
+stated previously, negotiating is mentally taxing and may require substantial
+coordination with all the stakeholders.</p>
+<p>In traditional agreements, the criteria takes the form of Terms &amp; Conditions.
+When applied to agile software development, the criteria should be expressed as
+the <em>Definition of Done</em> (DoD) for a particular user story. It then requires only
+a little bit of reasoning to arrive at the conclusion: a good DoD is an
+acceptance test that allows the team to state with confidence that the software
+works as intended. This is a far better approach to work than spending time
+estimating it, as highlighted by Jeff Sutherland himself (see the attached
+twitter post).</p>
+<p>I have found that building the confidence to deploy working software to
+production is the proper job of a Lead Developer. It is what ties everything
+together. While it would be beneficial that we had more
+<a href="https://davidepstein.com/range/">generalists</a>, we nonetheless live in a world
+of specialists. There are the analysts who analyze, designers who design and
+developers who develop. It then takes a somebody that specializes in giving the
+work a direction. It takes somebody who sees the work as a lean manufacturing
+pipeline whose end stage is deployment to production. Otherwise, we end up just
+fooling ourselves. The agreements we reach have little value if they do not end
+up benefiting a paying customer.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>To draw this lengthy blog to a conclusion, I would summarize what I have learned
+in the past 3 years as follows:</p>
+<p>An agile sprint is an agreement to complete a piece of work. The content of that
+piece of work is subject to negotiation among the team members. For there to be
+a real negotiation, there should be a healthy conflict of interests. And for
+there to be a productive negotiation, the conflict should not spill over so that
+people take it personally. For this to even work in theory, true agility at work
+requires a lot more back-scratching and amicable louse picking than is
+physically possible after offshoring entire business segments beyond oceans. So
+better be principled and insist on working with people you know and trust.</p>
+<p>It is evident that not all team members will be negotiating with equal fervor.
+They should nonetheless be aware of their BATNA: the decision to not participate
+should be a conscious one. Insisting on the piece of work to be done in the
+sense of agile ideals of delivering a feature to end-users is also obviously
+only an ideal. Yet, I would start to measure agility by inspecting how close to
+this ideal the Definition of Done of a particular piece of work is. The closer
+it is to actual production deployment, the more principled the team is.</p>
+<p>Finally, one of the deeper aspects of agile retrospectives is to raise awareness
+of the habits the team has. Habits are extremely costly to change, but
+confronting them honestly is at least a start. Ideally, good negotiation habits
+should be present from the get-go. Principled negotiation strikes me as a good
+platform to build upon. The theory has been literally battle-tested and should
+work universally. It therefore captures something essential about the human
+psyche.</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 0x44FC6000 'til 0x7FF0000000000000 Elias A. Toivanen — All rights reserved</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/typescript.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/fortran.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

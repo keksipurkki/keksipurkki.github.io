@@ -7,12 +7,12 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>🍪 0x44FC6000 &#39;til 0x7FF0000000000000 Elias A. Toivanen — All rights reserved</copyright>
-    <lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Sep 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://www.keksipurkki.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exploring probability theory with Apache Kafka</title>
       <link>https://www.keksipurkki.net/posts/kafka-clt-09-2024/</link>
-      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
       <guid>https://www.keksipurkki.net/posts/kafka-clt-09-2024/</guid>
       <description>&lt;p class=&#34;pa2 mw7 f6 lh-copy i&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;I can still remember the moment when I created a&#xA;&lt;a href=&#34;https://youtu.be/rfCNsBHLDeY&#34;&gt;LinkedIn&lt;/a&gt; profile. The act felt almost defiant as&#xA;it meant that I was going to leave the sheltered student life behind me. Little&#xA;did I know that ten years from that moment I would be writing a blog about the&#xA;event broker system powering the social media platform, and then creating an&#xA;event about it on the very same platform. Neither did I know that the system in&#xA;question had the name &lt;a href=&#34;https://kafka.apache.org/&#34;&gt;Apache Kafka&lt;/a&gt; or that it would&#xA;such a success story among technology companies after its inception at LinkedIn.&lt;/p&gt;</description>
     </item>

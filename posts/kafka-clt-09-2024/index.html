@@ -118,9 +118,11 @@
 
   <button class="dn dib-ns button-reset relative hide-child-alt">
   <i class="fa fa-history mr1"></i>
-  <span>3 revisions</span>
+  <span>4 revisions</span>
   <span class="child-alt db absolute top-2 bg-white ba br2 b--moon-gray pa2 shadow-5">
     <ul data-commits class="list tl truncate monospace near-black f7 pa0 list lh-copy ma0">
+    
+      <li>2024-09-15 18:46Z Grammar</li>
     
       <li>2024-09-15 16:31Z Publishing date</li>
     
@@ -197,7 +199,7 @@ normal distribution as <em>n</em> tends to infinity. The proof is non-trivial an
 beyond the scope of this blog. However, the profound aspect of CLT is its
 generality. It matters not what the distribution of the original random
 variables is (exponential, binomial, uniform, …) nor how skewed it is.</p>
-<p>Different distributions have different rates of converges; a particularly
+<p>Different distributions have different rates of convergence; a particularly
 striking example can be constructed when the samples have a binomial
 distribution. This kind of an averaging process can be demonstrated with a
 so-called <a href="https://en.wikipedia.org/wiki/Galton_board">Galton board</a> (see the
@@ -227,7 +229,7 @@ with a fixed frequency, every 500 milliseconds say. The samples will be from the
 <a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution">standard uniform distribution</a>.</p>
 <p>We will then feed the samples to an averaging process with a fixed sample size.
 In the attached diagram, this number would be five. As the resulting stream is
-again a stream of random numbers, we can feed it as input the to the averaging
+again a stream of random numbers, we can feed it as input to the averaging
 process back again.</p>
 <p>The resulting average numbers will be published in a separate topic which will
 be consumed by the application for an eyeball statistical analysis. That is,
@@ -810,10 +812,11 @@ produce approximate normal deviates on the cheap.</p>
 <p>In closing, I started with my memoirs and ended up in the world of probability
 theory. Somehow LinkedIn, Apache Kafka and Central Limit Theorem now connect in
 my mind in the form of this blog. It is all sort of random but still makes
-sense. Talking about random, I would like to end with a quote from Forrest Gump:
-“I don&rsquo;t know if we each have a destiny, or if we&rsquo;re all just floatin&rsquo; around
-accidental-like on a breeze, but I, I think maybe it&rsquo;s both. Maybe both is
-happenin&rsquo; at the same time.”</p>
+sense. Thinking about it, I can almost hear the Forrest Gump theme starting to
+play in my head. To that end, I would like to end with the best quote from the
+movie: “I don&rsquo;t know if we each have a destiny, or if we&rsquo;re all just floatin'
+around accidental-like on a breeze, but I, I think maybe it&rsquo;s both. Maybe both
+is happenin&rsquo; at the same time.”</p>
 
       </article>
 

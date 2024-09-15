@@ -32,6 +32,11 @@ code {
   font-family: "Monego", monospace;
 }
 
+.hljs-meta {
+  color: #111 !important;
+  font-weight: lighter;
+}
+
 footer {
   margin: 1rem 0;
 }

@@ -14,7 +14,7 @@
       <link>https://www.keksipurkki.net/posts/jq-march-21/</link>
       <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
       <guid>https://www.keksipurkki.net/posts/jq-march-21/</guid>
-      <description>Introduction Oh, JSON, JSON, JSON…what would the world be without you? Let me show you what I have learned recently about this ubiquitous data-interchange format. It turns out you can manipulate complex JSON strings on the command line with ease. This came to me as somewhat of a surprise as I always thought that JSON is fundamentally incompatible with traditional command line tools, the Unix filters cat, grep, sed and friends, that operate on ad hoc structured text files in a line-oriented fashion.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Oh, &lt;a href=&#34;https://tools.ietf.org/html/rfc7159&#34;&gt;JSON&lt;/a&gt;,&#xA;&lt;a href=&#34;https://www.json.org/json-en.html&#34;&gt;JSON&lt;/a&gt;,&#xA;&lt;a href=&#34;https://www.youtube.com/watch?v=-C-JoyNuQJs&#34;&gt;JSON&lt;/a&gt;…what would the world&#xA;be without you? Let me show you what I have learned recently about this&#xA;ubiquitous data-interchange format. It turns out you can manipulate complex JSON&#xA;strings on the command line with ease. This came to me as somewhat of a surprise&#xA;as I always thought that JSON is fundamentally incompatible with traditional&#xA;command line tools, the Unix filters &lt;em&gt;cat&lt;/em&gt;, &lt;em&gt;grep&lt;/em&gt;, &lt;em&gt;sed&lt;/em&gt; and friends, that&#xA;operate on &lt;em&gt;ad hoc&lt;/em&gt; structured text files in a line-oriented fashion.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

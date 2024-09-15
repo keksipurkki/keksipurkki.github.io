@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8" />
+
+    <meta name="referrer" content="unsafe-url">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="keywords" content=",
+">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="Exploring probability theory with Apache Kafka" />
+<meta property="og:site_name" content="Keksipurkki" />
+<meta property="og:image" content="http://www.keksipurkki.net/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="256" />
+<meta property="og:image:height" content="269" />
+<meta property="og:image:alt" content="A logo for my blog" />
+<meta property="og:url" content="http://localhost:1313/posts/kafka-clt-09-2024/" />
+<meta property="og:locale" content="en-us" />
+<meta property="article:published_time" content="2024-09-01
+" /> <meta property="article:modified_time" content="2024-09-01
+" />
+
+
+<meta property="article:tag" content="" />
+
+
+
+
+
+
+    <title>Exploring probability theory with Apache Kafka</title>
+    <link rel="canonical" href="http://localhost:1313/posts/kafka-clt-09-2024/" />
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link href="http://localhost:1313/css/monego.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.11.1/css/tachyons.min.css" />
+<link rel="stylesheet" href="http://localhost:1313/css/style.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/ascetic.css"
+/>
+
+<style>
+.hljs-addition, .hljs-attribute, .hljs-bullet, .hljs-link, .hljs-section, .hljs-string, .hljs-symbol, .hljs-template-variable, .hljs-variable {
+  color: black !important;
+}
+</style>
+
+  </head>
+
+
+<body
+  lang="en-us"
+  class="sans-serif w-90 w-80-m w-60-ns center mv2 mv5-ns"
+  itemscope
+  itemtype="http://schema.org/Article"
+>
+  
+  <span class="b">/ </span>
+  <a href="http://localhost:1313/" class="b bb bw1 pb1 no-underline black">Keksipurkki</a>
+  <span class="b"> / </span>
+  <a href="/posts" class="b bb bw1 pb1 no-underline black">Posts</a>
+
+  <section id="main" class="mt5 mw8 center">
+    <h1 itemprop="name" id="title">Exploring probability theory with Apache Kafka</h1>
+    <p class="f6 gray ma0">
+      <a class="mr1"><i class="mh1 fa fa-calendar-o"></i>2024-09-01</a>
+      
+
+
+  <button class="button-reset dib relative hide-child">
+    <i class="fa fa-history mr1"></i>
+    <span>No revisions</span>
+  </button>
+
+
+      <a class="mr1" data-view-counter></a>
+    </p>
+
+      <article itemprop="articleBody" id="content" class="lh-copy">
+        <p class="pa2 mw7 f6 lh-copy i">
+</p>
+<h2 id="introduction">Introduction</h2>
+<p>I can still remember the moment when I created a
+<a href="https://youtu.be/rfCNsBHLDeY">LinkedIn</a> profile. The act felt almost defiant as
+it meant that I was going to leave the sheltered student life behind me. Little
+did I know that ten years from that moment I would be writing a blog about the
+event broker system powering the social media platform, and then creating an
+event about it on the very same platform. Neither did I know that the system in
+question had the name <a href="https://kafka.apache.org/">Apache Kafka</a> or that it would
+such a success story among technology companies after its inception at LinkedIn.</p>
+<p>Shortly put, the Apache Kafka platform provides an open-source solution for
+building event-driven software. This in turn allows companies to get a
+systematic and almost real-time view of their data which is immensely valuable.
+Mind you, one crucial aspect of the Chernobyl disaster was that <a href="https://looks.film/en/chernobyl-utopia-in-flames/">it took almost
+30 minutes</a> for the sensor
+data from the nuclear reactor to reach the monitors of the operators.</p>
+<p>I was first introduced to Apache Kafka sometime in 2018 but did not get to use
+the platform back in the day. I was a mobile app developer of sorts. However,
+fast forward to today and Apache Kafka is all the rage at work. As I wanted to
+get a better grasp of it, I decided to do what I have always done — a demo
+project that explores the technology that interests me. Namely, I wanted to create
+a piece of software that demonstrates how <a href="https://kafka.apache.org/documentation/streams/">Kafka event
+streams</a> can be composed and
+how &ldquo;business domain&rdquo; concepts can be mapped to Kafka topics and their
+<a href="https://developer.confluent.io/courses/apache-kafka/partitions/">partitions</a>.</p>
+<p>This blog is similar to <a href="/posts/logback-08-2023/">JSON lines for fun and profit</a>
+from last year in that I present a walk-through of a simple codebase. In a way,
+this is also a logical sequel to the blog since I now pick off from the
+conclusion of the blog. Capturing the event stream of a piece of software can be
+exploited to construct novel pieces of software.</p>
+<h2 id="central-limit-theorem">Central Limit Theorem</h2>
+<p>The inspiration for the demo project for this blog came from &ldquo;attending&rdquo;
+<a href="https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/">&ldquo;Probabilistic Systems Analysis and Applied Probability,&rdquo;</a>
+an open university course from MIT. I am simply lost for words when thinking
+about the intellectual depth of probability theory and its philosophical
+implications. In particular, one of the most fascinating results discussed on
+the course is the
+<a href="https://community.wolfram.com/groups/-/m/t/2315866">Central Limit Theorem (CLT)</a>
+that the lecturer, Prof. John Tsitsiklis, presents
+<a href="https://www.youtube.com/watch?v=Tx7zzD4aeiA">here</a>.</p>
+<figure style="float:right; width: 50%; margin-right: 0.25em;">
+  <video  width="100%" controls>
+    <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/d/dc/Galton_box.webm/Galton_box.webm.720p.vp9.webm" type="video/webm">
+  </video>
+  <figcaption><small>A Galton board. Matemateca (IME/USP)/Rodrigo Tetsuo Argenton. © CC-BY-SA 4.0 (as metadata)</small></figcaption>
+</figure>
+<p>I encourage you watch the whole course in order to understand what CLT strictly
+speaking means because there are a lot of nitty-gritty details. I will
+deliberately cut some corners and state that it explains why it is a good
+approximation to assume that the randomness observed in a dataset is distributed
+normally, i.e. the distribution follows the familiar bell curve shape.</p>
+<p>The thinking behind CLT is that when a stochastic process involves averaging <em>n</em>
+random variables, the resulting distribution of the averages converges to a
+normal distribution as <em>n</em> tends to infinity. The proof is non-trivial and
+beyond the scope of this blog. However, the profound aspect of CLT is its
+generality. It matters not what the distribution of the original random
+variables is (exponential, binomial, uniform, …) nor how skewed it is.</p>
+<p>Different distributions have different rates of converges; a particularly
+striking example can be constructed when the samples have a binomial
+distribution. This kind of an averaging process can be demonstrated with a
+so-called <a href="https://en.wikipedia.org/wiki/Galton_board">Galton board</a> (see the
+attached video) that the candid reader might recall from high school.</p>
+<p>At the risk of veering off to a tangent, I would like to nonetheless emphasize
+the philosophical lesson that the CLT has to offer. When we flip the Galton
+board experiment around and state that we observed a normal distribution, it is
+basically hard evidence that the underlying phenomenon is figuratively made of a
+swarm of bouncing beads, each following their own complex and random trajectory.
+When understood fully, the CLT lets us better appreciate the complexity of the
+processes going on inside our cells, craniums or in the nether region of our
+bodies. It instructs us to avoid simplistic reasoning that is the bane of our
+identity-politics ridden time.</p>
+<h2 id="the-idea">The idea</h2>
+<p>With the theory and polemic out of my chest, let&rsquo;s turn our attention to code. I
+will assume that you already have some familiarity with Apache Kafka so that I
+will not go over the mechanics of setting up the development environment or the
+basic concepts of Kafka topics and streams.</p>
+<figure style="float:right; width:50%; margin-right: 0.25em;">
+  <img alt="" src="/averaging_diagram.png" />
+  <figcaption><small>A Galton board à la Apache Kafka.</small></figcaption>
+</figure>
+<p>What we will build is a kind of a Galton board. We will start with a process
+that sends an indefinite stream of pseudorandom numbers to a Kakfa topic called
+<code>samples</code>. Think of it as a simulated sensor of some device that measures values
+with a fixed frequency, every 500 milliseconds say. The samples will be from the
+<a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution">standard uniform distribution</a>.</p>
+<p>We will then feed the samples to an averaging process with a fixed sample size.
+In the attached diagram, this number would be five. As the resulting stream is
+again a stream of random numbers, we can feed it as input the to the averaging
+process back again.</p>
+<p>The resulting average numbers will be published in a separate topic which will
+be consumed by the application for an eyeball statistical analysis. That is,
+the numbers originating from different levels of averaging can be separately
+plotted as histograms. The hypothesis is that the more rounds of averaging for a
+particular number, the closer it should be to a real normal deviate.</p>
+<p>For an averaging depth of <em>k</em>, one could naively create <em>k</em> topics named
+<code>averages0</code>, <code>averages1</code> and so on. However, I want to limit myself to a single
+topic called <code>averages</code> with a configurable number of partitions, one for each
+averaging level. This way, this piece of &ldquo;domain logic&rdquo; is elegantly encoded in
+the structure of the Kafka topic itself.</p>
+<p>If it takes <em>N</em> samples to compute an average, a number at partition <em>k</em> is made
+of <em>N<sup>k</sup></em> of the original uniform random numbers as you can deduce from
+the attached diagram. In particular, partition <em>0</em> maps to the original
+non-averaged samples. As an aside, I suppose this is not a very clever way to
+approach partitioning for a production system as the load per partition varies
+exponentially.</p>
+<h2 id="a-skeleton">A skeleton</h2>
+<p>For an overview of the walk-through, the finished code will have the following
+layout:</p>
+<pre><code>.
+├── docker-compose.yaml
+├── pom.xml
+└── src
+    └── main
+        ├── java
+        │   └── net
+        │       └── keksipurkki
+        │           └── demos
+        │               ├── Application.java
+        │               ├── Histogram.java
+        │               ├── kafka
+        │               │   ├── AveragesProducer.java
+        │               │   ├── Config.java
+        │               │   ├── SamplesProducer.java
+        │               │   └── Topics.java
+        │               └── ws
+        │                   ├── HistogramMessage.java
+        │                   └── WebSocketConfig.java
+        └── resources
+            ├── application.properties
+            ├── logback.xml
+            └── static
+                ├── app.js
+                ├── favicon.ico
+                ├── index.html
+                └── styles.css
+
+</code></pre>
+<p>Let&rsquo;s start with the Kafka setup for the <code>Topics</code>:</p>
+<pre><code class="language-java">@Configuration
+@EnableConfigurationProperties(Topics.TopicProperties.class)
+public class Topics {
+
+    private final TopicProperties props;
+
+    public Topics(TopicProperties props) {
+        this.props = props;
+    }
+
+    @Bean
+    public NewTopic samplesTopic() {
+        return TopicBuilder.name(props.samples())
+            .partitions(1)
+            .compact()
+            .build();
+    }
+
+    @Bean
+    public NewTopic averagesTopic(int partitions) {
+        return TopicBuilder.name(props.averages())
+            .partitions(partitions)
+            .compact()
+            .build();
+    }
+
+    @ConfigurationProperties(prefix = &quot;app.topics&quot;)
+    public record TopicProperties(String samples, String averages) {
+
+    }
+
+}
+</code></pre>
+<p>The reader will recognize that I am using <a href="https://spring.io/">Spring</a> to wire
+the application together. The samples topic can then be injected to
+<code>SamplesProducer</code>:</p>
+<pre><code class="language-java">@Component
+public class SamplesProducer {
+
+    private final NewTopic samplesTopic;
+    private final KafkaTemplate&lt;UUID, Double&gt; template;
+
+    public SamplesProducer(NewTopic samplesTopic, KafkaTemplate&lt;UUID, Double&gt; template) {
+        this.samplesTopic = samplesTopic;
+        this.template = template;
+    }
+
+    public Runnable measurement() {
+        // A simulated sensor device
+        final var topic = samplesTopic.name();
+        final Supplier&lt;Double&gt; sensor = ThreadLocalRandom.current()::nextDouble;
+
+        return () -&gt; {
+            template.send(topic, UUID.randomUUID(), sensor.get());
+        };
+    }
+}
+</code></pre>
+<p>and we can &ldquo;start the measurement&rdquo; like so:</p>
+<pre><code class="language-java">@SpringBootApplication
+@EnableScheduling
+public class Application {
+
+    private final Runnable measurement;
+
+    Application(SamplesProducer producer) {
+        this.measurement = producer.measurement();
+    }
+
+    public static void main(String... args) {
+        var app = new SpringApplication(Application.class);
+        app.run(args);
+    }
+
+    @Scheduled(fixedRateString = &quot;${app.samples.rate.millis}&quot;)
+    void measureSamples() {
+        measurement.run();
+    }
+}
+
+</code></pre>
+<p>The resulting stream of numbers will have the type of
+<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Double.html"><code>Double</code></a>.
+If you are not a programmer or just starting your journey, the term may be
+confusing. It refers to double-precision. A single-precision stream of numbers
+could be achieved by calling <code>ThreadLocalRandom::nextFloat</code>.</p>
+<p>An additional thing to emphasize about the code so far is that generating
+pseudorandom numbers is trickier than you might think. We have hopefully
+sidestepped any of the potential problems by using the <code>ThreadLocalRandom</code> class
+from the JDK, as advised by Joshua Bloch in
+<a href="https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997">Effective Java </a>
+(Item 59).</p>
+<p>Another point worthy of mentioning is that I limited myself to the standard
+uniform distribution to keep things simple. A neat fact about pseudorandom
+number generation is that there is a way to massage the uniform distribution to
+any distribution of your liking with the help of a technique known as
+<a href="https://en.wikipedia.org/wiki/Inverse_transform_sampling">Inverse transform sampling</a>.
+If I wanted to have normally distributed random numbers without this Galton
+board business, I could go shopping for
+<a href="https://medium.com/mti-technology/how-to-generate-gaussian-samples-347c391b7959">a formula</a>
+and use that. However, for the special and highly important case of normal
+deviates, there are algorithms that are computationally more efficient than the
+inverse transform method, the <a href="https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform">Box-Muller
+transform</a> being
+arguably the most famous of them.</p>
+<p>Now, a skeletal implementation of the <code>AveragesProducer</code> that consumes samples
+and averages them could look like this:</p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class AveragesProducer {
+
+    private final NewTopic samplesTopic;
+    private final NewTopic averagesTopic;
+
+    AveragesProducer(NewTopic samplesTopic, NewTopic averagesTopic) {
+        this.samplesTopic = samplesTopic;
+        this.averagesTopic = averagesTopic;
+    }
+
+    public KStream&lt;UUID, Double&gt; stream(StreamsBuilder builder) {
+        var sampleSize = 2;
+
+        var result = builder.&lt;UUID, Double&gt;stream(samplesTopic.name());
+          .process(() -&gt; new DoubleAggregator(sampleSize))
+          .mapValues((_, doubles) -&gt; DoubleStream.of(doubles).average().orElseThrow())
+
+        result.to(averagesTopic.name());
+
+        return result;
+    }
+
+    private static class DoubleAggregator implements Processor&lt;UUID, Double, UUID, double[]&gt; {
+        private final ArrayList&lt;Double&gt; values;
+        private final int size;
+        private ProcessorContext&lt;UUID, double[]&gt; context;
+
+        DoubleAggregator(int size) {
+            this.size = size;
+            this.values = new ArrayList&lt;&gt;();
+        }
+
+        @Override
+        public void init(ProcessorContext&lt;UUID, double[]&gt; context) {
+            this.context = context;
+        }
+
+        @Override
+        public void process(Record&lt;UUID, Double&gt; record) {
+            if (values.size() &gt;= size) {
+                var array = values.stream().mapToDouble(Double::doubleValue).toArray();
+                context.forward(record.withValue(array));
+                values.clear();
+            }
+            values.add(record.value());
+        }
+    }
+
+}
+</code></pre>
+<p>There is a lot going on in this class. Hopefully you can nonetheless grasp how
+the <code>DoubleAggregator</code> processes double values and outputs arrays of doubles
+whenever the <code>sampleSize</code> limit has been reached. The average value of the array
+can then be computed with <code>DoubleStream.of(values).average().orElseThrow()</code>. The
+<code>DoubleStream</code> interface comes from the
+<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/DoubleStream.html">Java Stream API</a>,
+giving the end result that authentic over-engineered feel. I beg the reader to
+allow the author his indulgences.</p>
+<p>Finally, the last piece of plumbing is to consume the averages topic. Thanks to
+<a href="https://spring.io/projects/spring-kafka">Spring Kafka</a>, setting up the
+machinery is as easy as annotating a method with the <code>@KafkaListener</code>
+annotation. I reckon the <code>Application</code> class is as good a place as any to stick
+in the following lines of code:</p>
+<pre><code class="language-java">
+    // Application.java
+
+    @KafkaListener(topics = &quot;${app.topics.averages}&quot;, groupId = &quot;averages&quot;)
+    void onReceiveAverage(ConsumerRecord&lt;UUID, Double&gt; average) {
+        log.info(&quot;Received an average. AveragingLevel = {}, Value = {}&quot;, average.partition(), average.value());
+    }
+
+</code></pre>
+<h2 id="stream-composition">Stream composition</h2>
+<p>The next step is generalize what we have built so far. That is, we need to
+somehow use the fact that we have allocated a number of partitions for the
+averages topic and somehow re-average the averages. To be honest with you, I am
+cheating a little bit. Like a television chef that puts a tray of cookies in the
+oven just to pull a previously made batch from under the counter, the setup I
+showed you so far is just right for demonstrating how stream composition works.</p>
+<p>I spent a good while reading the docs and there were a couple of
+<a href="https://www.confluent.io/blog/windowing-in-kafka-streams">false starts</a> which
+are inevitable when learning something new. In particular, it helped me to
+realize that the
+<a href="https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams">Kafka Streams library</a>
+provides a high-level API for manipulating Kafka topics as streams and you need
+to declare the library as a dependency explicitly when using the
+<a href="https://docs.spring.io/spring-kafka/reference/streams.html">Spring Kafka framework</a>.</p>
+<p>Long story short, we only need to adjust the <code>AveragesProducer</code> a little bit to
+achieve what we want:</p>
+<pre><code class="language-java">    public KStream&lt;UUID, Double&gt; stream(StreamsBuilder builder) {
+        var result = builder.&lt;UUID, Double&gt;stream(samplesTopic.name());
+
+        final var levelDepth = averagesTopic.numPartitions();
+        final var sampleSize = 2;
+
+        log.info(&quot;Configuring a stream for sample averaging. Depth = {}, SampleSize = {}&quot;, levelDepth, sampleSize);
+
+        // Averaging level = 0 == no averaging
+        result.to(averagesTopic.name(), fixedPartition(0));
+
+        for (var partition = 1; partition &lt; levelDepth; partition++) {
+            log.trace(&quot;Configuring stream topology for partition {}&quot;, partition);
+
+            final int level = partition + 1;
+
+            result = result
+                .process(() -&gt; new DoubleAggregator(sampleSize))
+                .peek((_, v) -&gt; log.debug(&quot;Level = {}. Got a sample of length {}&quot;, level, v.length))
+                .mapValues((_, v) -&gt; DoubleStream.of(v).average().orElseThrow())
+                .peek((_, v) -&gt; log.debug(&quot;Level = {}. Average = {}&quot;, level, v));
+
+            result.to(averagesTopic.name(), fixedPartition(partition));
+        }
+
+        return result;
+    }
+
+    private Produced&lt;UUID, Double&gt; fixedPartition(int partition) {
+        return Produced.streamPartitioner((_, _, _, _) -&gt; partition);
+    }
+
+</code></pre>
+<p>Pretty neat, aye? I hope the code is so readable that it explains itself. The
+only thing I want to emphasize is the <code>fixedPartition(int partition)</code> method
+that returns a <code>Produced</code> object from the Kafka streams library. It is used to
+tell Kafka to forgo its default partitioning logic and instead send the numbers
+to the partition that I tell it.</p>
+<p>The static <code>Procuced.streamPartitioner</code> method wants a
+<a href="https://docs.confluent.io/platform/current/streams/javadocs/javadoc/org/apache/kafka/streams/processor/StreamPartitioner.html"><code>StreamPartitioner</code></a>.
+Its explicit interface would be:</p>
+<pre><code class="language-java">interface StreamPartitioner&lt;K, V&gt; {
+  Integer partition(String topic, K key, V value, int numPartitions)
+}
+</code></pre>
+<p>However, it turns out I can make use of a recent change in
+<a href="https://docs.oracle.com/en/java/javase/21/language/unnamed-patterns-and-variables.html">Java syntax</a>
+and ignore all the formal parameters by naming them with an underscore <code>_</code>. It
+may look weird at first, but this is actually a really welcome change as it
+codifies an age-old convention originating in the functional programming camp.</p>
+<p>I do not even know exactly why my little lambda solution works, and I guess this
+is specifically the objective of the recent changes in Java language design.
+Long gone are the days when you would have needed to instantiate an object that
+implements this interface with the boilerplate and ceremony that Java is
+infamous for. So far I have been really liking how smart the Java compiler has
+become, and I bet the wizards in the Java committees have done their homework in
+order to avoid the fate of C++ as a language that is syntactically just too
+&ldquo;rich.&rdquo;</p>
+<h2 id="visualization">Visualization</h2>
+<p>We can now turn our attention to the data that <code>AveragesProducer</code> sends to
+<code>Application</code>. To aggregate the averages per partition, we introduce a simple
+class representing a histogram:</p>
+<pre><code class="language-java">public class Histogram {
+
+    private final BigDecimal min;
+    private final BigDecimal max;
+    private final BigDecimal delta;
+    private final int[] counts;
+    private final int id;
+
+    public Histogram(int id, int numBins, double min, double max) {
+        Assert.isTrue(min &lt; max, &quot;Min &lt; Max!&quot;);
+        Assert.isTrue(numBins &gt; 0, &quot;numBins must be a positive number&quot;);
+        this.id = id;
+        this.counts = new int[numBins]; // zeros
+        this.min = new BigDecimal(min).setScale(2, HALF_DOWN);
+        this.max = new BigDecimal(max).setScale(2, HALF_DOWN);
+        this.delta = this.max.subtract(this.min);
+    }
+
+    public void record(Double value) {
+        if (value &gt;= max.doubleValue() || value &lt; min.doubleValue()) {
+            log.warn(&quot;Ignoring value {}. Out of range&quot;, value);
+            return;
+        }
+        counts[bin(value)]++;
+    }
+
+    private int bin(double value) {
+        return (int) Math.floor(counts.length * (value - min.doubleValue()) / this.delta.doubleValue());
+    }
+
+
+    public static Histogram newHistogram(int level) {
+        return new Histogram(level, 10, 0.0d, 1.0d);
+    }
+}
+</code></pre>
+<p>The code is simplified in the sense that the factory method hardcodes the number
+of bins and data range to <em>10</em> and <em>[0, 1)</em>. In a real application we would need
+more flexibility, and these values would need to be determined from the data
+itself.</p>
+<p>The <code>Application</code> can then be modified to record the averages to a map of
+histograms where the key is the partition number:</p>
+<pre><code class="language-java">
+    private final Map&lt;Integer, Histogram&gt; histograms = new ConcurrentHashMap&lt;&gt;();
+
+    @KafkaListener(topics = &quot;${app.topics.averages}&quot;, groupId = &quot;averages&quot;)
+    void onReceiveAverage(ConsumerRecord&lt;UUID, Double&gt; average) {
+        var level = average.partition();
+
+        log.info(&quot;Received an average. AveragingLevel = {}, Value = {}&quot;, level, average.value());
+        var histogram = histograms.computeIfAbsent(level, Histogram::newHistogram);
+
+        histogram.record(average.value());
+    }
+
+</code></pre>
+<p>To visualize the histograms, we need to somehow render them on the screen every
+time the <code>onReceiveAverage</code> receives a record. So far, the best solution in my
+books is to hook up a JavaScript app to the server with the
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">WebSocket API</a>
+and use the <a href="https://d3js.org/">D3.js</a> library for rendering the data as SVG
+images.</p>
+<p>So, I took a look at the <a href="https://d3-graph-gallery.com/barplot">D3.js gallery</a>,
+and banged out the following piece of JavaScript:</p>
+<pre><code class="language-js">import { Client } from &quot;@stomp/stompjs&quot;;
+import * as d3 from &quot;d3&quot;;
+
+const brokerURL = &quot;ws://localhost:8080/ws&quot;;
+const maxLevels = 5;
+
+const screenWidth = Math.round(window.innerWidth / maxLevels);
+
+// set the dimensions and margins of the graph
+const margin = { top: 10, right: 5, bottom: 30, left: 5 };
+const width = screenWidth - margin.left - margin.right;
+const height = width - margin.top - margin.bottom;
+
+const svgs = [];
+
+for (var i = 0; i &lt; maxLevels; i++) {
+  const svg = d3
+    .select(`#histogram_${i + 1}`)
+    .append(&quot;svg&quot;)
+    .attr(&quot;height&quot;, height + margin.top + margin.bottom);
+  svgs.push(svg);
+}
+
+function update(svg, values) {
+  const maxCount = Math.max(...values.map(({ count }) =&gt; count));
+
+  const x = d3
+    .scaleBand()
+    .range([0, width])
+    .domain(values.map(({ min, max }) =&gt; ((max + min) / 2).toFixed(2)));
+
+  svg
+    .append(&quot;g&quot;)
+    .attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
+
+  svg
+    .append(&quot;g&quot;)
+    .attr(&quot;transform&quot;, &quot;translate(0,&quot; + height + &quot;)&quot;)
+    .call(d3.axisBottom(x));
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, 2 * Math.max(maxCount, 50)])
+    .range([height, 0]);
+
+  svg.append(&quot;g&quot;).call(d3.axisLeft(y));
+
+  svg
+    .selectAll(&quot;rect&quot;)
+    .data(values)
+    .enter()
+    .append(&quot;rect&quot;)
+    .attr(&quot;x&quot;, function ({ max, min }) {
+      return x(((max + min) / 2).toFixed(2));
+    })
+    .attr(&quot;y&quot;, function ({ count }) {
+      return y(count);
+    })
+    .attr(&quot;width&quot;, x.bandwidth())
+    .attr(&quot;height&quot;, function ({ count }) {
+      return height - y(count);
+    })
+    .attr(&quot;fill&quot;, &quot;#69b3a2&quot;);
+}
+
+const client = new Client({
+  brokerURL,
+  onConnect: () =&gt; {
+    console.log(&quot;Connected to&quot;, brokerURL);
+
+    client.subscribe(&quot;/topic/histograms&quot;, (message) =&gt; {
+      const { histograms } = JSON.parse(message.body);
+      console.log(histograms);
+      d3.selectAll(&quot;svg &gt; *&quot;).remove();
+      histograms.forEach((histogram, level) =&gt; {
+        console.log(`Updating histogram at level ${level + 1}`);
+        update(svgs[level], histogram);
+      });
+    });
+  },
+});
+
+client.activate();
+</code></pre>
+<p>I will not go over the front end in any more depth. Suffice to say that the
+script expects the <code>index.html</code> file to contain root elements for the SVG images
+and the WebSocket endpoint to be at <code>ws://localhost:8080/ws</code>.</p>
+<p>It is very simple to configure a Spring application to expose the WebSocket endpoint:</p>
+<pre><code class="language-java">@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker(&quot;/topic&quot;);
+    }
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint(&quot;/ws&quot;);
+    }
+}
+</code></pre>
+<p>To send the histograms to the front end, we need to modify <code>Application</code> as
+follows:</p>
+<pre><code>    Application(SamplesProducer producer, SimpMessagingTemplate template) {
+        this.measurement = producer.measurement();
+        this.template = template;
+    }
+
+    @KafkaListener(topics = &quot;${app.topics.averages}&quot;, groupId = &quot;averages&quot;)
+    void onReceiveAverage(ConsumerRecord&lt;UUID, Double&gt; average) {
+        final var topic = &quot;/topic/histograms&quot;;
+        var level = average.partition();
+
+        log.info(&quot;Received an average. AveragingLevel = {}, Value = {}&quot;, level, average.value());
+        var histogram = histograms.computeIfAbsent(level, Histogram::newHistogram);
+
+        log.debug(&quot;Recording value to histogram&quot;);
+        histogram.record(average.value());
+
+        log.debug(&quot;Broadcast to {}&quot;, topic);
+        template.convertAndSend(topic, HistogramMessage.from(histograms.values()));
+    }
+
+</code></pre>
+<p>The <code>SimpMessagingTemplate</code> from the Spring framework is what allows the server
+to push data to all subscribers of the <code>/topic/histograms</code> topic. The
+<code>HistogramMessage</code> is a class that is responsible for serializing the histograms
+to a JSON string:</p>
+<pre><code class="language-java">@Value
+public class HistogramMessage {
+
+    List&lt;List&lt;Bin&gt;&gt; histograms;
+
+    private HistogramMessage(List&lt;List&lt;Bin&gt;&gt; histograms) {
+        this.histograms = histograms;
+    }
+
+    public static HistogramMessage from(Collection&lt;Histogram&gt; histograms) {
+
+        var data = new ArrayList&lt;List&lt;Bin&gt;&gt;();
+
+        for (var histogram : histograms) {
+            data.add(bins(histogram));
+        }
+
+        return new HistogramMessage(data);
+
+    }
+
+    private static List&lt;Bin&gt; bins(Histogram histogram) {
+        var bins = new ArrayList&lt;Bin&gt;();
+        var counts = histogram.counts();
+        var binWidth = new BigDecimal(histogram.delta().doubleValue() / counts.length);
+
+        for (var i = 0; i &lt; counts.length; i++) {
+            var offset = new BigDecimal(i * binWidth.doubleValue()).setScale(2, HALF_DOWN);
+            var binMin = histogram.min().add(offset);
+            var binMax = binMin.add(binWidth);
+            bins.add(new Bin(binMin, binMax, counts[i]));
+        }
+
+        return bins;
+    }
+
+    record Bin(BigDecimal min, BigDecimal max, int count) {
+    }
+
+}
+</code></pre>
+<h2 id="results">Results</h2>
+<p>The end result of this blog is the below video that shows the code in action:</p>
+<figure style="max-width: 100%; margin: 0 auto;">
+  <video style="width: 100%; height: auto;" controls>
+    <source src="/clt.mp4" type="video/mp4">
+  </video>
+  <figcaption><small>The code in action. Average size = 2. Averaging depth = 5.</small></figcaption>
+</figure>
+<p>What remains then is to analyze the results. We want to essentially ask the
+question, <em>&ldquo;How well these histograms are described by a normal distribution?</em>&rdquo;
+We know from the recorded data that the fraction of numbers that ended up in bin
+<em>i</em> is <em>P<sub>i</sub></em>. Under the assumption of normality we can compute the
+expected fraction <em>Z<sub>i</sub></em> from the normal Z-value tables, a procedure
+that I vaguely remember from school. Then it is a matter of devising a
+statistical test of our hypothesis <em>the more rounds of averaging, the more
+normal the distribution</em> to reach a statistical conclusion.</p>
+<p>Sadly, I have to let prof. Tsitsiklis down and I will content myself to
+eyeballing the histograms. You see, statistical tests like the one I described
+above constitute the <em>grande finale</em> of his course and are at the very heart of
+doing science well. However, I do not belong to that world anymore. The inner
+statistician in me is happy to ponder whether there is a negative correlation
+between JavaScript skills and aptitude in statistics without knowing the answer
+with any degree of certainty.</p>
+<p>But, as you can see, the histograms <em>seem</em> to become more and more normal as the
+averaging level increases. The first histogram is a kind of sanity check that
+shows that the original samples do indeed come from the standard uniform
+distribution. The second histogram has long tails, and should actually produce
+the triangular distribution (think why). As for the rest, we observe that the long tails
+disappear and the general shape becomes symmetrical. The sample size was set to
+2, the smallest that shows these effects; they become more pronounced as the
+size is increased at the cost of taking more time to record the data. Actually,
+setting the sample size to 12 is <a href="https://en.wikipedia.org/wiki/Irwin%E2%80%93Hall_distribution">one of the
+techniques</a> to
+produce approximate normal deviates on the cheap.</p>
+<p>In closing, I started with my memoirs and ended up in the world of probability
+theory. Somehow LinkedIn, Apache Kafka and Central Limit Theorem now connect in
+my mind in the form of this blog. It is all sort of random but still makes
+sense. Talking about random, I would like to end with a quote from Forrest Gump:
+“I don&rsquo;t know if we each have a destiny, or if we&rsquo;re all just floatin&rsquo; around
+accidental-like on a breeze, but I, I think maybe it&rsquo;s both. Maybe both is
+happenin&rsquo; at the same time.”</p>
+
+      </article>
+
+      
+
+  </section>
+  <footer>
+  <p class="f6 tc gray lh-copy">
+    <a class="no-underline gray" href="https://github.com/keksipurkki">🍪 0x44FC6000 'til 0x7FF0000000000000 Elias A. Toivanen — All rights reserved</a>
+  </p>
+</footer>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/typescript.min.js"></script>
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/fortran.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script type="module" src="/js/keksipurkki.js">
+</script>
+
+
+
+  </body>
+</html>

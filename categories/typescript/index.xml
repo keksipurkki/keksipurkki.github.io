@@ -14,7 +14,7 @@
       <link>https://www.keksipurkki.net/posts/typescript-ndarray/</link>
       <pubDate>Sun, 30 Jun 2019 09:04:43 +0300</pubDate>
       <guid>https://www.keksipurkki.net/posts/typescript-ndarray/</guid>
-      <description>Introduction Ah, the joy of number crunching in an inefficient interpreted language in the heat of the summer. But I got a severe flashback from my student days and started to think about my old love NumPy and whether or not N-dimensional arrays could also work in JavaScript. Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with N-dimensional arrays in TypeScript. These are objects that generalize vectors and matrices and typically store numbers.</description>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p class=&#34;pa2 mw7 f6 lh-copy i&#34;&gt;&#xA;  Ah, the joy of number crunching in an inefficient interpreted language in the&#xA;heat of the summer. But I got a severe flashback from my student days and&#xA;started to think about my old love &lt;a href=&#34;https://numpy.org&#34;&gt;NumPy&lt;/a&gt; and whether or not&#xA;N-dimensional arrays could also work in JavaScript.&#xA;&lt;/p&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s a little something I&amp;rsquo;ve been musing over as of late. I&amp;rsquo;ve been playing around with&#xA;N-dimensional arrays in &lt;a href=&#34;https://www.typescriptlang.org&#34;&gt;TypeScript&lt;/a&gt;. These are objects&#xA;that generalize vectors and matrices and typically store numbers.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
